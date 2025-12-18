@@ -1,0 +1,80 @@
+Modulo: #1.
+Clase: #3.
+Título: SQL básico.
+Profesor: Keyla Dolores.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-sql-basico
+	Google drive: https://drive.google.com/drive/folders/1EzLfcvwULIc7cBtDhZmNUyX2jndcsGCn
+
+Breve repaso en puntos clave:
+	SQL es un lenguaje declarativo y case-insensitive.
+	Por convención las palabras reservadas se escriben en mayúsculas.
+	El orden de los elementos en la consulta es estricto, más mínimo constituida por SELECT y FROM.
+	SELECT * en producción puede afectar el rendimiento.
+	Principales sentencias (básico):
+		SELECT Selecciona las columnas. * todos, en campos separados por comas.
+		FROM Determina la tabla. Sigue su nombre.
+		WHERE Filtra acorde a una condición.
+		ORDER BY Ordena los resultados conforme columna(s). DESC será descendente, ascendente por defecto. 
+		LIMIT Restringe el número de filas retornadas.
+	Forzar comparación exacta entre cadenas (sensible a mayúsculas y minúsculas): COLLATE utf8mb4_bin
+	Operadores de comparación:
+		= Igual.
+		!= diferente.
+		> Mayor que.
+		< Menor que.
+		BETWEEN Rango de valores.
+		LIKE Búsqueda de patrones.
+		IN() Múltiples valores.
+	Alias (apodos temporales):
+		Para columnas: columna AS alias.
+		Para tablas: tabla alias.
+	Comentarios:
+		Una sola línea: --
+		Varias líneas: /**/
+	Comodines:
+		% Remplaza cero o más caracteres.
+		_ Remplaza un carácter.
+	Siglas DDL: Data Definition Lenguage (en español “Lenguaje de Definición de Datos”).
+	Engloba toda clausula relativo a la estructura de la BD.
+	Sus cambios son permanentes.
+	Principales sentencias (DDL):
+		CREATE Crea BBDD, tablas, índices, etc.
+		DROP Elimina BBDD, tablas, columnas, índices, etc.
+		ALTER Modifica la estructura de una tabla.
+	Crear tabla:
+		CREATE TABLE tabla (
+			columna1 TIPO,
+			columna 2 TIPO…
+			columnaN TIPO
+		);
+	Manipular columnas:
+		Crear: ALTER TABLE tabla ADD COLUMN columna TIPO;
+		Modificar tipo de dato: ALTER TABLE tabla ALTER COLUMN columna TIPO;
+		Eliminar: ALTER TABLE tabla DROP COLUMN columna; No soportado por algunos motores (como SQLite).
+	Eliminar tablas:
+		DROP TABLE tabla; Eliminará la estructura y los datos.
+	Eliminar solo filas:
+		TRUNCATE TABLE tabla;
+	Siglas DML: Data Manipulation Language (en español “Lenguaje de Manipulación de Datos”).
+	Considera las sentencias en lo que concierne a los datos de la BD.
+	Pueden deshacerse mediante el uso de transacciones.
+	Principales sentencias (DDL):
+		INSERT Agrega nuevos registros.
+		UPDATE Modifica registros existentes.
+		DELETE Elimina registros específicos.
+	Insertar datos:
+		INSERT INTO tabla (columna1, columna 2… columnaN) VALUES (valor1, valor2… valorN); La especificación de columnas puede obviarse siguiendo su orden en la tabla, (mejor practica indicarlos).
+	Modificar datos:
+		UPDATE tabla SET columna1 = valor, columna2 = valor… columnaN = valor; Se usa WHERE para especificar que filas cambiar, su omisión actualizará todo (dependiendo el motor y su configuración).
+	Eliminar datos:
+		DELETE FROM tabla; Sin un WHERE igualmente eliminará todo registro.
+	Siglas CRUD: Create, read, update, delete (en español crear, leer, actualizar y eliminar).
+	Conjunto de cuatro operaciones fundamentales para manipular datos.
+	DML es el subconjunto de SQL que implementa CRUD.
+	Desactivar configuración que restringe cambios: SET SQL_SAFE_UPDATES = 0
+	MDF y LDF son archivos de guardado con la información y cambios realizados en la DB (en SQL Server).
+
+Notas al pie:
+	El archivo con los scripts (para MySQL) se encuentra adjunto en este mismo directorio, así como el ejercicio práctico final.

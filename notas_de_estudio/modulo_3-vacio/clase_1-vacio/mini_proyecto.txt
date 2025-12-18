@@ -1,0 +1,78 @@
+/* Mini proyecto: Modelando BD con varias relaciones.
+
+Escenario:
+Vamos a diseñar una base de datos para gestionar préstamos de biblioteca.
+
+Tablas:
+usuarios(id, nombre, email)
+libros(id, titulo, autor, año_publicación)
+prestamos(id, usuario_id, libro_id, fecha_prestamo, fecha_devolucion)
+
+Objetivo:
+Relacionar correctamente prestamos con usuarios y libros usando FOREIGN KEYS
+Definir ON DELETE CASCADE en usuario_id. */
+
+-- Crear BD Biblioteca
+CREATE DATABASE biblioteca_db;
+USE biblioteca_db;
+
+-- Crear tabla usuarios
+CREATE TABLE usuarios(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Crear tabla libros
+CREATE TABLE libros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100),
+    autor VARCHAR(100),
+    año_publicacion DATE
+);
+
+-- Crear tabla pedidos
+CREATE TABLE pedidos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    libro_id INT,
+    fecha_prestamo DATE,
+    fecha_devolucion DATE,
+    FOREIGN KEY(usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY(libro_id) REFERENCES libros(id)
+);
+
+-- Insertar usuarios
+INSERT INTO usuarios(nombre, email)
+VALUES ('Molly', 'molly@email.com'),
+('Jorge', 'jorge@email.com');
+
+SELECT * FROM usuarios;
+
+-- Insertar libros
+INSERT INTO libros(titulo, autor, año_publicacion)
+VALUES ('El principito', 'Saint-Exupery', '1943-04-06'),
+('Don Quijote de la Mancha', 'Cervantes', '1605-01-09');
+
+SELECT * FROM libros;
+
+-- Insertar pedidos
+INSERT INTO pedidos(usuario_id, libro_id, fecha_prestamo, fecha_devolucion)
+VALUES (1, 1, '2025-12-07', '2026-12-07'),
+(2, 2, '2025-12-02', '2026-12-02');
+
+INSERT INTO pedidos(usuario_id, libro_id, fecha_prestamo, fecha_devolucion)
+VALUES (1, 2, '2025-12-03', '2026-12-03');
+
+SELECT * FROM pedidos;
+
+-- Eliminar un cliente;
+
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+	-- Eliminar un usuario con pedido(s)
+    DELETE FROM usuarios
+    WHERE id = 1;
+	-- Comprobar cambios
+    SELECT * FROM pedidos;
+ROLLBACK; -- Deshacer cambios

@@ -1,0 +1,23 @@
+Modulo #2.
+Clase #1.
+Título: Cláusulas de consultas.
+Profesor: Keyla Dolores.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-clausulas-de-consultas
+	Google drive: https://drive.google.com/drive/folders/1uLDDwofrEuMnBqVYSWNoYsA-wbKmhXyq
+
+Breve repaso en puntos clave:
+	IS NULL compara si un valor es nulo, IS NOT NULL lo opuesto.
+	GROUP BY agrupa filas con valores comunes en base a una o más columnas.
+	Las funciones de agregación calculan sobre un conjunto de filas retornando un único valor resumido.
+	Contar valores: COUNT()
+	Sumar valores: SUM()
+	Calcular promedio: AVG()
+	HAVING filtra después de agrupar reemplazando WHERE (usar tras GROUP BY).
+	OFFSET salta registros, iniciando tras el indicado (usar tras LIMIT).
+	Una subconsulta es una consulta dentro de otra consulta.
+
+Notas al pie:
+	El archivo (propio) con los scripts (para MySQL) se encuentra adjunto en este mismo directorio.
+	El reto #2 de los desafíos finales de la presente clase no posee una solución óptima. Agradezco correcciones.

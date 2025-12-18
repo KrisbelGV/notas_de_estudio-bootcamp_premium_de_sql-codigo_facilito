@@ -1,0 +1,23 @@
+/* Nivel Extremo: "Registro de Facturas"
+Escenario: Tienes que diseñar la estructura de una tabla facturas para una empresa, pero con estas reglas específicas:
+Requisitos obligatorios:
+1 Cada factura debe tener un número único(factura_id)
+2 Se debe registrar la fecha de emisión.
+3 El monto total no puede ser negativo.
+4 Solo puede haber tres estados posibles("pendiente", "pagada", "anulada").
+5 La factura debe estar asociada a un cliente (cliente_id)
+6 Si no se especifica el estado, debe asumir "pendiente"por defecto.
+7 Solo se pueden registrar facturas desde el año 2000 en adelante. */
+
+-- Seleccionar la BD correspondiente
+USE tienda_db;
+
+-- Tabla de facturas
+CREATE TABLE facturas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP CONSTRAINT chk_fecha_valida CHECK (fecha > '1999-12-31 23:59:59'),
+    monto_total DECIMAL(10,2) CONSTRAINT chk_monto_total CHECK (monto_total > 0), -- No se recomienda unsigned para decimales en MySQL 8+
+    estado VARCHAR(10) DEFAULT 'pendiente' CONSTRAINT chk_estado_valido CHECK (estado IN('pendiente', 'pagada', 'anulada')),
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+);

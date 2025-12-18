@@ -1,0 +1,50 @@
+-- Ejercicio practico final
+
+-- Preparacion
+
+-- Seleccionamos nuestra DB de prueba (donde previamente creamos su tabla)
+USE test2_db;
+
+-- Insertar registros
+INSERT INTO productos (nombre, precio, stock) VALUES
+('Mouse', 25.99, 20),
+('Teclado Mecánico', 80.00, 15),
+('Monitor', 550.00, 7),
+('Impresora', 300.00, 8),
+('Escritorio', 180.00, 12),
+('Silla Ergonómica', 220.50, 6),
+('Cargador USB-C', 15.99, 30),
+('Disco Duro Externo', 90.00, 3),
+('Audífonos Bluetooth', 150.00, 4);
+
+/*	1 Inserta un nuevo producto en la tabla productos con estos valores
+		nombre = "Laptop"
+		precio = 1200.50
+        stock = 10 */
+        
+INSERT INTO productos(nombre, precio, stock)
+VALUES ('Laptop', 1200.50, 10);
+
+-- 2 Consultar los productos con precio mayor a 500
+SELECT *
+FROM productos
+WHERE precio > 500;
+
+-- 3 Aumentar el precio de los productos en un 10%
+UPDATE productos
+SET precio = precio * 1.10;
+
+-- 4 Elimina la laptop cuyo stock sea menor a 5
+DELETE FROM productos
+WHERE nombre = 'Laptop' AND stock < 5;
+
+-- Preguntas:
+
+/* ¿Qué pasa si omitimos WHERE en el UPDATE o DELETE?
+Actualiza u elimina todos los registros dependiendo de la configuracion de SQL_SAFE_UPDATES
+    
+/*¿Cómo podríamos usar una transacción para asegurarnos de no perder datos accidentalmente?
+Se explica en la clase 5 "Clausulas de consulta" */
+START TRANSACTION; -- Iniciar transaccion
+COMMIT; -- Confirmar cambios
+ROLLBACK; -- Deshacer cambios

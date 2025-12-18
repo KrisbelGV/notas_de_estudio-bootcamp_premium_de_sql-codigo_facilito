@@ -1,0 +1,17 @@
+Modulo #1.
+Asesoría #1.
+Profesor: Uriel Hernández.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-asesoria-1-3e5e642a-ebbf-4173-82bf-9d16ff870270
+	Google drive: https://drive.google.com/drive/folders/1iMCUvpS-qFCGJX5pMC9Zq0aQtA6pYg_p
+
+Breve repaso en puntos clave:
+	Arquitectura cliente-servidor refiere a un modelo computacional con un servicio central al que otros se conectan para obtener información.
+	Los DBMS por lo general incluyen tanto servidor como cliente.
+	Una BD transaccional (OLTP) es aquella que prioriza la integridad de la información, mientras que analítica (OLAP) al estudio de los datos y rapidez de respuesta.
+	Existen diferentes gestores con sus propias implementaciones, características clave y escenarios específicos donde utilizarse.
+	Un RDBMS es la implementación de un proveedor de una base de datos.
+
+Notas al pie:
+	Los ejercicios resueltos de la base de datos “sakila” se encuentran en este mismo directorio.

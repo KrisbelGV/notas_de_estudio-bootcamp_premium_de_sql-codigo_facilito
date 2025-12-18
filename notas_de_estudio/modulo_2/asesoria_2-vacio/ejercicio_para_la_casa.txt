@@ -1,0 +1,135 @@
+/* Una empresa de tecnología ofrece soporte técnico a sus clientes a través de diferentes canales
+(correo, chat, llamadas). Cada cliente puede tener múltiples tickets de soporte, los cuales son
+atendidos por agentes. Los tickets pueden tener un estado (abierto, en progreso, cerrado) y estar
+clasificados por categoría (técnico, facturación, funcionalidad, etc.). Un agente puede atender
+varios tickets, y cada ticket puede registrar varias interacciones (respuestas o acciones del agente
+o cliente). Además, cada agente pertenece a un equipo de soporte especializado.
+Ejercicios de diseño de esquema.
+	Identifica las entidades.
+	Identifica las relaciones entre entidades.
+	Crea tablas con sus columnas.
+	Comparte la descripción de la tabla. */
+
+-- Crear base de datos soporte_bd
+CREATE DATABASE soporte_bd;
+
+-- Seleccionar la base de datos creada
+USE soporte_bd;
+
+
+-- Crear tabla clientes
+CREATE TABLE clientes(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_completo VARCHAR(200),
+    email VARCHAR(320) NOT NULL, -- Limite según la RFC 5321, sección 4.5.3.1.3
+    telefono VARCHAR(15) NOT NULL -- Maximo internacional (UIT-T, norma E.164)
+);
+
+-- Crear tabla agentes
+CREATE TABLE agentes (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(6) CONSTRAINT tipo_valido CHECK (tipo IN('humano', 'bot')),
+    equipo VARCHAR(100) NOT NULL
+);
+
+/* 
+	Crear tabla tickets
+	Posee una relacion N:N (dos llaves foraneas, una a 'clientes' y otra a 'agentes') 
+*/
+CREATE TABLE tickets (
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+    cliente_id INT,
+    agente_id INT,
+    estado VARCHAR(11) CONSTRAINT estado_valido CHECK (estado IN('abierto', 'en progreso', 'cerrado')) DEFAULT 'abierto',
+    categoria VARCHAR(13) CONSTRAINT categoria_valido CHECK (categoria IN('tecnico', 'facturacion', 'funcionalidad', 'otro')),
+    FOREIGN KEY(cliente_id) REFERENCES clientes(id) ON DELETE CASCADE, 
+    FOREIGN KEY(agente_id) REFERENCES agentes(id)
+);
+
+/* 
+	Crear tabla interacciones
+	Posee una relacion 1:N (una llave foranea a 'tickets')
+*/
+CREATE TABLE interacciones(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_id INT,
+    accion VARCHAR(500),
+    canal VARCHAR(8) CONSTRAINT canal_valido CHECK (canal IN('correo', 'chat', 'llamada')) NOT NULL,
+    FOREIGN KEY(ticket_id) REFERENCES tickets(id) ON DELETE CASCADE
+);
+
+
+-- Insertar clientes
+INSERT INTO clientes(nombre_completo, email, telefono)
+VALUES ('Alejandra Perez', 'alejandraperez@email.com', '0123456789'),
+('Pablo gonzales', 'pablogonzales@email.com', '9876543210');
+
+-- Comprobar nuevos registros (para 'clientes')
+SELECT * FROM clientes;
+
+
+-- Insertar agentes
+INSERT INTO agentes(tipo, equipo)
+VALUES ('humano', 'tramites'),
+('bot', 'guia de producto');
+
+-- Comprobar nuevos registros (para 'agentes')
+SELECT * FROM agentes;
+
+
+-- Insertar tikets
+INSERT INTO tickets(cliente_id, agente_id, categoria)
+VALUES (1, 2, 'funcionalidad'),
+(2, 1, 'facturacion'),
+(2, 1, 'tecnico');
+
+-- Comprobar nuevos registros (para 'tickets')
+SELECT * FROM tickets;
+
+
+-- Insertar interacciones
+INSERT INTO interacciones(ticket_id, accion, canal)
+VALUES
+(1, 'Se brindo asistencia al usuario, dudas respecto la interfaz resueltas', 'chat'),
+(2, 'El cliente cancelo, espera en devolucion su deposito', 'llamada'),
+(3, 'Solicitud de restitucion manual para acceder al servicio', 'correo');
+
+-- Comprobar nuevos registros (para 'interacciones')
+SELECT * FROM interacciones;
+
+
+-- Actualizar estado de los tickets
+UPDATE tickets
+SET estado = 'cerrado'
+WHERE id = 1;
+
+UPDATE tickets
+SET estado = 'en progreso'
+WHERE id = 2;
+
+-- Comprobar registros actualizados (para 'tickets')
+SELECT * FROM tickets;
+
+
+-- Mostrar tablas tickets, clientes y agentes
+SELECT *
+FROM tickets
+INNER JOIN clientes ON tickets.cliente_id = clientes.id
+INNER JOIN agentes ON tickets.agente_id = agentes.id;
+
+-- Obtener tablas interacciones y tickets
+SELECT *
+FROM interacciones
+INNER JOIN tickets ON interacciones.ticket_id = tickets.id;
+
+-- Presentar tickets de un cliente
+SELECT *
+FROM tickets
+INNER JOIN clientes ON tickets.cliente_id = clientes.id
+WHERE clientes.id = 2;
+
+-- Señalar tickets de un agente
+SELECT *
+FROM tickets
+INNER JOIN agentes ON tickets.agente_id = agentes.id
+WHERE agentes.id = 2;

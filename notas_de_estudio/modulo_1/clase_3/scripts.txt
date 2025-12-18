@@ -1,0 +1,210 @@
+-- Ordenar los registros de la tabla clientes base en sus nombres (alfabetico)
+SELECT * FROM clientes ORDER BY nombre;
+
+
+-- Crear una base de datos de prueba
+CREATE DATABASE test2_db;
+
+
+-- Obtener registros de la tabla
+
+-- Clientes
+SELECT * FROM clientes;
+
+-- Productos
+SELECT * FROM productos;
+
+-- Pedidos
+SELECT * FROM pedidos;
+
+
+-- Combinar las tablas pedidos, clientes y productos
+SELECT
+	pedidos.id,
+	clientes.nombre AS cliente,
+	productos.nombre AS producto,
+	pedidos.cantidad,
+	pedidos.fecha
+FROM pedidos
+JOIN clientes ON pedidos.cliente_id = clientes.id
+JOIN productos ON pedidos.producto_id = productos.id;
+
+
+-- Obtener los campos nombre y telefono de la tabla clientes
+SELECT nombre, telefono
+FROM clientes;
+
+
+-- Ordenar los registros de la tabla clientes (solo dos columnas) base en sus nombres (alfabetico) 
+
+-- Ascendente
+SELECT nombre, telefono
+FROM clientes
+ORDER BY nombre;
+
+-- Descendente
+SELECT nombre, telefono
+FROM clientes
+ORDER BY nombre DESC;
+
+
+-- Filtrar registro(s) de la tabla clientes (solo dos columnas) coincidiente(s) con
+
+-- El numero 900123456 
+SELECT nombre, telefono
+FROM clientes
+WHERE telefono = '989234567';
+
+-- El nombre Fernanda Díaz
+SELECT nombre, telefono
+FROM clientes
+WHERE nombre = 'Fernanda Díaz';
+
+-- Los nombre Fernanda Díaz o Elena Ríos
+SELECT nombre, telefono
+FROM clientes
+WHERE nombre IN('Fernanda Díaz', 'Elena Ríos');
+
+
+-- Filtrar los registros de la tabla clientes
+
+-- Cuyo nombre inicie con la letra L
+SELECT *
+FROM clientes
+WHERE nombre LIKE ('L%');
+
+-- Cuya segunda letra de su nombre sea u
+SELECT *
+FROM clientes
+WHERE nombre LIKE ('_u%');
+
+
+-- Filtrar el registro de la tabla productos coincidiente
+
+-- Con el nombre computadora
+SELECT *
+FROM productos
+WHERE nombre = 'computadora';
+
+-- Con el nombre monitor
+SELECT *
+FROM productos
+WHERE nombre = 'monitor';
+
+-- Case-sensitive (MySQL)
+SELECT *
+FROM productos
+WHERE nombre COLLATE utf8mb4_bin = 'monitor';
+
+-- Para SQL Server
+SELECT *
+FROM productos
+WHERE nombre COLLATE SQL_Latin1_General_CP1_CS_AS = 'monitor';
+
+-- DuckDB es case-sensitive por defecto
+
+-- Para SQLite
+SELECT *
+FROM productos
+WHERE nombre = 'monitor' COLLATE BINARY;
+
+
+-- Eliminar la tabla clientes (producira error dada su relacion con la tabla pedidos, contiene una FK)
+DROP TABLE clientes;
+
+-- PRIMARY KEY (PK) columna principal que convierte al registro en unico
+-- FOREIGN KEY (FK) llave primaria referenciada en otra tabla
+
+-- Eliminar los registros de la tabla clientes (desemboca en el mismo fallo)
+TRUNCATE TABLE clientes;
+
+
+/* Ejercicio práctico
+Reto: Crea una tabla llamada productos con las siguientes caracteristicas:
+	id -> clave primaria autoincremental
+	nombre -> texto obligatorio
+	precio -> decimal con 2 decimales
+	stock -> numero entero que no puede ser negativo */
+
+-- Producira error, ya hay una tabla con ese nombre en esta DB
+
+-- Seleccionar la base de datos de prueba
+USE test2_db;
+
+CREATE TABLE productos(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    precio DECIMAL(10,2),
+    stock INT UNSIGNED
+);
+
+/* En SQL Server 
+	utiliza SERIAL en lugar de AUTO_INCREMENT
+    y CHECK (valor >= 0) por UNSIGNED
+*/
+
+
+-- Agregar columna categoria a la tabla productos
+ALTER TABLE productos
+ADD COLUMN categoria VARCHAR(50);
+
+-- Eliminar la nueva columna categoria
+ALTER TABLE productos
+DROP COLUMN categoria;
+
+
+-- Crear tabla clientes (en la DB de prueba)
+CREATE TABLE clientes(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    edad INT CHECK (edad >= 0),
+    email VARCHAR(100)
+);
+
+
+-- Insertar un registro en la tabla clientes
+INSERT INTO clientes(nombre, edad, email)
+VALUES('Keyla', 80, 'keyla@gmail.com');
+
+-- Insertar multiples registros en la tabla clientes
+INSERT INTO clientes(nombre, edad, email)
+VALUES
+('Maria', 27, 'maria@gmail.com'),
+('Pedro', 35, 'pedro@gmail.com');
+
+-- Insertar un registro en la tabla clientes (sin especificar columnas)
+INSERT INTO clientes
+VALUES(4, 'Carlos', 28, 'carlos@gmail.com');
+
+
+-- Actualizar edad de Keyla en la tabla clientes (producira error dada la configuracion por defecto del motor)
+
+-- Añadimos este script para cambiarlo (en MySQL):
+SET SQL_SAFE_UPDATES = 0;
+
+	UPDATE clientes
+	SET edad = 60
+	WHERE nombre = 'Keyla';
+
+-- 0 desactiva y 1 regresa a su estado original
+SET SQL_SAFE_UPDATES = 1;
+
+
+-- Lo siguiente solo funcionara seteado
+
+-- Actualizar la edad y email de Keyla
+UPDATE clientes
+SET edad = 60, email = 'nuevocorreo@gmail.com'
+WHERE nombre = 'Keyla';
+
+-- Actualizar la edad para todos los registros
+UPDATE clientes
+SET edad = 20;
+
+-- Eliminar a Keyla de la tabla clientes
+DELETE FROM clientes
+WHERE nombre = 'Keyla';
+
+/* Archivos de guardado (en SQL Server)
+ MDF: Informacion de la DB
+ LDF: Cambios en la DB */
