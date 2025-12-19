@@ -1,3 +1,6 @@
+[<img alt="Imagen promocional con enlace al bootcamp" src="imagen_promocional_oficial.jpg">](https://codigofacilito.com/programas/sql-premium)
+
+
 Notas de estudio del Bootcamp Premium de SQL de Código Facilito.
 -------------
 
