@@ -1,0 +1,2 @@
+Olvidé retirar el sufijo "-vacio" al directorio.
+Permanecerá así a fines no de corromper el enlace al momento.
