@@ -1,0 +1,13 @@
+Esta es la plantilla que utilizo para escribir mis notas.
+
+Modulo #
+Clase #
+Título: 
+Profesor: 
+
+Recursos:
+	Clase grabada: 
+	Google drive: 
+
+(Notas aquí)
+
