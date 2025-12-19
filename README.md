@@ -1,6 +1,5 @@
-###Notas de estudio del Bootcamp Premium de SQL de Código Facilito.
-
----
+Notas de estudio del Bootcamp Premium de SQL de Código Facilito.
+-------------
 
 Primero que nada, gracias por visitar este repositorio.
 
@@ -8,9 +7,8 @@ Soy nueva usando GitHub y actualmente curso el Bootcamp Premium de SQL en Códig
 
 ¡Sugerencias son más que bienvenidas!
 
-###Descargo de responsabilidad y condiciones de uso.
-
----
+Descargo de responsabilidad y condiciones de uso.
+-------------
 
 - Este repositorio no es ni pretende ser una guía de estudio, fuente certificada ni mucho menos remplazo a las clases y recursos compartidos por los docentes.
 
