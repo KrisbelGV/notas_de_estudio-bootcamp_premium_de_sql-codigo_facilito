@@ -45,11 +45,13 @@ Licencia
 
 Decidí optar por Creative Commons y no por GPL al momento, pese contener código, dado consiste en material educativo y no software funcional o con un propósito en sí más que como aprendizaje, a saber, específicamente la licencia: Atribución/Reconocimiento-CompartirIgual 4.0 Internacional, [disponible en su página web](https://creativecommons.org/licenses/by-sa/4.0/deed.es), en español, y [una copia en este repositorio](LICENSE.txt), en inglés.
 
+Protegiendo, para ser concisos, únicamente sus atributos adjudicados a mi persona: el formato, comentarios añadidos y aportes en cuanto a ejercicios.
+
 ![Imagen de la licencia CC BY SA 4.0](assets/cc-by-sa-4.0.png)
 
 __MUY IMPORTANTE__
 
-__LOS TÉRMINOS DE ESTA LICENCIA NO ENGLOBAN__, notoriamente, __EL CONTENIDO CON COPYRIGHT EN O IMPARTIDOS POR LA PLATAFORMA CÓDIGO FACILITO__ en todas sus formas, ya sean las clases grabadas, recursos compartidos, scripts y presentaciones de las lecciones e incluso mis soluciones propuestas a los ejercicios como rectores. __DE NINGÚN MODO PROMUEVO SU USO ILEGÍTIMO__, siendo que __TODO EL MATERIAL Y AÚN ESTE REPOSITORIO INTEGRO QUEDA SUJETO A SUS CONDICIONES__, las cuales busco cumplir al pie de letra, __ESTANDO PRESTO SU PARTE CORRECCIONES, ELIMINACIÓN PUNTUAL, PARCIAL O TOTAL DEL MISMO EN PLENO EJERCICIO DE SUS DERECHOS__ por autoría del programa de ser notificada.
+__LOS TÉRMINOS DE ESTA LICENCIA NO ENGLOBAN__, notoriamente, __EL CONTENIDO CON COPYRIGHT EN O IMPARTIDOS POR LA PLATAFORMA CÓDIGO FACILITO__ en todas sus formas, ya sean las clases grabadas, recursos compartidos, scripts y presentaciones de las lecciones, e incluso mis notas y soluciones propuestas a los ejercicios como rectores administran. __DE NINGÚN MODO PROMUEVO SU USO ILEGÍTIMO__, siendo que __TODO EL MATERIAL Y AÚN ESTE REPOSITORIO INTEGRO QUEDA SUJETO A SUS CONDICIONES__, las cuales busco cumplir al pie de letra, __ESTANDO PRESTO SU PARTE CORRECCIONES, ELIMINACIÓN PUNTUAL, PARCIAL O TOTAL DEL MISMO EN PLENO EJERCICIO DE SUS DERECHOS__ por autoría del programa de ser notificada.
 
 Mi único objetivo es compartir con la comunidad, profesores y compañeros, a través de este medio; presento excusas anteladamente de incurrir en alguna infracción, aún si fuere involuntario por ignorancia u situaciones no contempladas o no deseadas.
 
