@@ -49,7 +49,7 @@ Decidí optar por Creative Commons y no por GPL al momento, pese contener códig
 
 __MUY IMPORTANTE__
 
-__LOS TÉRMINOS DE ESTA LICENCIA NO ENGLOBAN__, notoriamente, __EL CONTENIDO CON COPYRIGHT EN O IMPARTIDOS POR LA PLATAFORMA CÓDIGO FACILITO__ en todas sus formas, como las clases grabadas, recursos compartidos, scripts y notas de las lecciones e incluso mis soluciones propuestas a los ejercicios. __DE NINGÚN MODO PROMUEVO SU USO ILEGÍTIMO__, siendo que __TODO EL MATERIAL Y AÚN ESTE REPOSITORIO INTEGRO QUEDA SUJETO A SUS CONDICIONES__, las cuales busco cumplir al pie de letra, __ESTANDO PRESTO SU PARTE CORRECCIONES, ELIMINACIÓN PUNTUAL, PARCIAL O TOTAL DEL MISMO EN PLENO EJERCICIO DE SUS DERECHOS__ por autoría del programa de ser notificada.
+__LOS TÉRMINOS DE ESTA LICENCIA NO ENGLOBAN__, notoriamente, __EL CONTENIDO CON COPYRIGHT EN O IMPARTIDOS POR LA PLATAFORMA CÓDIGO FACILITO__ en todas sus formas, como las clases grabadas, recursos compartidos, scripts y presentaciones de las lecciones e incluso mis soluciones propuestas a los ejercicios como rectores. __DE NINGÚN MODO PROMUEVO SU USO ILEGÍTIMO__, siendo que __TODO EL MATERIAL Y AÚN ESTE REPOSITORIO INTEGRO QUEDA SUJETO A SUS CONDICIONES__, las cuales busco cumplir al pie de letra, __ESTANDO PRESTO SU PARTE CORRECCIONES, ELIMINACIÓN PUNTUAL, PARCIAL O TOTAL DEL MISMO EN PLENO EJERCICIO DE SUS DERECHOS__ por autoría del programa de ser notificada.
 
 Mi único objetivo es compartir con la comunidad, profesores y compañeros, a través de este medio; presento excusas anteladamente de incurrir en alguna infracción, aún si fuere involuntario por ignorancia u situaciones no contempladas o no deseadas.
 
