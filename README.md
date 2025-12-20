@@ -4,7 +4,7 @@
 [Recursos en Google Drive.](https://drive.google.com/drive/folders/10VMty4V39MptdAZHcxZYnWOh5fgSEEv3?usp=sharing)
 [Soporte.](https://codigofacilito.com/soporte)
 
-Notas de estudio del Bootcamp Premium de SQL de Código Facilito.
+Notas de estudio del Bootcamp Premium de SQL de Código Facilito
 -------------
 
 Primero que nada, gracias por visitar este repositorio.
@@ -13,7 +13,7 @@ Yo [KrisbelGV](https://github.com/KrisbelGV), su autora, soy nueva usando GitHub
 
 ¡Sugerencias son más que bienvenidas!
 
-Descargo de responsabilidad y condiciones de uso.
+Descargo de responsabilidad y condiciones de uso
 -------------
 
 - Este repositorio no es ni pretende ser una guía de estudio, fuente certificada ni mucho menos remplazo a las clases y recursos impartidos por los docentes.
@@ -40,7 +40,7 @@ Descargo de responsabilidad y condiciones de uso.
 
     2. No me hago responsable del uso indebido de las mismas u que derive en algún incumplimiento a las normas impuestas.
 
-Licencia.
+Licencia
 -------------
 
 Decidí optar por Creative Commons y no por GPL al momento, pese contener código, dado consiste en material educativo y no software funcional o con un propósito en sí más que como aprendizaje, a saber, específicamente la licencia: Atribución/Reconocimiento-CompartirIgual 4.0 Internacional, [disponible en su página web](https://creativecommons.org/licenses/by-sa/4.0/deed.es), en español, y [una copia en este repositorio](LICENSE.txt), en inglés.
