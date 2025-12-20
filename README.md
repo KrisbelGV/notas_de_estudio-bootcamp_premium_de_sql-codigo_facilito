@@ -1,6 +1,6 @@
 ![Imagen promocional del Bootcamp Premium de SQL de Codigo Facilito](assets/imagen_promocional_oficial.jpg)
 
-[Bootcamp en Código Facilito.]()
+[Bootcamp en Código Facilito.](https://codigofacilito.com/programas/sql-premium)
 [Recursos en Google Drive.](https://drive.google.com/drive/folders/10VMty4V39MptdAZHcxZYnWOh5fgSEEv3?usp=sharing)
 [Soporte.](https://codigofacilito.com/soporte)
 
@@ -45,6 +45,6 @@ Gracias nuevamente por su atención. ¡Sigamos aprendiendo!
 Licencia.
 -------------
 
-Decidí optar por Creative Commons y no por GPL, pese contener código, dado consiste en material educativo y no software funcional o con un propósito en sí más que aprendizaje, a saber, específicamente la licencia: Atribución/Reconocimiento-CompartirIgual 4.0 Internacional, [disponible en su página web](https://creativecommons.org/licenses/by-sa/4.0/) y [una copia en este repositorio](LICENSE.txt).
+Decidí optar por Creative Commons y no por GPL, pese contener código, dado consiste en material educativo y no software funcional o con un propósito en sí más que como aprendizaje al momento, a saber, específicamente la licencia: Atribución/Reconocimiento-CompartirIgual 4.0 Internacional, [disponible en su página web](https://creativecommons.org/licenses/by-sa/4.0/) y [una copia en este repositorio](LICENSE.txt).
 
 ![Imagen de la licencia CC BY SA 4.0](assets/cc-by-sa-4.0.png)
