@@ -45,6 +45,6 @@ Gracias nuevamente por su atención. ¡Sigamos aprendiendo!
 Licencia.
 -------------
 
-Decidí optar por Creative Commons y no por GPL al momento, pese contener código, dado consiste en material educativo y no software funcional o con un propósito en sí más que como aprendizaje, a saber, específicamente la licencia: Atribución/Reconocimiento-CompartirIgual 4.0 Internacional, [disponible en su página web](https://creativecommons.org/licenses/by-sa/4.0/deed.es) en español y [una copia en este repositorio](LICENSE.txt) en inglés.
+Decidí optar por Creative Commons y no por GPL al momento, pese contener código, dado consiste en material educativo y no software funcional o con un propósito en sí más que como aprendizaje, a saber, específicamente la licencia: Atribución/Reconocimiento-CompartirIgual 4.0 Internacional, [disponible en su página web](https://creativecommons.org/licenses/by-sa/4.0/deed.es), en español, y [una copia en este repositorio](LICENSE.txt), en inglés.
 
 ![Imagen de la licencia CC BY SA 4.0](assets/cc-by-sa-4.0.png)
