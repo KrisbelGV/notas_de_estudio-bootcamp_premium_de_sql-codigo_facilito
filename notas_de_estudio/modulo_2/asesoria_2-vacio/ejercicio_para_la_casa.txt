@@ -1,3 +1,8 @@
+/* Bootcamp Premium de SQL - Codigo Facilito
+Asesoria 2 (del bootcamp), modulo #2
+Ejercicio para la casa
+Estudiante: KrisbelGV */
+
 /* Una empresa de tecnología ofrece soporte técnico a sus clientes a través de diferentes canales
 (correo, chat, llamadas). Cada cliente puede tener múltiples tickets de soporte, los cuales son
 atendidos por agentes. Los tickets pueden tener un estado (abierto, en progreso, cerrado) y estar

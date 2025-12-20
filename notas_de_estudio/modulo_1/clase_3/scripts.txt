@@ -1,3 +1,10 @@
+/* Bootcamp Premium de SQL - Codigo Facilito
+Scripts de la clase #3, modulo #1
+SQL bÃ¡sico
+Impartido por: Keyla Dolores
+Comentarios: KrisbelGV
+Derechos a su autor */
+
 -- Ordenar los registros de la tabla clientes base en sus nombres (alfabetico)
 SELECT * FROM clientes ORDER BY nombre;
 
@@ -55,15 +62,15 @@ SELECT nombre, telefono
 FROM clientes
 WHERE telefono = '989234567';
 
--- El nombre Fernanda Díaz
+-- El nombre Fernanda Dï¿½az
 SELECT nombre, telefono
 FROM clientes
-WHERE nombre = 'Fernanda Díaz';
+WHERE nombre = 'Fernanda Dï¿½az';
 
--- Los nombre Fernanda Díaz o Elena Ríos
+-- Los nombre Fernanda Dï¿½az o Elena Rï¿½os
 SELECT nombre, telefono
 FROM clientes
-WHERE nombre IN('Fernanda Díaz', 'Elena Ríos');
+WHERE nombre IN('Fernanda Dï¿½az', 'Elena Rï¿½os');
 
 
 -- Filtrar los registros de la tabla clientes
@@ -119,7 +126,7 @@ DROP TABLE clientes;
 TRUNCATE TABLE clientes;
 
 
-/* Ejercicio práctico
+/* Ejercicio prï¿½ctico
 Reto: Crea una tabla llamada productos con las siguientes caracteristicas:
 	id -> clave primaria autoincremental
 	nombre -> texto obligatorio
@@ -179,7 +186,7 @@ VALUES(4, 'Carlos', 28, 'carlos@gmail.com');
 
 -- Actualizar edad de Keyla en la tabla clientes (producira error dada la configuracion por defecto del motor)
 
--- Añadimos este script para cambiarlo (en MySQL):
+-- Aï¿½adimos este script para cambiarlo (en MySQL):
 SET SQL_SAFE_UPDATES = 0;
 
 	UPDATE clientes

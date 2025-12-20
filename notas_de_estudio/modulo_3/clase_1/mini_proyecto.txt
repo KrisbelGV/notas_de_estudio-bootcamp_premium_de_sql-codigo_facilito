@@ -1,3 +1,10 @@
+/* Bootcamp Premium de SQL - Codigo Facilito
+Clase #1, modulo #3
+Llaves primarias y foraneas
+Mini proyecto
+Estudiante: KrisbelGV */
+
+
 /* Mini proyecto: Modelando BD con varias relaciones.
 
 Escenario:

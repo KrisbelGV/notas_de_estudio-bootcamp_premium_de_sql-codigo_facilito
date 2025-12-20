@@ -1,142 +1,23 @@
--- Filtrar y ordenar por rango de precios en la tabla productos
-SELECT *
-FROM productos
-WHERE precio BETWEEN 100 AND 500
-ORDER BY precio;
-
--- Filtrar por el patron '%email.com' en el campo email en la tabla clientes
-SELECT *
-FROM clientes
-WHERE email LIKE '%gmail.com';
+/* Bootcamp Premium de SQL - Codigo Facilito
+Clase #1, modulo #2
+Cláusulas de consultas
+Desafio final
+Estudiante: KrisbelGV */
 
 
--- En la tabla productos
-
--- Insertar un valor NULL de prueba
-INSERT INTO productos
-VALUES(11, 'prueba', NULL, 10);
-
--- Obtener los productos cuya categoria sea NULL 
-SELECT *
-FROM productos
-WHERE categoria IS NULL;
-
--- Obtener los productos cuya categoria no sea NULL
-SELECT *
-FROM productos
-WHERE categoria IS NOT NULL;
-
--- Insertar un valor vacio '' de prueba
-INSERT INTO productos
-VALUES(12, 'prueba_vacio', '', 50);
-
--- Obtener los productos cuya categoria no igual a vacio ''
-SELECT *
-FROM productos
-WHERE categoria = '';
+-- Seleccionamos la DB de la clase
+USE tienda_db;
 
 
-/* Ejercicio practico 1: Filtrando datos
-Reto: Escribe una consulta SQL para listar todos los productos de la categoria accesorios
-cuyo precio sea menor a 100. */
-
--- 'Teclado', 'Disco Duro Externo' o 'prueba'
-SELECT *
-FROM productos
-WHERE nombre IN ('Teclado', 'Disco Duro Externo', 'prueba', 'prueba_vacio');
-
--- 'accesorios' y su precio sea menor a 100
-
--- Usando = y <
-SELECT *
-FROM productos
-WHERE categoria = 'accesorios' AND precio < 100;
-
--- Usando IN y BETWEEN
-SELECT *
-FROM productos
-WHERE categoria IN('accesorios') AND precio BETWEEN 0 AND 100;
-
-
--- Ordenar los registros en base a las columnas categoria y precio de la tabla productos
-SELECT *
-FROM productos
-ORDER BY categoria, precio DESC;
-
-/* ORDER BY ordenara los campos en el orden especificado
-Tomara en cuenta su criterio individual, ascendente por defecto
-Siempre va al final de la consulta, solo antes de LIMIT o TOP */
-
-
--- Contar registros
-SELECT COUNT(*) AS total
-FROM productos;
-
--- Contar registros  agrupados por categoria
-SELECT categoria, COUNT(*) AS total_registros
-FROM productos
-GROUP BY categoria;
-
--- Sumar precios agrupados por categoria
-SELECT categoria, SUM(precio) AS suma_precio
-FROM productos
-GROUP BY categoria;
-
--- Calcular precio promedio agrupados por categoria
-SELECT categoria, AVG(precio) AS promedio_precio
-FROM productos
-GROUP BY categoria;
-
-/* Contar cantidad, sumar y calcular el precio promedio agrupados por categoria
-y ordenar por suma_precio descendentemente. */
-SELECT
-	categoria, 
-    COUNT(*) AS total_registros, 
-    SUM(precio) AS suma_precio, 
-    AVG(precio) AS promedio_precio      
-FROM productos
-GROUP BY categoria
-ORDER BY suma_precio DESC;
-
-
-/* Ejercicio practico 2: Agregar y ordenar datos
-Reto: Escribe una consulta SQL que muestre las categorias con m�s de 2 productos,
-ordenadas de mayor a menor cantidad. */
-SELECT categoria, COUNT(*) AS total
-FROM productos
-GROUP BY categoria
-HAVING COUNT(*) > 2
-ORDER BY COUNT(*);
-
-/* WHERE emplea campos existentes
-HAVING tras agrupar */
-
-
--- Obtener registros limitando a 3
-SELECT * 
-FROM productos
-LIMIT 3;
-
--- Obtener registros limitando a 3 saltando tras 8
-SELECT * 
-FROM productos
-LIMIT 3 OFFSET 8;
-
--- OFFSET requiere LIMIT u FETCH
-
-
--- Obtener clientes cuyo campo total_compra en la tabla pedidos sea mayor a 500
-SELECT *
-FROM clientes
-WHERE id IN(SELECT cliente_id FROM pedidos WHERE total_compra > 500);
-
--- Obtener productos cuyo id se encuentre en la tabla pedidos
-SELECT *
-FROM productos
-WHERE id IN(SELECT producto_id FROM pedidos);
-
-
--- Obtener productos cuyo id no se encuentre en la tabla pedidos
-SELECT *
-FROM productos
-WHERE id NOT IN(SELECT producto_id FROM pedidos);
+/* Desafio final
+Reto #2: Encuentra los clientes que han realizado más de 2 pedidos y muestra cuántos han hecho. */
+SELECT nombre,
+	(SELECT COUNT(*)
+	FROM pedidos p
+	GROUP BY cliente_id
+	HAVING COUNT(*) > 2 AND c.id = p.cliente_id) AS numero_pedidos
+FROM clientes c
+WHERE id IN (SELECT pedidos.cliente_id
+			FROM pedidos
+            GROUP BY cliente_id
+            HAVING COUNT(*) > 2);

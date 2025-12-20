@@ -1,7 +1,8 @@
 Modulo: #1.
 Clase: #3.
-Título: SQL básico.
+Tï¿½tulo: SQL bï¿½sico.
 Profesor: Keyla Dolores.
+Estudiante: KrisbelGV.
 
 Recursos:
 	Clase grabada: https://codigofacilito.com/videos/introduccion-sql-basico
@@ -9,44 +10,44 @@ Recursos:
 
 Breve repaso en puntos clave:
 	SQL es un lenguaje declarativo y case-insensitive.
-	Por convención las palabras reservadas se escriben en mayúsculas.
-	El orden de los elementos en la consulta es estricto, más mínimo constituida por SELECT y FROM.
-	SELECT * en producción puede afectar el rendimiento.
-	Principales sentencias (básico):
+	Por convenciï¿½n las palabras reservadas se escriben en mayï¿½sculas.
+	El orden de los elementos en la consulta es estricto, mï¿½s mï¿½nimo constituida por SELECT y FROM.
+	SELECT * en producciï¿½n puede afectar el rendimiento.
+	Principales sentencias (bï¿½sico):
 		SELECT Selecciona las columnas. * todos, en campos separados por comas.
 		FROM Determina la tabla. Sigue su nombre.
-		WHERE Filtra acorde a una condición.
-		ORDER BY Ordena los resultados conforme columna(s). DESC será descendente, ascendente por defecto. 
-		LIMIT Restringe el número de filas retornadas.
-	Forzar comparación exacta entre cadenas (sensible a mayúsculas y minúsculas): COLLATE utf8mb4_bin
-	Operadores de comparación:
+		WHERE Filtra acorde a una condiciï¿½n.
+		ORDER BY Ordena los resultados conforme columna(s). DESC serï¿½ descendente, ascendente por defecto. 
+		LIMIT Restringe el nï¿½mero de filas retornadas.
+	Forzar comparaciï¿½n exacta entre cadenas (sensible a mayï¿½sculas y minï¿½sculas): COLLATE utf8mb4_bin
+	Operadores de comparaciï¿½n:
 		= Igual.
 		!= diferente.
 		> Mayor que.
 		< Menor que.
 		BETWEEN Rango de valores.
-		LIKE Búsqueda de patrones.
-		IN() Múltiples valores.
+		LIKE Bï¿½squeda de patrones.
+		IN() Mï¿½ltiples valores.
 	Alias (apodos temporales):
 		Para columnas: columna AS alias.
 		Para tablas: tabla alias.
 	Comentarios:
-		Una sola línea: --
-		Varias líneas: /**/
+		Una sola lï¿½nea: --
+		Varias lï¿½neas: /**/
 	Comodines:
-		% Remplaza cero o más caracteres.
-		_ Remplaza un carácter.
-	Siglas DDL: Data Definition Lenguage (en español “Lenguaje de Definición de Datos”).
+		% Remplaza cero o mï¿½s caracteres.
+		_ Remplaza un carï¿½cter.
+	Siglas DDL: Data Definition Lenguage (en espaï¿½ol ï¿½Lenguaje de Definiciï¿½n de Datosï¿½).
 	Engloba toda clausula relativo a la estructura de la BD.
 	Sus cambios son permanentes.
 	Principales sentencias (DDL):
-		CREATE Crea BBDD, tablas, índices, etc.
-		DROP Elimina BBDD, tablas, columnas, índices, etc.
+		CREATE Crea BBDD, tablas, ï¿½ndices, etc.
+		DROP Elimina BBDD, tablas, columnas, ï¿½ndices, etc.
 		ALTER Modifica la estructura de una tabla.
 	Crear tabla:
 		CREATE TABLE tabla (
 			columna1 TIPO,
-			columna 2 TIPO…
+			columna 2 TIPOï¿½
 			columnaN TIPO
 		);
 	Manipular columnas:
@@ -54,27 +55,27 @@ Breve repaso en puntos clave:
 		Modificar tipo de dato: ALTER TABLE tabla ALTER COLUMN columna TIPO;
 		Eliminar: ALTER TABLE tabla DROP COLUMN columna; No soportado por algunos motores (como SQLite).
 	Eliminar tablas:
-		DROP TABLE tabla; Eliminará la estructura y los datos.
+		DROP TABLE tabla; Eliminarï¿½ la estructura y los datos.
 	Eliminar solo filas:
 		TRUNCATE TABLE tabla;
-	Siglas DML: Data Manipulation Language (en español “Lenguaje de Manipulación de Datos”).
+	Siglas DML: Data Manipulation Language (en espaï¿½ol ï¿½Lenguaje de Manipulaciï¿½n de Datosï¿½).
 	Considera las sentencias en lo que concierne a los datos de la BD.
 	Pueden deshacerse mediante el uso de transacciones.
 	Principales sentencias (DDL):
 		INSERT Agrega nuevos registros.
 		UPDATE Modifica registros existentes.
-		DELETE Elimina registros específicos.
+		DELETE Elimina registros especï¿½ficos.
 	Insertar datos:
-		INSERT INTO tabla (columna1, columna 2… columnaN) VALUES (valor1, valor2… valorN); La especificación de columnas puede obviarse siguiendo su orden en la tabla, (mejor practica indicarlos).
+		INSERT INTO tabla (columna1, columna 2ï¿½ columnaN) VALUES (valor1, valor2ï¿½ valorN); La especificaciï¿½n de columnas puede obviarse siguiendo su orden en la tabla, (mejor practica indicarlos).
 	Modificar datos:
-		UPDATE tabla SET columna1 = valor, columna2 = valor… columnaN = valor; Se usa WHERE para especificar que filas cambiar, su omisión actualizará todo (dependiendo el motor y su configuración).
+		UPDATE tabla SET columna1 = valor, columna2 = valorï¿½ columnaN = valor; Se usa WHERE para especificar que filas cambiar, su omisiï¿½n actualizarï¿½ todo (dependiendo el motor y su configuraciï¿½n).
 	Eliminar datos:
-		DELETE FROM tabla; Sin un WHERE igualmente eliminará todo registro.
-	Siglas CRUD: Create, read, update, delete (en español crear, leer, actualizar y eliminar).
+		DELETE FROM tabla; Sin un WHERE igualmente eliminarï¿½ todo registro.
+	Siglas CRUD: Create, read, update, delete (en espaï¿½ol crear, leer, actualizar y eliminar).
 	Conjunto de cuatro operaciones fundamentales para manipular datos.
 	DML es el subconjunto de SQL que implementa CRUD.
-	Desactivar configuración que restringe cambios: SET SQL_SAFE_UPDATES = 0
-	MDF y LDF son archivos de guardado con la información y cambios realizados en la DB (en SQL Server).
+	Desactivar configuraciï¿½n que restringe cambios: SET SQL_SAFE_UPDATES = 0
+	MDF y LDF son archivos de guardado con la informaciï¿½n y cambios realizados en la DB (en SQL Server).
 
 Notas al pie:
-	El archivo con los scripts (para MySQL) se encuentra adjunto en este mismo directorio, así como el ejercicio práctico final.
+	El archivo con los scripts (para MySQL) se encuentra adjunto en este mismo directorio, asï¿½ como el ejercicio prï¿½ctico final.

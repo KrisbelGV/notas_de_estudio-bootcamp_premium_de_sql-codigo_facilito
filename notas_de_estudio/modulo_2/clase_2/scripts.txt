@@ -1,4 +1,11 @@
-﻿-- Seleccionar la misma BD de la clase anterior
+﻿/* Bootcamp Premium de SQL - Codigo Facilito
+Scripts de la clase #2, modulo #2
+SQL para gestión de tablas
+Impartido por: Keyla Dolores
+Comentarios: KrisbelGV
+Derechos a su autor */
+
+-- Seleccionar la misma BD de la clase anterior
 USE tienda_db;
 
 

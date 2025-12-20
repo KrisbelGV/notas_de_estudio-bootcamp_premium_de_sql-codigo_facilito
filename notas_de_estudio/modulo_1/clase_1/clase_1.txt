@@ -1,18 +1,19 @@
 Modulo #1.
 Clase #1.
-Título: SQL como lenguaje de consulta de datos.
-Profesor: Uriel Hernández.
+Tï¿½tulo: SQL como lenguaje de consulta de datos.
+Profesor: Uriel Hernï¿½ndez.
+Estudiante: KrisbelGV.
 
 Recursos:
 	Clase grabada: https://codigofacilito.com/videos/introduccion-sql-como-lenguaje-de-consulta-de-datos
 	Google drive: https://drive.google.com/drive/folders/1ilglChr-Engu5mQzB_StPpCksJJK0zTu
 
 Breve repaso en puntos clave:
-	Siglas SQL: Structured Query Language (en español “Lenguaje de consultas estructurado”).
+	Siglas SQL: Structured Query Language (en espaï¿½ol ï¿½Lenguaje de consultas estructuradoï¿½).
 	Lenguaje de consulta de bases de datos relacionales y algunas no relacionales.
-	Usado en almacenes de datos, analítica, pruebas de software, etc.
-	Consiste en un estándar revisado por la ANSI e ISO.
-	Cada gestor añade funcionalidades y posee sus propias características.
-	Ofrece control total sobre consultas, ampliando desempeño en otras herramientas.
+	Usado en almacenes de datos, analï¿½tica, pruebas de software, etc.
+	Consiste en un estï¿½ndar revisado por la ANSI e ISO.
+	Cada gestor aï¿½ade funcionalidades y posee sus propias caracterï¿½sticas.
+	Ofrece control total sobre consultas, ampliando desempeï¿½o en otras herramientas.
 	Difiere de la BD, no necesariamente gestiona infraestructura.
-	Útil complementar con: Fundamentos, manejo y librerías de BDs.
+	ï¿½til complementar con: Fundamentos, manejo y librerï¿½as de BDs.

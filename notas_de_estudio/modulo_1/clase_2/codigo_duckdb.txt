@@ -1,3 +1,9 @@
+/* Bootcamp Premium de SQL - Codigo Facilito
+Scripts de la clase #2, modulo #1
+Preparación del entorno de trabajo
+Impartido por: Carlos Haro
+Derechos a su autor */
+
 SELECT * FROM "https://raw.githubusercontent.com/rfordatascience/tidytuesday/refs/heads/main/data/2024/2024-09-03/stackoverflow_survey_questions.csv";
 
 SELECT COUNT(*) FROM "https://raw.githubusercontent.com/rfordatascience/tidytuesday/refs/heads/main/data/2024/2024-09-03/stackoverflow_survey_questions.csv";

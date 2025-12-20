@@ -1,21 +1,25 @@
--- Ejercicio practico final
-
--- Preparacion
+/* Bootcamp Premium de SQL - Codigo Facilito
+Clase #3, modulo #1
+Ejercicio practico final
+Estudiante: KrisbelGV */
 
 -- Seleccionamos nuestra DB de prueba (donde previamente creamos su tabla)
 USE test2_db;
 
+/* Preparacion
+Scripts del pdf en google drive: */
+
 -- Insertar registros
 INSERT INTO productos (nombre, precio, stock) VALUES
 ('Mouse', 25.99, 20),
-('Teclado Mecánico', 80.00, 15),
+('Teclado Mecï¿½nico', 80.00, 15),
 ('Monitor', 550.00, 7),
 ('Impresora', 300.00, 8),
 ('Escritorio', 180.00, 12),
-('Silla Ergonómica', 220.50, 6),
+('Silla Ergonï¿½mica', 220.50, 6),
 ('Cargador USB-C', 15.99, 30),
 ('Disco Duro Externo', 90.00, 3),
-('Audífonos Bluetooth', 150.00, 4);
+('Audï¿½fonos Bluetooth', 150.00, 4);
 
 /*	1 Inserta un nuevo producto en la tabla productos con estos valores
 		nombre = "Laptop"
@@ -40,10 +44,10 @@ WHERE nombre = 'Laptop' AND stock < 5;
 
 -- Preguntas:
 
-/* ¿Qué pasa si omitimos WHERE en el UPDATE o DELETE?
+/* ï¿½Quï¿½ pasa si omitimos WHERE en el UPDATE o DELETE?
 Actualiza u elimina todos los registros dependiendo de la configuracion de SQL_SAFE_UPDATES
     
-/*¿Cómo podríamos usar una transacción para asegurarnos de no perder datos accidentalmente?
+/*ï¿½Cï¿½mo podrï¿½amos usar una transacciï¿½n para asegurarnos de no perder datos accidentalmente?
 Se explica en la clase 5 "Clausulas de consulta" */
 START TRANSACTION; -- Iniciar transaccion
 COMMIT; -- Confirmar cambios

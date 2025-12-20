@@ -1,3 +1,10 @@
+/* Bootcamp Premium de SQL - Codigo Facilito
+Scripts de la clase #1, modulo #2
+ClÃ¡usulas de consultas
+Impartido por: Keyla Dolores
+Comentarios: KrisbelGV
+Derechos a su autor */
+
 -- Filtrar y ordenar por rango de precios en la tabla productos
 SELECT *
 FROM productos
@@ -100,7 +107,7 @@ ORDER BY suma_precio DESC;
 
 
 /* Ejercicio practico 2: Agregar y ordenar datos
-Reto: Escribe una consulta SQL que muestre las categorias con más de 2 productos,
+Reto: Escribe una consulta SQL que muestre las categorias con mï¿½s de 2 productos,
 ordenadas de mayor a menor cantidad. */
 SELECT categoria, COUNT(*) AS total
 FROM productos

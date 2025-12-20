@@ -1,3 +1,9 @@
+/* Bootcamp Premium de SQL - Codigo Facilito
+Clase #3 modulo #2
+Tipos de datos y constraints
+Ejercicio nivel Extremo
+Estudiante: KrisbelGV */
+
 /* Nivel Extremo: "Registro de Facturas"
 Escenario: Tienes que diseñar la estructura de una tabla facturas para una empresa, pero con estas reglas específicas:
 Requisitos obligatorios:
