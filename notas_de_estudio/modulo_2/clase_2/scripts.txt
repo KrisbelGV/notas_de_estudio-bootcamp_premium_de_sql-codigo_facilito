@@ -1,0 +1,132 @@
+﻿-- Seleccionar la misma BD de la clase anterior
+USE tienda_db;
+
+
+-- Añadir una nueva columna celular a la tabla clientes 
+ALTER TABLE clientes ADD COLUMN celular VARCHAR(20);
+
+-- Modificar el tipo de dato decimal en la columna precio de la tabla productos
+ALTER TABLE productos MODIFY COLUMN precio DECIMAL(12,2);
+
+
+-- Crear tabla de prueba
+CREATE TABLE clientes_prueba (
+	id INT PRIMARY KEY,
+    nombre VARCHAR(100)
+);
+
+-- Insertar registro de ejemplo
+INSERT INTO clientes_prueba
+VALUES (1, 'Este es un texto muy largo que supera los 20 caracteres');
+
+-- Obtener cantidad de caracteres
+SELECT
+	nombre,
+    CHAR_LENGTH(nombre) AS cantidad_de_caracteres
+FROM clientes_prueba;
+
+-- Desactivar la restriccion al modificar tablas con datos sensibles a cambios (en MySQL, para esta sesion)
+SET SESSION SQL_MODE = REPLACE(@@sql_mode, 'STRICT_TRANS_TABLES', '');
+
+-- Modificar el tipo de dato (longitud de VARCHAR) en la columna nombre de la tabla clientes_prueba
+ALTER TABLE clientes_prueba
+MODIFY COLUMN nombre VARCHAR(20);
+
+
+-- Eliminar columna fecha de la tabla pedidos
+ALTER TABLE pedidos DROP COLUMN fecha;
+
+
+-- Eliminar la tabla prueba_eliminar si existe
+DROP TABLE IF EXISTS prueba_eliminar;
+
+-- Crear tabla prueba_eliminar
+CREATE TABLE prueba_eliminar(
+	id INT PRIMARY KEY,
+    nombre VARCHAR(50)
+);
+
+-- Insertar registro en la tabla
+INSERT INTO prueba_eliminar VALUES(1, 'Ejemplo');
+
+-- Eliinar la tabla
+DROP TABLE prueba_eliminar;
+
+
+-- Crear tabla prueba_truncate
+CREATE TABLE prueba_truncate(
+	id INT PRIMARY KEY,
+    nombre VARCHAR(50)
+);
+
+-- Insertar registros en la tabla
+INSERT INTO prueba_truncate
+VALUES(1, 'Ejemplo1'),
+(2, 'Ejemplo2');
+
+/* Eliminar registros de la tabla con DELETE dentro de una transaccion y deshacer cambios con rollback
+DELETE FROM sin emplear WHERE Solo funciona con la configuracion SQL_SAFE_UPDATES en 0 
+Los cambios se guardan en el archivo log, ocupando memoria*/
+SET SQL_SAFE_UPDATES = 0;
+START TRANSACTION; -- Iniciar transaccion
+	DELETE FROM prueba_truncate;
+ROLLBACK; -- Deshacer cambios
+
+/* Eliminar registros de la tabla con TRUNCATE dentro de una transaccion e intentar deshacer cambios con rollback
+No deja logs, por lo que ROLLACK no podra restituir los registros */
+START TRANSACTION;
+	TRUNCATE prueba_truncate;
+ROLLBACK;
+
+/* Archivos de logs de BDD (en MySQL):
+    * .ibd Contiene datos de la BBDD
+    * .log Contiene logs de transacciones
+*/
+
+-- Mostrar directorio de ambos archivos:
+SHOW VARIABLES LIKE 'datadir';
+
+-- Mostrar nombre del archivo .log:
+SHOW VARIABLES LIKE 'general_log_file';
+
+
+/* Ejercicio práctico
+Reto: Modifica la base de datos segun los siguientes requerimientos: */
+
+/* Agregar fecha_registro a clientes con valor por defecto
+TIMESTAMP es un dato de tipo fecha en formato 'YY-MM-DD HH:MM:SS' desde la zona horaria del servidor
+DEFAULT determina un valor por defecto
+CURRENT_TIMESTAMP genera la fecha y hora actual en tipo TIMESTAMP*/
+ALTER TABLE clientes ADD COLUMN fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+-- Otras opciones de tipo de dato y generar fecha y hora
+
+/* DATETIME usa el mismo formato que TIMESTAMP, pero obtiene la hora del cliente (indicado en la proxima clase)
+NOW() funcionalmente equivalente a CURRENT_TIMESTAMP */
+ALTER TABLE clientes ADD COLUMN fecha_registro2 DATETIME DEFAULT NOW();
+
+/* DATE solo obtiene la fecha
+NOW() producira error sin los parentesis externos y una advertencia aun usandolos dado que no es el tipo
+de formato de dato esperado 'YY-MM-DD HH:MM:SS' en lugar de 'YY-MM-DD'*/
+ALTER TABLE clientes ADD COLUMN fecha_registro3 DATE DEFAULT (NOW());
+
+/* Modificar stock en productos para que tenga un valor por defecto de 10
+No existe, por lo que creamos la columna y añadimos un valor por defecto */
+ALTER TABLE productos ADD COLUMN stock INT DEFAULT (10);
+
+/* Eliminar la columna nota de pedidos
+No existe, por lo que creamos la columna */
+ALTER TABLE pedidos ADD COLUMN nota VARCHAR(200);
+ALTER TABLE pedidos DROP COLUMN nota;
+
+
+-- Crear respaldo de la tabla clientes (guardar replica)
+CREATE TABLE backup_clientes AS
+SELECT * FROM clientes;
+
+-- Eliminar la columna telefono de la tabla clientes original
+ALTER TABLE clientes DROP COLUMN telefono;
+
+/* Eliminar registros de la tabla clientes cuyo email termine en 'email.com'
+Producira error ya que el campo id es una FOREIGN KEY */
+DELETE FROM clientes WHERE email LIKE '%email.com';
