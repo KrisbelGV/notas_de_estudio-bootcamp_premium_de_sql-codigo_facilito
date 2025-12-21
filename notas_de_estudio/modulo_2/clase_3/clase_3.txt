@@ -1,0 +1,44 @@
+Bootcamp Premium de SQL de Código Facilito.
+Modulo: #2.
+Clase: #3.
+Título: Tipos de datos y constraints.
+Profesor: Keyla Dolores.
+Estudiante: KrisbelGV.
+
+Recursos:
+Clase grabada: https://codigofacilito.com/videos/introduccion-tipos-de-datos-y-constraints
+Google drive: https://drive.google.com/drive/folders/1Z859jyYw_HrUXZrKHCXsrQlrBCqzZTkQ
+
+Breve repaso en puntos clave:
+	Tipos de datos:
+		Texto:
+			VARCHAR(n): Textos cortos con indexación eficiente y un límite determinado.
+			TEXT:  Grandes volúmenes de texto, pero sin índices eficientes.
+			LONGTEXT: Para artículos, libros y documentos extensos.
+			TINYTEXT: Tamaño máximo de 255 caracteres aprox.
+		Números:
+			INT: Valores enteros únicamente.
+			DECIMAL(n_enteros, n_decimales): Precisión decimal.
+		Fechas y horas:
+			DATETIME: No cambia con la zona horaria.
+			TIMESTAMP: Se ajusta a la zona horaria del servidor.
+	Transformación de datos:
+		CAST(columna AS CHAR): Convierte un tipo en otro siendo compatibles.
+		ROUND(valor_a_redondear, cantidad_de_decimales): Redondea valores decimales.
+		CONCAT(cadena1, cadena2… cadenaN): Concadena dos o más datos de texto.
+	Constraints (restricciones a los campos):
+		NOT NULL: Evita valores nulos.
+		DEFAULT: Asigna un valor por defecto.
+		CHECK(campo condicion): Restringe valores posibles en una columna (no funcional en versiones anteriores a 8.0 en MySQL).
+		UNIQUE(columna): Garantiza que los valores sean únicos.
+	Al establecer constraints como NULL, CHECK y UNIQUE sobre una tabla existente los registros deben cumplir sus normativas.
+	NOT NULL y DEFAULT emplean MODIFY COLUMN desde ALTER TABLE
+	CHECK Y UNIQUE su parte ADD CONSTRAINT seguido de un nombre para la constraint.
+	Eliminar constraint CHECK: DROP CHECK 	
+	Eliminar constraint UNIQUE: DROP CONSTRAINT
+	Generar un número aleatorio de punto flotante entre 0 y 1: RAND()
+	Redondear número al entero inferior más cercano: FLOOR()
+	Mostrar instrucción de creación de una tabla existente: SHOW CREATE TABLE tabla.
+
+Notas al pie:
+	El archivo con los scripts (para MySQL) se encuentra adjunto en este mismo directorio junto a mi solución propuesta para el último ejercicio “nivel extremo”.

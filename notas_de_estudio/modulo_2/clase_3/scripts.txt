@@ -1,0 +1,244 @@
+﻿/* Bootcamp Premium de SQL - Codigo Facilito
+Scripts de la clase #2, modulo #2
+Tipos de datos y constraints
+Impartido por: Keyla Dolores
+Comentarios: KrisbelGV
+Derechos a su autor */
+
+
+-- Seleccionar la misma BD de la clase anterior
+USE tienda_db;
+
+
+-- Añadir una nueva columna a la tabla producto
+
+-- Tipo VARCHAR
+ALTER TABLE productos
+ADD COLUMN descripcion_varchar VARCHAR(100);
+
+-- Tipo TEXT
+ALTER TABLE productos
+ADD COLUMN descripcion_text TEXT;
+
+
+/* Insertar registro en la tabla productos con valores de ejemplo
+para los campos descripcion_varchar y descripcion_text */
+INSERT INTO productos(
+    nombre,
+    descripcion_varchar,
+    descripcion_text)
+VALUES(
+    'Celular',
+    'Texto corto',
+    'Texto mucho más largo y extenso que sobrepasa los cien caracteres de ejemplo para esta prueba de practica'
+);
+
+/* Contar caracteres de los campos campos descripcion_varchar y descripcion_text de la tabla productos
+y ordenar los resultados descendentemente */
+SELECT
+    CHAR_LENGTH(descripcion_varchar) AS largo_varchar,
+    CHAR_LENGTH(descripcion_text) AS largo_text
+FROM productos
+ORDER BY largo_varchar DESC;
+
+/* Otros tipos relacionados:
+LONGTEXT para textos voluminosamente extensos
+TINYTEXT con un maximo de 255 caracteres aprox. */
+
+
+-- Crear nueva columna descuento en la tabla productos
+ALTER TABLE productos
+ADD COLUMN precio_descuento DECIMAL(10,2);
+
+/* Actualizar el campo descuento con el 10% de su precio en la tabla productos
+Primero desactivamos el modo de actualizacion seguro para obviar el uso del WHERE */
+SET SQL_SAFE_UPDATES = 0;
+UPDATE productos
+SET precio_descuento = precio * 0.90;
+
+
+/* Mostrar los campos fecha_registro de la tabla clientes creados en la clase anterior
+No presentara sino ligeros cambios, dado que el cliente consulta desde el mismo dispositivo servidor */
+SELECT
+    nombre,
+    fecha_registro1 AS fecha_hora_timestamp,
+    fecha_registro2 AS fecha_hora_datetime,
+    fecha_registro3 AS fecha_date
+FROM clientes;
+
+
+/* Obtener registros de la tabla productos, las columnas nombre,
+precio convertido a texto (concatenado a una descripcion)
+y precio redondeado a un decimal */
+SELECT
+    nombre,
+    CONCAT('Precio en texto: ', CAST(precio AS CHAR)) AS precio_texto,
+    ROUND(precio, 1) AS precio_redondeado
+FROM productos;
+
+
+/* Modificar columna email en la tabla clientes y establecer CONSTRAINT NOT NULL
+Sobrescribe automaticamente la CONSTRAINT anterior DEFAULT NULL para este campo*/
+ALTER TABLE clientes
+MODIFY COLUMN email VARCHAR(100) NOT NULL;
+
+/* Insertar registro con email NULL a la tabla clientes
+Poducira error dada la CONSTRAINT añadida anteriormente */
+INSERT INTO clientes (nombre, celular)
+VALUES ('Keyla', '9887987');
+
+/* Insertar registro con email valido a la tabla clientes
+Desencadenara una advertencia respecto el campo fecha_registro3 tipo DATE
+quien requiere su propio formato, para preveerlo usa DATE(NOW()) o CURDATE() en este */
+INSERT INTO clientes (nombre, celular, email)
+VALUES ('Keyla', '9887987', 'keyla@gmail.com');
+
+-- Insertar registro con email valido a la tabla clientes (correjida la advertencia, ejemplo: CURDATE())
+INSERT INTO clientes (nombre, celular, email, fecha_registro3)
+VALUES ('Keyla', '9887987', 'keyla@gmail.com', CURDATE());
+
+
+/* Modificar columna stock en la tabla producto para que no admita valores NULL
+Sobrescribira su valor por defecto, CONSTRAINT establecida en la clase anterior 
+De no cumplir la regla deberan actualizarse tales campos o producira error */
+ALTER TABLE productos
+MODIFY COLUMN stock INT NOT NULL;
+
+-- Actualizar campo stock en la tabla productos caso haya NULL
+UPDATE productos
+SET precio = 10;
+
+/* Insertar registro con stock NULL a la tabla productos
+Poducira error dada la CONSTRAINT añadida anteriormente */
+INSERT INTO productos (nombre, categoria)
+VALUES ('Camara', 'Tecnologia');
+
+-- Insertar registro con stock valido a la tabla productos
+INSERT INTO productos (nombre, categoria, stock)
+VALUES ('Camara', 'Tecnologia', 10);
+
+
+/* Añadir CONSTRAINT CHECK sobre el campo precio en la tabla productos para que no admita valores inferiores a 0
+Requiere un nombre, si no, el motor creara uno por defecto, mas no nos notificara cual de inmediato
+Para obtenerlo deberemos consultar la estructura de la tabla u provocar su error */
+ALTER TABLE productos
+ADD CONSTRAINT chk_precio CHECK (precio > 0);
+
+-- Actualizar campo precio en la tabla productos con un valor negativo (producira error dada la CONSTRAINT)
+UPDATE productos
+SET precio = -10.5;
+
+/* Insertar valores aleatorios al campo precio de la tabla productos (como demostracion, luego deshacer cambios)
+RAND() crea un numero al azar de punto florante entre 0 y 1 */
+START TRANSACTION;
+	UPDATE productos
+	SET precio = RAND() * 20;
+ROLLBACK;
+
+/* Eliminar CONSTRAINT CHECK (no empleado en la clase)
+ALTER TABLE productos
+DROP CHECK chk_precio; */
+
+
+/* Añadir CONSTRAINT sobre el campo nombre en la tabla productos para que solo admita valores unicos
+Su caso MySQL tambien crea un nombre por defecto de obviarse: el mismo del campo u otro
+Del mismo modo se recomienda asignarlo siempre para su seguimiento */
+ALTER TABLE productos
+ADD CONSTRAINT unq_nombre UNIQUE(nombre);
+
+-- Insertar nuevo registro en la tabla productos
+INSERT INTO productos(nombre, stock)
+VALUES('Laptop3', 30);
+
+-- Reinsertar el mismo registro en la tabla productos (producira error dada la constraint)
+INSERT INTO productos(nombre, stock)
+VALUES('Laptop3', 30);
+
+-- Añadir CONSTRAINT sobre el campo nombre en la tabla clientes para que solo admita valores unicos
+ALTER TABLE clientes
+ADD CONSTRAINT unq_nombre UNIQUE(nombre);
+
+/* Añadir CONSTRAINT sobre el campo email en la tabla clientes para que solo admita valores unicos
+Producira una advertencia puesto que ya existia una CONSTRAINT UNIQUE sobre dicho campo en esta tabla */
+ALTER TABLE clientes
+ADD CONSTRAINT unq_email UNIQUE(email);
+
+-- Mostrar instruccion de creacion de una tabla existente
+SHOW CREATE TABLE clientes;
+
+-- Insertar nuevo registro en la tabla clientes
+INSERT INTO clientes (nombre, email)
+VALUES ('Felipe', 'felipe@gmail.com');
+
+-- Reinsertar el mismo registro en la tabla clientes (producira error dada las constraints)
+INSERT INTO clientes (nombre, email)
+VALUES ('Felipe', 'felipe@gmail.com');
+
+-- Cambiando solo su nombre (sigue el error)
+INSERT INTO clientes (nombre, email)
+VALUES ('Felipe2', 'felipe@gmail.com');
+
+-- Cambiando solo su email (sigue el error)
+INSERT INTO clientes (nombre, email)
+VALUES ('Felipe', 'felipe222@gmail.com');
+
+-- Eliminar CONSTRAINT UNIQUE repetida en la tabla productos
+ALTER TABLE clientes
+DROP CONSTRAINT unq_email;
+
+
+/* Generar numeros aleatorios entre un rango:
+FLOOR(RAND() * (maximo - minimo + 1) + minimo)
+FLOOR () redondea al entero inferior mas cercano */
+
+-- Ejemplo: Generar numeros aleatorios entre 10 y 5 y concatenar descripcion
+SELECT CONCAT('Numero aleatorio entre 10 y 5: ', FLOOR(RAND() * (10 - 5 + 1) + 5)) AS numero_aleatorio;
+
+
+/* Aplica lo aprendido en la base de datos
+La empresa detecto inconsistencias en la BD
+Objetivo: Corregir estructura aplicando las constraints adecuadas */
+
+/* Ejercicios:
+1 Hacer en la tabla clientes */
+
+-- Que email sea obligatorio (el motor sobrescribe la misma linea)
+ALTER TABLE clientes
+MODIFY COLUMN email VARCHAR(100) NOT NULL;
+
+/* Y unico (ya aplicado en la clase)
+ALTER TABLE clientes
+ADD CONSTRAINT unq_email UNIQUE(email); */
+
+/* Evitar precios negativos en productos (ya aplicado en la clase)
+ALTER TABLE productos
+ADD CONSTRAINT chk_precio CHECK (precio > 0); */
+
+-- Asegurar que pedidos.cantidad sea al menos 1 (ya posee un default, pero evita insertarlo manualmente)
+ALTER TABLE pedidos
+ADD CONSTRAINT chk_cantidad CHECK (cantidad >= 1);
+
+-- Ejemplo: Añadir registro a la tabla pedido con cantidad 0 (producira error dada la constraint)
+INSERT INTO pedidos(cliente_id, producto_id, cantidad)
+VALUES (1, 1, 0);
+
+-- Crear estado_pedido con valores validos
+ALTER TABLE pedidos
+ADD COLUMN estado_pedido VARCHAR(10) DEFAULT 'solicitado' CONSTRAINT chk_estado CHECK(estado_pedido IN('solicitado', 'entregado', 'cancelado'));
+
+-- Evitar stock negativo
+ALTER TABLE productos
+ADD CONSTRAINT chk_stock CHECK(stock > 0);
+ 
+-- Ejemplo: Añadir registro a la tabla producto con stock 0 (producira error dada la constraint)
+INSERT INTO productos(nombre, stock)
+VALUES ('Mouse inhalambrico', 0);
+
+
+-- Repaso sobre DEFAULT: Añadir valor por defecto a celular en la tabla clientes
+ALTER TABLE clientes
+MODIFY COLUMN celular VARCHAR(20) DEFAULT '44444444';
+
+-- Insertar registro de prueba
+INSERT INTO clientes (nombre, email)
+VALUES ('Felipeee', 'felipe@email.com');
