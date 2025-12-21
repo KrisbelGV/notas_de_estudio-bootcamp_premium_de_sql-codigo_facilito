@@ -1,9 +1,9 @@
-Consulta solo titles de los films
+-- Consulta solo titles de los films:
 SELECT title FROM film;
 
-Consulta películas por distintas duraciones, menos de 90 mins y más de 160 mins.
+-- Consulta pelï¿½culas por distintas duraciones, menos de 90 mins y mï¿½s de 160 mins:
 SELECT title, length FROM film WHERE length < 90 OR length > 160;
 
-Ordena las películas por su duración y obten el top 10 más largos y el top 10 más cortas.
+-- Ordena las pelï¿½culas por su duraciï¿½n y obten el top 10 mï¿½s largos y el top 10 mï¿½s cortas:
 SELECT title, length FROM film ORDER BY length DESC LIMIT 10;
 SELECT title, length FROM film ORDER BY length LIMIT 10;

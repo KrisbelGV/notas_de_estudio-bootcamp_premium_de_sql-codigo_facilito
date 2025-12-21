@@ -1,6 +1,6 @@
-/* Bootcamp Premium de SQL - Codigo Facilito
+/* Bootcamp Premium de SQL de Codigo Facilito
 Scripts de la clase #3, modulo #1
-SQL básico
+SQL basico
 Impartido por: Keyla Dolores
 Comentarios: KrisbelGV
 Derechos a su autor */

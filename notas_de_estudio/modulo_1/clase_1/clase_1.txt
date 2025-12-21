@@ -1,4 +1,5 @@
-Modulo #1.
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #1.
 Clase #1.
 T�tulo: SQL como lenguaje de consulta de datos.
 Profesor: Uriel Hern�ndez.
@@ -16,4 +17,4 @@ Breve repaso en puntos clave:
 	Cada gestor a�ade funcionalidades y posee sus propias caracter�sticas.
 	Ofrece control total sobre consultas, ampliando desempe�o en otras herramientas.
 	Difiere de la BD, no necesariamente gestiona infraestructura.
-	�til complementar con: Fundamentos, manejo y librer�as de BDs.
+	�til complementar con: Fundamentos, manejo y librer�as de BBDD.

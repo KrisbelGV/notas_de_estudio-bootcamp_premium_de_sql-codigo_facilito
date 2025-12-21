@@ -1,4 +1,5 @@
-Modulo #1.
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #1.
 Clase #2.
 T�tulo: Preparaci�n del entorno de trabajo.
 Profesor: Carlos Haro.

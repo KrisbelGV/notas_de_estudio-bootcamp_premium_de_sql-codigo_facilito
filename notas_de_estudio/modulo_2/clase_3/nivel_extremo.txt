@@ -1,7 +1,7 @@
-/* Bootcamp Premium de SQL - Codigo Facilito
+/* Bootcamp Premium de SQL de Codigo Facilito
 Clase #3 modulo #2
 Tipos de datos y constraints
-Ejercicio nivel Extremo
+Ejercicio nivel extremo
 Estudiante: KrisbelGV */
 
 

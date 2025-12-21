@@ -1,4 +1,5 @@
-Modulo: #2.
+Bootcamp Premium de SQL de Código Facilito.
+Módulo: #2.
 Clase: #2.
 T�tulo: SQL para gesti�n de tablas.
 Profesor: Keyla Dolores.
@@ -36,4 +37,3 @@ Breve repaso en puntos clave:
 
 Notas al pie:
 	El archivo con los scripts (para MySQL) se encuentra adjunto en este mismo directorio.
-	

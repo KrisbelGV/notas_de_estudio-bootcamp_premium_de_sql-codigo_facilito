@@ -1,4 +1,4 @@
-﻿/* Bootcamp Premium de SQL - Codigo Facilito
+﻿/* Bootcamp Premium de SQL de Codigo Facilito
 Scripts de la clase #2, modulo #2
 SQL para gestión de tablas
 Impartido por: Keyla Dolores

@@ -1,13 +1,14 @@
 Esta es la plantilla que utilizo para escribir mis notas.
 
-Modulo #
+Bootcamp Premium de SQL de CÃ³digo Facilito.
+MÃ³dulo #
 Clase #
-Título: 
-Profesor: 
+Tï¿½tulo: 
+Profesor:
+Estudiante: 
 
 Recursos:
 	Clase grabada: 
 	Google drive: 
 
-(Notas aquí)
-
+(Notas aquï¿½)

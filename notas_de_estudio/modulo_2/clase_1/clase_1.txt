@@ -1,4 +1,5 @@
-Modulo #2.
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #2.
 Clase #1.
 T�tulo: Cl�usulas de consultas.
 Profesor: Keyla Dolores.

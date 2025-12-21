@@ -1,7 +1,7 @@
-Bootcamp Premium de SQL de Código Facilito.
-Modulo: #2.
+Bootcamp Premium de SQL de Cï¿½digo Facilito.
+MÃ³dulo: #2.
 Clase: #3.
-Título: Tipos de datos y constraints.
+Tï¿½tulo: Tipos de datos y constraints.
 Profesor: Keyla Dolores.
 Estudiante: KrisbelGV.
 
@@ -12,33 +12,33 @@ Google drive: https://drive.google.com/drive/folders/1Z859jyYw_HrUXZrKHCXsrQlrBC
 Breve repaso en puntos clave:
 	Tipos de datos:
 		Texto:
-			VARCHAR(n): Textos cortos con indexación eficiente y un límite determinado.
-			TEXT:  Grandes volúmenes de texto, pero sin índices eficientes.
-			LONGTEXT: Para artículos, libros y documentos extensos.
-			TINYTEXT: Tamaño máximo de 255 caracteres aprox.
-		Números:
-			INT: Valores enteros únicamente.
-			DECIMAL(n_enteros, n_decimales): Precisión decimal.
+			VARCHAR(n): Textos cortos con indexaciï¿½n eficiente y un lï¿½mite determinado.
+			TEXT:  Grandes volï¿½menes de texto, pero sin ï¿½ndices eficientes.
+			LONGTEXT: Para artï¿½culos, libros y documentos extensos.
+			TINYTEXT: Tamaï¿½o mï¿½ximo de 255 caracteres aprox.
+		Nï¿½meros:
+			INT: Valores enteros ï¿½nicamente.
+			DECIMAL(n_enteros, n_decimales): Precisiï¿½n decimal.
 		Fechas y horas:
 			DATETIME: No cambia con la zona horaria.
 			TIMESTAMP: Se ajusta a la zona horaria del servidor.
-	Transformación de datos:
+	Transformaciï¿½n de datos:
 		CAST(columna AS CHAR): Convierte un tipo en otro siendo compatibles.
 		ROUND(valor_a_redondear, cantidad_de_decimales): Redondea valores decimales.
-		CONCAT(cadena1, cadena2… cadenaN): Concadena dos o más datos de texto.
+		CONCAT(cadena1, cadena2ï¿½ cadenaN): Concadena dos o mï¿½s datos de texto.
 	Constraints (restricciones a los campos):
 		NOT NULL: Evita valores nulos.
 		DEFAULT: Asigna un valor por defecto.
 		CHECK(campo condicion): Restringe valores posibles en una columna (no funcional en versiones anteriores a 8.0 en MySQL).
-		UNIQUE(columna): Garantiza que los valores sean únicos.
+		UNIQUE(columna): Garantiza que los valores sean ï¿½nicos.
 	Al establecer constraints como NULL, CHECK y UNIQUE sobre una tabla existente los registros deben cumplir sus normativas.
 	NOT NULL y DEFAULT emplean MODIFY COLUMN desde ALTER TABLE
 	CHECK Y UNIQUE su parte ADD CONSTRAINT seguido de un nombre para la constraint.
 	Eliminar constraint CHECK: DROP CHECK 	
 	Eliminar constraint UNIQUE: DROP CONSTRAINT
-	Generar un número aleatorio de punto flotante entre 0 y 1: RAND()
-	Redondear número al entero inferior más cercano: FLOOR()
-	Mostrar instrucción de creación de una tabla existente: SHOW CREATE TABLE tabla.
+	Generar un nï¿½mero aleatorio de punto flotante entre 0 y 1: RAND()
+	Redondear nï¿½mero al entero inferior mï¿½s cercano: FLOOR()
+	Mostrar instrucciï¿½n de creaciï¿½n de una tabla existente: SHOW CREATE TABLE tabla.
 
 Notas al pie:
-	El archivo con los scripts (para MySQL) se encuentra adjunto en este mismo directorio junto a mi solución propuesta para el último ejercicio “nivel extremo”.
+	El archivo con los scripts (para MySQL) se encuentra adjunto en este mismo directorio junto a mi soluciï¿½n propuesta para el ï¿½ltimo ejercicio ï¿½nivel extremoï¿½.
