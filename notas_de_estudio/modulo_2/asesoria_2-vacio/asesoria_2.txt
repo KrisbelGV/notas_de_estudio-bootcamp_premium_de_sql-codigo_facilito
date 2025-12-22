@@ -21,9 +21,9 @@ Breve repaso en puntos clave:
 	Algunos tips para identificar entidades son: Buscar sustantivos, ver atributos compartidos entre entidades, evitar datos repetidos, buscar identificadores únicos, constatar que las relaciones sean compatibles y enfocarse en áreas de fácil abordaje.
 	Extraído de la presentación, no la asesoría:
 		Tipos de relaciones:
-			1:1 (uno es a uno). Son útiles cuando algunos atributos de una entidad son opcionales.
-			1:N (uno es a muchos). Muy comunes en una relación de pertenencia.
-			N:N (muchos es a muchos). Refiere a cosas compartidas por un grupo.
+			1:1 (uno a uno). Son útiles cuando algunos atributos de una entidad son opcionales.
+			1:N (uno a muchos). Muy comunes en una relación de pertenencia.
+			N:N (muchos a muchos). Refiere a cosas compartidas por un grupo.
 		1:1 y 1:N emplean una llave primaria y una foránea, N:N dos de cada una.
 		Llaves primarias: Identificador único de cada registro.
 		Llaves foráneas: Un campo o varios que identifican un registro en otra tabla, estableciendo la relación (abordado en la siguiente clase).
@@ -37,5 +37,5 @@ Breve repaso en puntos clave:
 	Renombrar columna: RENAME COLUMN nombre_actual TO nuevo_nombre
 
 Notas al pie:
-
 	Los ejercicios resueltos durante la asesoría se encuentran adjuntos en este mismo directorio junto mi solución propuesta al “ejercicio para la casa” (actualizada en su nueva rama).
+
