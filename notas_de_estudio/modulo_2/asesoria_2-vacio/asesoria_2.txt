@@ -1,5 +1,5 @@
 Bootcamp Premium de SQL de Código Facilito.
-Modulo #2.
+Módulo #2.
 Asesoría #2.
 Profesor: Uriel Hernández.
 Estudiante: KrisbelGV.
@@ -38,4 +38,3 @@ Breve repaso en puntos clave:
 
 Notas al pie:
 	Los ejercicios resueltos durante la asesoría se encuentran adjuntos en este mismo directorio junto mi solución propuesta al “ejercicio para la casa” (actualizada en su nueva rama).
-
