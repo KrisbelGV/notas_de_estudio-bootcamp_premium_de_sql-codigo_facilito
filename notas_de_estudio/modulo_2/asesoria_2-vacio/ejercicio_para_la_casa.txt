@@ -15,6 +15,7 @@ Ejercicios de diseño de esquema.
 	Crea tablas con sus columnas.
 	Comparte la descripción de la tabla. */
 
+
 -- Crear base de datos soporte_bd
 CREATE DATABASE soporte_bd;
 
@@ -22,9 +23,11 @@ CREATE DATABASE soporte_bd;
 USE soporte_bd;
 
 
+-- Creacion de entidades
+
 -- Crear tabla clientes
 CREATE TABLE clientes(
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	cliente_id INT AUTO_INCREMENT PRIMARY KEY,
     nombre_completo VARCHAR(200),
     email VARCHAR(320) NOT NULL, -- Limite según la RFC 5321, sección 4.5.3.1.3
     telefono VARCHAR(15) NOT NULL -- Maximo internacional (UIT-T, norma E.164)
@@ -32,7 +35,7 @@ CREATE TABLE clientes(
 
 -- Crear tabla agentes
 CREATE TABLE agentes (
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	agente_id INT AUTO_INCREMENT PRIMARY KEY,
     tipo VARCHAR(6) CONSTRAINT tipo_valido CHECK (tipo IN('humano', 'bot')),
     equipo VARCHAR(100) NOT NULL
 );
@@ -42,13 +45,15 @@ CREATE TABLE agentes (
 	Posee una relacion N:N (dos llaves foraneas, una a 'clientes' y otra a 'agentes') 
 */
 CREATE TABLE tickets (
-	id INT AUTO_INCREMENT PRIMARY KEY, 
+	ticket_id INT AUTO_INCREMENT PRIMARY KEY, 
     cliente_id INT,
     agente_id INT,
+    fecha_apertura DATETIME DEFAULT NOW() CONSTRAINT fecha_apertura_valida CHECK (fecha_apertura > '2007-04-18 07:00:00'), -- Ejemplo de fecha de fundacion de la empresa
+    fecha_cierre DATETIME DEFAULT NULL CONSTRAINT fecha_cierre_valida CHECK (fecha_cierre > '2007-04-18 07:00:00'),
     estado VARCHAR(11) CONSTRAINT estado_valido CHECK (estado IN('abierto', 'en progreso', 'cerrado')) DEFAULT 'abierto',
     categoria VARCHAR(13) CONSTRAINT categoria_valido CHECK (categoria IN('tecnico', 'facturacion', 'funcionalidad', 'otro')),
-    FOREIGN KEY(cliente_id) REFERENCES clientes(id) ON DELETE CASCADE, 
-    FOREIGN KEY(agente_id) REFERENCES agentes(id)
+    FOREIGN KEY(cliente_id) REFERENCES clientes(cliente_id) ON DELETE CASCADE, -- De eliminarse un cliente elimina sus tickets asociados
+    FOREIGN KEY(agente_id) REFERENCES agentes(agente_id) ON DELETE SET NULL -- De eliminarse un agente setea su id como NULL mientras los administradores le asignan otro (caso este ejercicio)
 );
 
 /* 
@@ -56,11 +61,12 @@ CREATE TABLE tickets (
 	Posee una relacion 1:N (una llave foranea a 'tickets')
 */
 CREATE TABLE interacciones(
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	interacciones_id INT AUTO_INCREMENT PRIMARY KEY,
     ticket_id INT,
+    fecha DATETIME DEFAULT NOW() CONSTRAINT fecha_valida CHECK (fecha > '2007-04-18 07:00:00'),
     accion VARCHAR(500),
     canal VARCHAR(8) CONSTRAINT canal_valido CHECK (canal IN('correo', 'chat', 'llamada')) NOT NULL,
-    FOREIGN KEY(ticket_id) REFERENCES tickets(id) ON DELETE CASCADE
+    FOREIGN KEY(ticket_id) REFERENCES tickets(ticket_id) ON DELETE CASCADE -- Si se elimina un ticket elimina sus interacciones
 );
 
 
@@ -105,36 +111,55 @@ SELECT * FROM interacciones;
 
 -- Actualizar estado de los tickets
 UPDATE tickets
-SET estado = 'cerrado'
-WHERE id = 1;
+SET
+	estado = 'cerrado',
+    fecha_cierre = NOW()
+WHERE ticket_id = 1;
 
 UPDATE tickets
 SET estado = 'en progreso'
-WHERE id = 2;
+WHERE ticket_id = 2;
 
 -- Comprobar registros actualizados (para 'tickets')
 SELECT * FROM tickets;
 
 
+-- Uso de JOIN para unificar tablas
+
 -- Mostrar tablas tickets, clientes y agentes
 SELECT *
 FROM tickets
-INNER JOIN clientes ON tickets.cliente_id = clientes.id
-INNER JOIN agentes ON tickets.agente_id = agentes.id;
+JOIN clientes ON tickets.cliente_id = clientes.cliente_id
+JOIN agentes ON tickets.agente_id = agentes.agente_id;
 
 -- Obtener tablas interacciones y tickets
 SELECT *
 FROM interacciones
-INNER JOIN tickets ON interacciones.ticket_id = tickets.id;
+JOIN tickets ON interacciones.ticket_id = tickets.ticket_id;
 
 -- Presentar tickets de un cliente
 SELECT *
 FROM tickets
-INNER JOIN clientes ON tickets.cliente_id = clientes.id
-WHERE clientes.id = 2;
+JOIN clientes ON tickets.cliente_id = clientes.cliente_id
+WHERE clientes.cliente_id = 2;
 
 -- Señalar tickets de un agente
 SELECT *
 FROM tickets
-INNER JOIN agentes ON tickets.agente_id = agentes.id
-WHERE agentes.id = 2;
+JOIN agentes ON tickets.agente_id = agentes.agente_id
+WHERE agentes.agente_id = 2;
+
+
+-- Eliminar un agente como ejemplo (dentro de una transaccion)
+START TRANSACTION;
+	DELETE FROM agentes
+	WHERE agente_id = 1;
+ROLLBACK;
+
+-- Comprobar registros actualizados (para 'agentes')
+SELECT * FROM agentes;
+
+-- Indicar tickets sin agente asignado
+SELECT *
+FROM tickets
+WHERE agente_id IS NULL;
