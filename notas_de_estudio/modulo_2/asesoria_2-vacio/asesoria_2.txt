@@ -1,0 +1,38 @@
+Bootcamp Premium de SQL de Código Facilito.
+Modulo #2.
+Asesoría #2.
+Profesor: Uriel Hernández.
+Estudiante: KrisbelGV.
+
+Recursos:
+Clase grabada: https://codigofacilito.com/videos/introduccion-asesoria-2-2c7ca3cf-415f-42db-bfde-681eadb6f1d5
+Google drive: https://drive.google.com/drive/folders/15gyIc_UycBUK370hkwkhk9FMhDI-oIug
+
+Breve repaso en puntos clave:
+	Limitar un campo a dos decimales en SQLite: columna REAL, CHECK(columna = ROUND(columna, 1))
+	En SQLite a las columnas no se les asigna un tipo de dato sino uno afín.
+	Fines mantener uniformidad intenta convertirlo, siendo compatible, pero cede 	cualesquiera, diferente a otros.
+	El diseño de esquema refiere al diseño de las tablas y las relaciones de la BD, incluye esta misma, sus tablas, columnas, tipos de datos y constraints.
+	Seguir mejores prácticas tiene beneficios como: eliminar redundancia, garantizar consistencia, simplifica su manejo y estandariza los datos.
+	Al diseñar un esquema es importante: analizar los requisitos, identificar entidades, definir relaciones, determinar claves, normalizar, usar convenciones de nombre y refinar el esquema.
+	Una entidad es un tipo de persona, objeto o cosa que debe describirse en la BD.
+	Cada entidad posee propiedades, llamadas atributos, que la describen.
+	Toda instancia de una entidad debe ser identificable de manera única.
+	Algunos tips para identificar entidades son: Buscar sustantivos, ver atributos compartidos entre entidades, evitar datos repetidos, buscar identificadores únicos, constatar que las relaciones sean compatibles y enfocarse en áreas de fácil abordaje.
+	Extraído de la presentación, no la asesoría:
+		Tipos de relaciones:
+			1:1 Son útiles cuando algunos atributos de una entidad son opcionales.
+			1:N Muy comunes en una relación de pertenencia.
+		Llaves primarias: Identificador único de cada registro.
+		Llaves foráneas: Un campo o varios que identifican un registro en otra tabla, estableciendo la relación (abordado en la siguiente clase).
+	Las convenciones de nombre definen como deben ser nombradas las tablas ofreciendo un estándar, ya sea singulares capitalizadas, todo minúsculas u plurales.
+	Modificadores (cambian el comportamiento de la sentencia):
+		Crear o: CREATE OR
+			Remplazar tabla: REPLACE TABLE
+			Modificar tabla: ALTER TABLE
+		Crear tabla/bd si no existe: CREATE TABLE/DATABASE IF NOT EXISTS
+	Añadir varias columnas en una sola consulta: ADD columna1 TIPO, columna2 TIPO… columnaN TIPO;
+	Renombrar columna: RENAME COLUMN nombre_actual TO nuevo_nombre
+
+Notas al pie:
+	Los ejercicios resueltos durante la asesoría se encuentran adjuntos en este mismo directorio junto mi solución propuesta al “ejercicio para la casa” (pendiente revisión).
