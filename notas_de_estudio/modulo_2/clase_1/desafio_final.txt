@@ -9,15 +9,32 @@ Estudiante: KrisbelGV */
 USE tienda_db;
 
 
-/* Desafio final
-Reto #2: Encuentra los clientes que han realizado más de 2 pedidos y muestra cuántos han hecho. */
+-- Reto #2: Encuentra los clientes que han realizado más de 2 pedidos y muestra cuántos han hecho.
+
+-- Repitiendo la subconsulta en SELECT para obtener el numero de pedidos (nada optimo)
 SELECT nombre,
 	(SELECT COUNT(*)
-	FROM pedidos p
-	GROUP BY cliente_id
-	HAVING COUNT(*) > 2 AND c.id = p.cliente_id) AS numero_pedidos
+    FROM pedidos p
+    GROUP BY cliente_id
+    HAVING COUNT(*) > 2 AND c.id = p.cliente_id) AS numero_pedidos
 FROM clientes c
 WHERE id IN (SELECT pedidos.cliente_id
 			FROM pedidos
             GROUP BY cliente_id
             HAVING COUNT(*) > 2);
+
+-- Usando un JOIN (abordado en las clases #2 y #3 del modulo #3)
+SELECT c.nombre, COUNT(*) AS numero_pedidos
+FROM clientes c
+JOIN pedidos p ON c.id = p.cliente_id
+GROUP BY p.cliente_id
+HAVING numero_pedidos > 2;
+
+-- Empleando una variable (no visto en las clases al momento)
+SET @numero_pedidos = (0);
+SELECT nombre, @numero_pedidos
+FROM clientes c
+WHERE id IN (SELECT pedidos.cliente_id
+	    FROM pedidos
+            GROUP BY cliente_id
+            HAVING (@numero_pedidos := COUNT(*)) > 2);
