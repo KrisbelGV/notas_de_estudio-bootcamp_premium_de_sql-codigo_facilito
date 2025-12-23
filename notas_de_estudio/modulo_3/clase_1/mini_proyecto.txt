@@ -47,18 +47,47 @@ CREATE TABLE pedidos (
     pedido_id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT,
     libro_id INT,
-    fecha_prestamo DATE DEFAULT (CURDATE()),
-    fecha_devolucion DATE DEFAULT ((CURDATE()) + INTERVAL 6 MONTH), -- Fecha actual sumado un mes (visto en "Condiciones de consulta", clase #1 modulo 4)
-    CONSTRAINT chk_fecha_prestamo_entrega_coincidientes CHECK (fecha_devolucion = fecha_prestamo + INTERVAL 6 MONTH), -- Verificar plazo valido (p. ej. 6 meses)
+    fecha_prestamo DATE DEFAULT NULL,
+    fecha_devolucion DATE DEFAULT NULL,
     FOREIGN KEY(usuario_id) REFERENCES usuarios(usuario_id) ON DELETE CASCADE,
     FOREIGN KEY(libro_id) REFERENCES libros(libro_id)
 );
 
 
+/* ADVERTENCIA: Lineas 54 a 76 podrian inducir un error, mejor saltar si tiene dudas
+Crear TRIGGER con fecha de pedidos automatica (definitivamnte no abordado aun en las clases)
+Por alguna razon el motor ejecuta toda linea previa la actual, para que funcione deben comentarse 
+No pude encontrar ninguna explicacion ni correccion al momento, mi version de MySQL es 8.4.7 */
+DELIMITER // 
+CREATE TRIGGER fecha_pedidos_automatica
+	BEFORE INSERT
+	ON pedidos
+	FOR EACH ROW
+BEGIN
+
+	-- INSERT INTO prueba(fecha_prestamo , fecha_devolucion) VALUES(NEW.fecha_prestamo, NEW.fecha_devolucion);
+    
+	IF NEW.fecha_prestamo IS NULL AND NEW.fecha_devolucion IS NULL THEN
+		SET NEW.fecha_prestamo = NOW();
+        SET NEW.fecha_devolucion = (NEW.fecha_prestamo + INTERVAL 6 MONTH);
+        
+	ELSEIF NEW.fecha_prestamo IS NULL THEN
+	SET NEW.fecha_prestamo = (NEW.fecha_devolucion - INTERVAL 6 MONTH);    
+        
+	ELSEIF NEW.fecha_devolucion IS NULL OR NEW.fecha_devolucion != (NEW.fecha_prestamo + INTERVAL 6 MONTH) THEN
+		SET NEW.fecha_devolucion = (NEW.fecha_prestamo + INTERVAL 6 MONTH);
+        
+    END IF;
+    
+END//
+DELIMITER ;
+
+
 -- Insertar usuarios
 INSERT INTO usuarios(nombre, email)
 VALUES ('Molly', 'molly@email.com'),
-('Jorge', 'jorge@email.com');
+('Jorge', 'jorge@email.com'),
+('Pablo', 'pablo@email.com');
 
 -- Comprobar nuevos usuarios
 SELECT * FROM usuarios;
@@ -77,24 +106,25 @@ SELECT * FROM libros;
 
 -- Con fechas
 INSERT INTO pedidos(usuario_id, libro_id, fecha_prestamo, fecha_devolucion)
-VALUES (1, 1, '2025-12-07', '2026-06-07'),
-(2, 2, '2025-12-02', '2026-06-02');
+VALUES (1, 1, '2025-12-07', '2026-06-07');
 
--- No validas (producira error dada la constraint)
+-- Gestionadas por el trigger
+
+-- No validas
 INSERT INTO pedidos(usuario_id, libro_id, fecha_prestamo, fecha_devolucion)
-VALUES (1, 2, '2025-12-03', '2026-12-03');
+VALUES (1, 2, '2025-12-02', '2026-12-02');
 
--- Solo prestamo (mismo error)
+-- Solo prestamo
 INSERT INTO pedidos(usuario_id, libro_id, fecha_prestamo)
-VALUES (1, 2, '2025-12-03');
+VALUES (2, 1, '2025-12-07');
 
--- Solo devolucion (mismo error)
+-- Solo devolucion
 INSERT INTO pedidos(usuario_id, libro_id, fecha_devolucion)
-VALUES (1, 2, '2026-12-03');
+VALUES (2, 2, '2026-06-07');
 
 -- Sin fechas
 INSERT INTO pedidos(usuario_id, libro_id)
-VALUES (1, 2);
+VALUES (3, 1);
 
 -- Comprobar nuevos pedidos
 SELECT * FROM pedidos;
