@@ -19,20 +19,24 @@ Objetivo:
 Relacionar correctamente prestamos con usuarios y libros usando FOREIGN KEYS
 Definir ON DELETE CASCADE en usuario_id. */
 
+
 -- Crear BD Biblioteca
 CREATE DATABASE biblioteca_db;
+
+-- Seleccionar la BD creada
 USE biblioteca_db;
+
 
 -- Crear tabla usuarios
 CREATE TABLE usuarios(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE
 );
 
 -- Crear tabla libros
 CREATE TABLE libros (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    libro_id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100),
     autor VARCHAR(100),
     año_publicacion DATE
@@ -40,46 +44,77 @@ CREATE TABLE libros (
 
 -- Crear tabla pedidos
 CREATE TABLE pedidos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT,
     libro_id INT,
-    fecha_prestamo DATE,
-    fecha_devolucion DATE,
-    FOREIGN KEY(usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
-    FOREIGN KEY(libro_id) REFERENCES libros(id)
+    fecha_prestamo DATE DEFAULT (CURDATE()),
+    fecha_devolucion DATE DEFAULT ((CURDATE()) + INTERVAL 6 MONTH), -- Fecha actual sumado un mes (visto en "Condiciones de consulta", clase #1 modulo 4)
+    CONSTRAINT chk_fecha_prestamo_entrega_coincidientes CHECK (fecha_devolucion = fecha_prestamo + INTERVAL 6 MONTH), -- Verificar plazo valido (p. ej. 6 meses)
+    FOREIGN KEY(usuario_id) REFERENCES usuarios(usuario_id) ON DELETE CASCADE,
+    FOREIGN KEY(libro_id) REFERENCES libros(libro_id)
 );
+
 
 -- Insertar usuarios
 INSERT INTO usuarios(nombre, email)
 VALUES ('Molly', 'molly@email.com'),
 ('Jorge', 'jorge@email.com');
 
+-- Comprobar nuevos usuarios
 SELECT * FROM usuarios;
+
 
 -- Insertar libros
 INSERT INTO libros(titulo, autor, año_publicacion)
 VALUES ('El principito', 'Saint-Exupery', '1943-04-06'),
 ('Don Quijote de la Mancha', 'Cervantes', '1605-01-09');
 
+-- Comprobar nuevos libros
 SELECT * FROM libros;
 
--- Insertar pedidos
-INSERT INTO pedidos(usuario_id, libro_id, fecha_prestamo, fecha_devolucion)
-VALUES (1, 1, '2025-12-07', '2026-12-07'),
-(2, 2, '2025-12-02', '2026-12-02');
 
+-- Insertar pedidos
+
+-- Con fechas
+INSERT INTO pedidos(usuario_id, libro_id, fecha_prestamo, fecha_devolucion)
+VALUES (1, 1, '2025-12-07', '2026-06-07'),
+(2, 2, '2025-12-02', '2026-06-02');
+
+-- No validas (producira error dada la constraint)
 INSERT INTO pedidos(usuario_id, libro_id, fecha_prestamo, fecha_devolucion)
 VALUES (1, 2, '2025-12-03', '2026-12-03');
 
+-- Solo prestamo (mismo error)
+INSERT INTO pedidos(usuario_id, libro_id, fecha_prestamo)
+VALUES (1, 2, '2025-12-03');
+
+-- Solo devolucion (mismo error)
+INSERT INTO pedidos(usuario_id, libro_id, fecha_devolucion)
+VALUES (1, 2, '2026-12-03');
+
+-- Sin fechas
+INSERT INTO pedidos(usuario_id, libro_id)
+VALUES (1, 2);
+
+-- Comprobar nuevos pedidos
 SELECT * FROM pedidos;
 
--- Eliminar un cliente;
 
+-- Eliminar un cliente (comprobar configuracion)
 SET AUTOCOMMIT = 0;
+
 START TRANSACTION;
+
 	-- Eliminar un usuario con pedido(s)
     DELETE FROM usuarios
-    WHERE id = 1;
+    WHERE usuario_id = 1;
+    
 	-- Comprobar cambios
+    SELECT * FROM usuarios;
     SELECT * FROM pedidos;
+    
 ROLLBACK; -- Deshacer cambios
+
+-- Comprobar restauracion de datos
+SELECT * FROM usuarios;
+SELECT * FROM pedidos;
