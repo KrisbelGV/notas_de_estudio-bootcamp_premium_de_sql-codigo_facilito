@@ -34,5 +34,4 @@ Breve repaso en puntos clave:
 
 Notas al pie:
 	El archivo con los ejercicios de la clase se encuentra adjunto en este mismo directorio.
-
 	Los símbolos de los operadores fueron extraídos de la presentación, en la herramienta de visualización utilice sus equivalencias.
