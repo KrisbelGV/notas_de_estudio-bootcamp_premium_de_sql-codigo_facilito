@@ -1,8 +1,8 @@
-Bootcamp Premium de SQL de CÛdigo Facilito.
-MÛdulo: #3.
+Bootcamp Premium de SQL de C√≥digo Facilito.
+M√≥dulo: #3.
 Clase: #1.
-TÌtulo: Llaves primarias y for·neas.
-Docente: Keyla Dolores.
+T√≠tulo: Llaves primarias y for√°neas.
+Profesor: Keyla Dolores.
 Estudiante: KrisbelGV.
 
 Recursos:
@@ -10,25 +10,25 @@ Clase grabada: https://codigofacilito.com/videos/introduccion-llaves-primarias-y
 Google drive: https://drive.google.com/drive/folders/18BylmjnQi6vW0KPMLWW_B6-8rl8wUMDG
 
 Breve repaso en puntos clave:
-	Una PRIMARY KEY (en espaÒol ìllave primariaî) es un identificador ˙nico de una tabla, el cual no debe repetirse ni ser NULL.
+	Una PRIMARY KEY (en espa√±ol ‚Äúllave primaria‚Äù) es un identificador √∫nico de una tabla, el cual no debe repetirse ni ser NULL.
 	Existen dos tipos:
 		Simples: campo TIPO PRIMARY KEY
-		Compuestas (por dos o m·s columnas): PRIMARY KEY(columna1, columna2Ö columnaN)
-	Una FOREING KEY (en espaÒol ìllave for·neaî) vincula dos tablas, relacionando un campo con la PRIMARY KEY de otra tabla.
+		Compuestas (por dos o m√°s columnas): PRIMARY KEY(columna1, columna2‚Ä¶ columnaN)
+	Una FOREING KEY (en espa√±ol ‚Äúllave for√°nea‚Äù) vincula dos tablas, relacionando un campo con la PRIMARY KEY de otra tabla.
 	Su sintaxis: FOREIGN KEY (campo) REFERENCES tabla(llave_primaria)
 	Una tabla puede relacionarse consigo si un registro depende de otro en la misma.
-	ConfiguraciÛn al eliminar (respecto FK):
+	Configuraci√≥n al eliminar (respecto FK):
 		Borrar los registros: ON DELETE CASCADE
 		Setear a NULL: ON DELETE SET NULL
-		Restringir la acciÛn (existiendo dependencias): ON DELETE RESTRICT En MySQL es su valor por defecto si lo obviamos.
-	CorrecciÛn a errores comunes:
+		Restringir la acci√≥n (existiendo dependencias): ON DELETE RESTRICT En MySQL es su valor por defecto si lo obviamos.
+	Correcci√≥n a errores comunes:
 		Error Code 1062: Entrada duplicada, requisa los datos.
-		Error Code 1451: Debes eliminar su for·nea primero.
-		Error Code 1452: VerifÌcala antes en la principal.
-	En BBDD con datos masivos las FK pueden hacer que las consultas sean m·s lentas.
-	Es posible prescindir de su uso manejando la integridad desde cÛdigo externo.
-	En una transacciÛn, MySQL bloquea las operaciones hasta culminar si incumplen las configuraciones de una FK.
-	Asegurarnos que estamos en una transacciÛn segura (exige usar COMMIT O 	ROLLBACK): SET AUTOCOMMIT = 0;
+		Error Code 1451: Debes eliminar su for√°nea primero.
+		Error Code 1452: Verif√≠cala antes en la principal.
+	En BBDD con datos masivos las FK pueden hacer que las consultas sean m√°s lentas.
+	Es posible prescindir de su uso manejando la integridad desde c√≥digo externo.
+	En una transacci√≥n, MySQL bloquea las operaciones hasta culminar si incumplen las configuraciones de una FK.
+	Asegurarnos que estamos en una transacci√≥n segura (exige usar COMMIT O 	ROLLBACK): SET AUTOCOMMIT = 0;
 	Puntos de guardado (en transacciones):
 		Crear un punto de guardado: SAVEPOINT nombre;
 		Regresar al punto de guardado: ROLLBACK to nombre;
