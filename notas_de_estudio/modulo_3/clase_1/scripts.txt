@@ -1,0 +1,255 @@
+﻿/* Bootcamp Premium de SQL - Codigo Facilito
+Scripts de la clase #1, modulo #3
+Llaves primarias y foraneas
+Impartido por: Keyla Dolores
+Comentarios: Profesor (ediciones de KrisbelGV)
+Derechos a su autor */
+
+
+-- Crear una nueva BD para la clase
+CREATE DATABASE clase7_db; -- Clase #7 sin contar las esesorias ni la division en modulos
+
+-- Seleccionar la BD creada
+USE clase7_db;
+
+
+-- Crear tabla clientes con PRIMARY KEY
+CREATE TABLE clientes (
+	id INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE
+);
+
+-- Insertar registro en la tabla clientes
+INSERT INTO clientes (id, nombre, email)
+VALUES (1, 'Ana Pérez', 'ana@email.com');
+
+-- Comprobar nuevo registro en la tabla clientes
+SELECT * FROM clientes;
+
+-- Insertar registro con el mismo id (producira error por valor duplicado)
+INSERT INTO clientes (id, nombre, email)
+VALUES (1, 'Carlos Gómez', 'carlos@email.com');
+-- Error Code: 1062. Duplicate entry '1' for key 'clientes.PRIMARY'
+
+
+-- Crear tabla inscripciones con PRIMARY KEY compuesta
+CREATE TABLE inscripciones (
+	estudiante_id INT,
+    curso_id INT,
+    fecha DATE,
+    PRIMARY KEY (estudiante_id, curso_id)
+);
+
+-- Insertar registros validos en la tabla inscripciones
+INSERT INTO inscripciones (estudiante_id, curso_id, fecha)
+VALUES (1, 101, '2024-02-20');
+
+-- Insertar segundo registro del mismo estudiante pero diferente curso en la tabla inscripciones
+INSERT INTO inscripciones (estudiante_id, curso_id, fecha)
+VALUES (1, 102, '2024-02-21');
+
+-- Comprobar nuevos registros en la tabla inscripciones
+SELECT * FROM inscripciones;
+
+-- Insertar segundo registro del mismo estudiante e igual curso en la tabla inscripciones (producira error por valor duplicado)
+INSERT INTO inscripciones (estudiante_id, curso_id, fecha)
+VALUES (1, 102, '2024-02-27');
+-- Error Code: 1062. Duplicate entry '1-102' for key 'inscripciones.PRIMARY'
+
+
+-- Crear tabla de pedidos con FK
+CREATE TABLE pedidos (
+	id INT PRIMARY KEY,
+    cliente_id INT,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
+);
+
+-- Intentar insertar un pedido con un cliente inexistente (producira error al no encontrarlo)
+INSERT INTO pedidos (id, cliente_id)
+VALUES(1, 999);
+/* Error Code: 1452. Cannot add or update a child row: a foreign key constraint fails
+(`clase7_db`.`pedidos`, CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES
+`clientes` (`id`) ON DELETE CASCADE) */
+
+
+-- Caso #1: ON DELETE CASCADE
+CREATE TABLE pedidos_cascade (
+	id INT PRIMARY KEY,
+    cliente_id INT,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
+);
+
+-- Insertar registro en la tabla de clientes
+INSERT INTO clientes (id, nombre, email)
+VALUES (2, 'Carlos Gómez', 'carlitos@email.com');
+
+-- Insertar dos registros en la tabla pedidos_cascade
+INSERT INTO pedidos_cascade (id, cliente_id)
+VALUES (1, 1), (2, 2);
+
+-- Comprobar nuevos registros en la tabla pedidos_cascade
+SELECT * FROM pedidos_cascade;
+
+/* Eliminar registro con id #1 de la tabla clientes (temporalente)
+Difiriendo reinsertar el valor manualmente, dejara la tabla secundaria intacta*/
+START TRANSACTION;
+	DELETE FROM clientes
+	WHERE id = 1;
+ROLLBACK;
+
+-- Mostrar registros en la tabla clientes
+SELECT * FROM clientes;
+
+-- Mostrar registros en la tabla pedidos_cascade
+SELECT * FROM pedidos_cascade;
+
+
+-- Caso #2: ON DELETE SET NULL
+CREATE TABLE pedidos_setnull (
+	id INT PRIMARY KEY,
+    cliente_id INT,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE SET NULL
+);
+
+-- Insertar dos registros en la tabla pedidos_setnull
+INSERT INTO pedidos_setnull (id, cliente_id)
+VALUES (1, 1), (2, 2);
+
+-- Comprobar nuevos registros en la tabla pedidos_setnull
+SELECT * FROM pedidos_setnull;
+
+-- Eliminar registro con id #2 de la tabla clientes (temporalente)
+START TRANSACTION;
+	DELETE FROM clientes
+	WHERE id = 2;
+ROLLBACK;
+
+-- Mostrar registros en la tabla clientes
+SELECT * FROM clientes;
+
+-- Mostrar registros en la tabla pedidos_cascade
+SELECT * FROM pedidos_setnull;
+
+
+-- Caso #3: ON DELETE RESTRICT
+CREATE TABLE pedidos_restrict (
+	id INT PRIMARY KEY,
+    cliente_id INT,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE RESTRICT
+);
+
+-- Insertar dos registros en la tabla pedidos_restrict
+INSERT INTO pedidos_restrict (id, cliente_id)
+VALUES (1, 1), (2, 2);
+
+-- Comprobar nuevos registros en la tabla pedidos_restrict
+SELECT * FROM pedidos_restrict;
+
+-- Eliminar registro con id #1 de la tabla clientes (producira error dada la FK)
+DELETE FROM clientes
+WHERE id = 1;
+/* Error Code: 1451. Cannot delete or update a parent row: a foreign key constraint fails
+(`clase7_db`.`pedidos_restrict`, CONSTRAINT `pedidos_restrict_ibfk_1` FOREIGN KEY (`cliente_id`)
+REFERENCES `clientes` (`id`) ON DELETE RESTRICT) */
+
+
+-- Crear tabla de ejemplo de errores (contiene una FK)
+CREATE TABLE pedidos_error (
+	id INT PRIMARY KEY,
+    cliente_id INT,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+);
+
+-- Insertar un registro en la tabla pedidos cuya foranea no existe en la tabla clientes (producira error)
+INSERT INTO pedidos_error (id, cliente_id)
+VALUES (1, 20);
+/* Error Code: 1452. Cannot add or update a child row: a foreign key constraint fails
+(`clase7_db`.`pedidos_error`, CONSTRAINT `pedidos_error_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`)) */
+
+-- Insertar dos registros en la tabla pedidos_error
+INSERT INTO pedidos_error (id, cliente_id)
+VALUES (1, 1), (2, 2);
+
+-- Comprobar nuevos registros en la tabla pedidos_error
+SELECT * FROM pedidos_error;
+
+-- Eliminar registro con id #1 de la tabla clientes (por defecto su configuracion es ON DELETE RESTRICT)
+DELETE FROM clientes
+WHERE id = 1;
+/* Error Code: 1451. Cannot delete or update a parent row: a foreign key constraint fails
+(`clase7_db`.`pedidos_restrict`, CONSTRAINT `pedidos_restrict_ibfk_1` FOREIGN KEY (`cliente_id`)
+REFERENCES `clientes` (`id`) ON DELETE RESTRICT) */
+
+
+-- Asegurarnos de que estamos en una transaccion segura
+SET AUTOCOMMIT = 0;
+
+
+START TRANSACTION; -- Iniciar la transaccion
+
+	-- Insertar un nuevo cliente
+	INSERT INTO clientes (id, nombre)
+	VALUES (10, 'Cliente Temporal');
+
+	-- Insertar un pedido asociado a ese cliente
+	INSERT INTO pedidos (id, cliente_id)
+	VALUES (100, 10);
+
+	-- Verificar que los datos existen en la seción actual
+	SELECT * FROM clientes WHERE id = 10;
+	SELECT * FROM pedidos WHERE cliente_id = 10;
+
+COMMIT; -- Confirmar
+ROLLBACK; -- Retractarse
+
+
+START TRANSACTION;
+
+	-- Insertar registro en la tabla clientes
+	INSERT INTO clientes (id, nombre)
+	VALUES (11, 'Cliente valido');
+
+	-- Mostrar registros de la tabla clientes
+	SELECT * FROM clientes;
+
+	-- Insertar un registro en la tabla pedidos cuya foranea no existe en la tabla clientes (producira error)
+	INSERT INTO pedidos (id, cliente_id)
+	VALUES (101, 9999);
+	/* Error Code: 1452. Cannot add or update a child row: a foreign key constraint fails
+	(`clase7_db`.`pedidos`, CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES
+	`clientes` (`id`) ON DELETE CASCADE)*/
+
+	-- Comprobar que el nuevo registro en clientes aun existe
+	SELECT * FROM clientes
+	WHERE id = 11;
+
+ROLLBACK; -- Deshacer los cambios
+
+-- Comprobar que el nuevo registro en clientes ya no existe
+SELECT * FROM clientes
+WHERE id = 11;
+
+
+START TRANSACTION;
+
+	-- Insertar registro en la tabla clientes
+	INSERT INTO clientes (id, nombre)
+	VALUES (12, 'Cliente parcial');
+    
+SAVEPOINT antes_del_pedido; -- Crear punto de guardado
+
+	-- Insertar un pedido asociado a ese cliente
+	INSERT INTO pedidos (id, cliente_id)
+	VALUES (102, 12);
+    
+    -- Verificar que los datos se guardaron
+	SELECT * FROM clientes WHERE id = 12;
+	SELECT * FROM pedidos WHERE cliente_id = 12;
+    
+ROLLBACK TO antes_del_pedido; -- Volver al punto de guardado
+COMMIT; -- Confirmar cambios del punto de guardado
+
+-- Verificar cuales datos existen en la secion actual
+SELECT * FROM clientes WHERE id = 12;
+SELECT * FROM pedidos WHERE cliente_id = 12;

@@ -1,0 +1,37 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo: #3.
+Clase: #1.
+Título: Llaves primarias y foráneas.
+Docente: Keyla Dolores.
+Estudiante: KrisbelGV.
+
+Recursos:
+Clase grabada: https://codigofacilito.com/videos/introduccion-llaves-primarias-y-foraneas
+Google drive: https://drive.google.com/drive/folders/18BylmjnQi6vW0KPMLWW_B6-8rl8wUMDG
+
+Breve repaso en puntos clave:
+	Una PRIMARY KEY (en español “llave primaria”) es un identificador único de una tabla, el cual no debe repetirse ni ser NULL.
+	Existen dos tipos:
+		Simples: campo TIPO PRIMARY KEY
+		Compuestas (por dos o más columnas): PRIMARY KEY(columna1, columna2… columnaN)
+	Una FOREING KEY (en español “llave foránea”) vincula dos tablas, relacionando un campo con la PRIMARY KEY de otra tabla.
+	Su sintaxis: FOREIGN KEY (campo) REFERENCES tabla(llave_primaria)
+	Una tabla puede relacionarse consigo si un registro depende de otro en la misma.
+	Configuración al eliminar (respecto FK):
+		Borrar los registros: ON DELETE CASCADE
+		Setear a NULL: ON DELETE SET NULL
+		Restringir la acción (existiendo dependencias): ON DELETE RESTRICT En MySQL es su valor por defecto si lo obviamos.
+	Corrección a errores comunes:
+		Error Code 1062: Entrada duplicada, requisa los datos.
+		Error Code 1451: Debes eliminar su foránea primero.
+		Error Code 1452: Verifícala antes en la principal.
+	En BBDD con datos masivos las FK pueden hacer que las consultas sean más lentas.
+	Es posible prescindir de su uso manejando la integridad desde código externo.
+	En una transacción, MySQL bloquea las operaciones hasta culminar si incumplen las configuraciones de una FK.
+	Asegurarnos que estamos en una transacción segura (exige usar COMMIT O 	ROLLBACK): SET AUTOCOMMIT = 0;
+	Puntos de guardado (en transacciones):
+		Crear un punto de guardado: SAVEPOINT nombre;
+		Regresar al punto de guardado: ROLLBACK to nombre;
+
+Notas al pie:
+	El archivo con los scripts (para MySQL) se encuentra adjunto en este mismo directorio.
