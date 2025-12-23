@@ -20,7 +20,7 @@ Descargo de responsabilidad y condiciones de uso
 
 - La información aquí suministrada consiste en un vistazo general (no detallado) a los temas propuestos y desarrollados por el programa.
 
-- Puede contener errores ortográficos, sintácticos, definiciones ambiguas u uso de terminología incorrecta.
+- Puede contener errores ortográficos, sintácticos, uso de terminología ambigua, malas prácticas u lógica dudosa.
 
 - En medida de lo posible busco mantenerlo certero y actualizado, agradeciendo recibir feedback.
 
