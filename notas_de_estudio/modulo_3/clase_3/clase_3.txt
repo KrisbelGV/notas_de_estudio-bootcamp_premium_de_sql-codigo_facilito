@@ -1,0 +1,99 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo: #3.
+Clase: #3.
+Título: SQL en relaciones.
+Profesor: Carlos Haro.
+Estudiante: KrisbelGV.
+
+Recursos:
+Clase grabada: https://codigofacilito.com/videos/introduccion-sql-en-relaciones
+Google drive: https://drive.google.com/drive/folders/17NW17hxeoDdCX6ljUWQXU8HVEhFTP9ny
+
+Breve repaso en puntos clave:
+	El álgebra relacional es un conjunto de operaciones estandarizadas sobre relaciones
+	Una relación es una representación abstracta que conecta dominios.
+	Se implementaron en un inicio en el lenguaje QUEL, evolucionado a SEQUEL, hoy SQL.
+	Tabla comparativa (algebra relacional y SQL):
+	+----------------------------------+---------------------+-----------+------------+--------------+
+	| Operación del álgebra relacional | Producto cartesiano | Selección | Proyección | Natural Join |
+	+----------------------------------+---------------------+-----------+------------+--------------+
+	| Descripción			   | Combinación de las	 | Filtra    | Selecciona | Combinación  |
+	|				   | filas de una	 | filas en  | columnas   | de filas con |
+	|				   | relación con otra   | una tabla |		  | atributos    |
+	|				   |			 |	     |		  | en común	 |
+	+----------------------------------+---------------------+-----------+------------+--------------+
+	| Equivalencia en SQL		   | OUTER JOIN/	 | WHERE     | SELECT	  | JOIN	 |
+	|				   | CROSS JOIN		 |	     |		  | (INNER JOIN) |
+	+----------------------------------+---------------------+-----------+------------+--------------+
+	Tipos de Joins:
+				        __________        __________
+			               /+++++++++/\      /\         \
+			              /+++++++++/++\    /  \         \
+			             /+++++++++/++++\  /    \         \
+			            /+++++++++/++++++\/      \         \
+			            \+++++++++\++++++/\      /         /
+			             \+++++++++\++++/  \    /         /
+			              \+++++++++\++/    \  /         /
+			               \+++++++++\/      \/_________/
+					¯¯¯¯¯¯¯¯¯¯
+		LEFT JOIN: Mantiene los elementos de LEFT sumado los coincidentes de RIGTH.
+			Sintaxis:
+				SELECT *
+				FROM tabla1
+				LEFT JOIN tabla2
+				ON tabla1.campo = tabla2.campo;
+
+				        __________        __________
+			               /	 /\      /\+++++++++\
+			              /		/  \    /++\+++++++++\
+			             /	       /    \  /++++\+++++++++\
+			            /	      /      \/++++++\+++++++++\
+			            \	      \      /\++++++/+++++++++/
+			             \	       \    /  \++++/+++++++++/
+			              \         \  /    \++/+++++++++/
+			               \_________\/      \/+++++++++/
+							  ¯¯¯¯¯¯¯¯¯¯
+		RIGTH JOIN: Mantiene los elementos de RIGTH sumado los coincidentes de LEFT.
+			Sintaxis:
+				SELECT *
+				FROM tabla1
+				RIGTH JOIN tabla2;
+
+				        __________        __________
+			               /	 /\      /\         \
+			              /		/++\    /++\         \
+			             /	       /++++\  /++++\         \
+			            /	      /++++++\/++++++\         \
+			            \	      \++++++/\++++++/         /
+			             \	       \++++/  \++++/         /
+			              \         \++/    \++/         /
+			               \_________\/      \/_________/
+
+		(INNER) JOIN: Mantiene los elementos coincidentes en ambas tablas.
+			Sintaxis:
+				SELECT *
+				FROM Books
+				JOIN Authors;
+
+				        __________        __________
+			               /+++++++++/\      /\+++++++++\
+			              /+++++++++/++\    /++\+++++++++\
+			             /+++++++++/++++\  /++++\+++++++++\
+			            /+++++++++/++++++\/++++++\+++++++++\
+			            \+++++++++\++++++/\++++++/+++++++++/
+			             \+++++++++\++++/  \++++/+++++++++/
+			              \+++++++++\++/    \++/+++++++++/
+			               \+++++++++\/      \/+++++++++/
+					¯¯¯¯¯¯¯¯¯¯        ¯¯¯¯¯¯¯¯¯¯
+		OUTER/CROSS: Producto cartesiano de ambas tablas.
+			Sintaxis:
+				SELECT *
+				FROM tabla1
+				OUTER JOIN tabla2;
+
+	Explicar plan lógico (en DuckDB):
+		Simple: EXPLAIN consulta
+		En profundidad: EXPLAIN ANALIZE consulta
+
+Notas al pie:
+	El archivo con los scripts (para DuckDB) se encuentra adjunto en este mismo directorio.

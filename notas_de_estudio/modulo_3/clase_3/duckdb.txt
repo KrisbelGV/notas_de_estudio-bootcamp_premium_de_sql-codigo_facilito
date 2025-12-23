@@ -1,0 +1,62 @@
+-- Crear tabla Books
+CREATE TABLE Books (
+	BookID INT PRIMARY KEY,
+    Title VARCHAR(50),
+	AuthorID INT
+);
+
+
+-- Crear tabla Authors
+CREATE TABLE Authors(
+	AuthorID INT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL
+);
+
+-- Insertar registros a Books
+INSERT INTO Books(BookID, Title, AuthorID)
+VALUES(1, 'SQL Basics', 101),
+(2, 'Algebra Fun', 102),
+(3, 'Lost Bock', NULL);
+
+-- Insertar registros a Authors
+INSERT INTO Authors(AuthorID, Name)
+VALUES(101, 'Jane Doe'),
+(103, 'Jhon Smith');
+
+
+-- Obtener registros de la tabla Books y sus coincidientes en Authors
+SELECT *
+FROM Books
+LEFT JOIN Authors
+ON Books.AuthorID = Authors.AuthorID;
+
+-- Obtener registros de la tabla Authors y sus coincidientes en Books
+SELECT *
+FROM Books
+RIGHT JOIN Authors;
+
+-- Obtener registros coincidientes en Authors y Books indistintamente
+SELECT *
+FROM Books
+JOIN Authors;
+
+-- Obtener el producto cartesiano de las tablas Authors y Books
+SELECT *
+FROM Books
+CROSS JOIN Authors;
+
+
+-- Explicar plan logico del JOIN
+EXPLAIN SELECT * FROM Books INNER JOIN Authors ON Books.AuthorID = Authors.AuthorID;
+
+-- Con campos especificos
+EXPLAIN SELECT Title, Name FROM Books INNER JOIN Authors ON Books.AuthorID = Authors.AuthorID;
+
+-- Mostrar la consulta
+SELECT * FROM Books INNER JOIN Authors ON Books.AuthorID = Authors.AuthorID;
+
+-- Llendo a fondo
+EXPLAIN ANALYZE SELECT Title, Name FROM Books INNER JOIN Authors ON Books.AuthorID = Authors.AuthorID;
+
+-- Todos los campos
+EXPLAIN ANALYZE SELECT * FROM Books INNER JOIN Authors ON Books.AuthorID = Authors.AuthorID;
