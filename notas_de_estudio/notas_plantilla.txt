@@ -3,7 +3,7 @@ Esta es la plantilla que utilizo para escribir mis notas.
 Bootcamp Premium de SQL de Código Facilito.
 Módulo #
 Clase #
-T�tulo: 
+Título: 
 Profesor:
 Estudiante: 
 
@@ -11,4 +11,4 @@ Recursos:
 	Clase grabada: 
 	Google drive: 
 
-(Notas aqu�)
+(Notas aquí)

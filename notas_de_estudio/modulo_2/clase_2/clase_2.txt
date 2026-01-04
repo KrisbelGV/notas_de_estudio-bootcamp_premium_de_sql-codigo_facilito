@@ -1,7 +1,7 @@
 Bootcamp Premium de SQL de Código Facilito.
 Módulo: #2.
 Clase: #2.
-T�tulo: SQL para gesti�n de tablas.
+Título: SQL para gestión de tablas.
 Profesor: Keyla Dolores.
 Estudiante: KrisbelGV.
 
@@ -17,21 +17,21 @@ Breve repaso en puntos clave:
 		Cambiar nombres de columnas CHANGE COLUMN
 	Previo a eliminar es importante comprobar si existen dependencias.
 	Contar caracteres de una cadena: CHAR_LENGTH()
-	Desactivar restricci�n que protege de modificaciones a las tablas con datos sensibles a cambios: SET SESSION SQL_MODE = REPLACE(@@sql_mode, 'STRICT_TRANS_TABLES', '')
+	Desactivar restricción que protege de modificaciones a las tablas con datos sensibles a cambios: SET SESSION SQL_MODE = REPLACE(@@sql_mode, 'STRICT_TRANS_TABLES', '')
 	Eliminar tabla si existe: DROP TABLE IF EXISTS tabla
-	DELETE genera un log por cada eliminaci�n, el espacio liberado no se devuelve autom�ticamente al sistema.
+	DELETE genera un log por cada eliminación, el espacio liberado no se devuelve automáticamente al sistema.
 	TRUNCATE no genera log eliminando, resetea valores AUTO_INCREMENT y el espacio liberado se devuelve al sistema inmediatamente.
 	DROP elimina la estructura por completo sin retorno.
 	Transacciones:
-		Crear una transacci�n: START TRANSACTION
-	Restaurar datos de una transacci�n (si deja log): ROLLBACK
-	Confirmar cambios (sin vuelta atr�s): COMMIT
+		Crear una transacción: START TRANSACTION
+	Restaurar datos de una transacción (si deja log): ROLLBACK
+	Confirmar cambios (sin vuelta atrás): COMMIT
 	Archivos de logs (en MySQL):
 		* .ibd Contiene datos de la BDD
 		* .log Contiene logs de transacciones
-		Mostrar su ubicaci�n: SHOW VARIABLES LIKE �datadir�
+		Mostrar su ubicación: SHOW VARIABLES LIKE  datadir 
 		Mostrar nombre del archivo .log: SHOW VARIABLES LIKE 'general_log_file'
-	TIMESTAMP, DATETIME y DATE son diferentes tipos de dato para fecha y hora (abordados en la pr�xima clase).
+	TIMESTAMP, DATETIME y DATE son diferentes tipos de dato para fecha y hora (abordados en la próxima clase).
 	CURRENT_TIMESTAMP y NOW() obtienen la fecha y hora actuales.
 	Crear un backup de una tabla: CREATE TABLE backup AS SELECT * FROM tabla
 

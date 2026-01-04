@@ -1,7 +1,7 @@
 Bootcamp Premium de SQL de Código Facilito.
 Módulo #1.
 Clase #2.
-T�tulo: Preparaci�n del entorno de trabajo.
+Título: Preparación del entorno de trabajo.
 Profesor: Carlos Haro.
 Estudiante: KrisbelGV.
 
@@ -10,21 +10,21 @@ Recursos:
 	Google drive: https://drive.google.com/drive/folders/16Z6e6d9SkrkjFd32fTWAbrtwK1h_U4ed
 
 Breve repaso en puntos clave:
-	Siglas DBMS: Data Base Management System (en espa�ol �Sistema de Gesti�n de Bases de Datos�).
+	Siglas DBMS: Data Base Management System (en español Sistema de Gestión de Bases de Datos ).
 	Software encargado de procesar las sentencias SQL y cumple propiedades ACID. 
-	DuckDB es un DBMS SQL anal�tico OLAP e In-Process de alto rendimiento.
+	DuckDB es un DBMS SQL anal tico OLAP e In-Process de alto rendimiento.
 	Instalar DuckDB:
 		macOS: brew install duckdb
 		Linux:
 			Instalar el descompresor: sudo install unzip
 			Descargar el archivo y descomprimirlo: curl --fail --location --progress-bar --output duckdb.cli_linux-amd64.zip https://github.com/duckdb/duckdb/releases/download/v1.1.3/duckdb_cli-linux-amd64.zip && unzip duckdb_cli-linux-amd64.zip
 			./duckdb para ejecutarlo.
-	SQLite en una biblioteca que implementa un DBMS transaccional y aut�nomo.
+	SQLite en una biblioteca que implementa un DBMS transaccional y autónomo.
 	Instalar SQLite:
 		macOS: brew install sqlite No es necesario, viene preinstalado.
 		Linux: sudo apt install sqlite3
 	WSL es un subsistema de Windows que permite ejecutar un entorno GNU/Linux.
-	Instalar WSL: wsl --install Requiere crear un usuario y contrase�a tras finalizar.
+	Instalar WSL: wsl --install Requiere crear un usuario y contraseña tras finalizar.
 	Comandos en terminal (para Linux):
 		ls Listar archivos y directorios. .. retrocede un directorio.
 		cd Cambiar el directorio.
@@ -32,6 +32,6 @@ Breve repaso en puntos clave:
 		code . Abrir VS Code en directorio actual.
 
 Notas al pie:
-	En las pr�ximas clases se utilizar� principalmente MySQL para explicar la sintaxis.
-	El enlace al zip fue sobrescrito por su nueva direcci�n, hay m�s recientes. 
-	El c�digo usado en DuckDB se encuentra adjunto en este mismo directorio.
+	En las próximas clases se utilizar principalmente MySQL para explicar la sintaxis.
+	El enlace al zip fue sobrescrito por su nueva dirección, hay más recientes. 
+	El código usado en DuckDB se encuentra adjunto en este mismo directorio.
