@@ -12,9 +12,9 @@ Recursos:
 Breve repaso en puntos clave:
 	Operadores del álgebra relacional (sus símbolos, descripción y equivalencia en SQL):
 	+----------------------------------+--------------+---------------+------------------+-----------------+--------------+
-	| Operación del álgebra relacional | Unión        | Intersección  | Diferencia       | Excepción       | Renombrado   |
+	| Operación del álgebra relacional | Unión        | Intersección  | Diferencia       | Excepción (div.)| Renombrado   |
 	+----------------------------------+-------------.+---------------+------------------+-----------------+--------------+
-	| Símbolo                          | ∪            | ∩             | -                | %               | ρ            |
+	| Símbolo                          | ∪            | ∩            | -                | %               | ρ            |
 	+----------------------------------+--------------+---------------+------------------+-----------------+--------------+
 	| Descripción                      | Combinación  | Regresa las   | Regresa las      | Encuentra       | Renombra una |
 	|                                  | de todas     | filas comunes | filas que se     | valores en      | tabla o sus  |

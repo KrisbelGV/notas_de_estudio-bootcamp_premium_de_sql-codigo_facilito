@@ -88,7 +88,7 @@ WHERE AuthorID IN
 
 -- Pregunta: cuales borrowers pidieron todos los libros (prestados en la tabla Borrowers)?
 
-/* Con subconsultas (usando NOT EXISTS, operador diferencia)
+/* Con subconsultas (usando NOT EXISTS, operador division)
 Find borrowers who borrower every book in BookBorrowers */
 SELECT DISTINCT outer_borrows.BorrowerID
 FROM BookBorrowers outer_borrows
