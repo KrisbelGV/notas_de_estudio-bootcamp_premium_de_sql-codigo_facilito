@@ -16,7 +16,7 @@ Yo [KrisbelGV](https://github.com/KrisbelGV), su autora, soy nueva usando GitHub
 Descargo de responsabilidad y condiciones de uso
 -------------
 
-- Este repositorio no es ni pretende ser una guía de estudio, fuente oficial ni mucho menos remplazo a las clases y recursos impartidos por los docentes.
+- Este repositorio no es ni pretende ser una guía de estudio, fuente oficial ni mucho menos remplazo a las clases y recursos impartidos por los profesores.
 
 - La información aquí suministrada consiste en un vistazo general (no detallado) a los temas propuestos y desarrollados por el programa.
 
