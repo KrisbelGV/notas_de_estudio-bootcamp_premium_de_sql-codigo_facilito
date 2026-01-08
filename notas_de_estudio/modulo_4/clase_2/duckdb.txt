@@ -1,3 +1,10 @@
+/* Bootcamp Premium de SQL de Codigo Facilito
+Scripts de la clase #2, modulo #4
+SQL en Relaciones; Parte 2
+Impartido por: Carlos Haro
+Derechos a su autor */
+
+
 -- Ver nombres de las tablas
 SHOW tables;
 

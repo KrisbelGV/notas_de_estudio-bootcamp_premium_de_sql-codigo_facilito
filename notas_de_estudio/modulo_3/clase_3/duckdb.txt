@@ -1,3 +1,10 @@
+/* Bootcamp Premium de SQL de Codigo Facilito
+Scripts de la clase #3, modulo #3
+SQL en relaciones
+Impartido por: Carlos Haro
+Derechos a su autor */
+
+
 -- Crear tabla Books
 CREATE TABLE Books (
 	BookID INT PRIMARY KEY,
