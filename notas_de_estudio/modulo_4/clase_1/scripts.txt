@@ -41,7 +41,7 @@ WHERE fecha_pedido >= '2024-02-01' AND fecha_pedido <= '2024-02-29';
 Se usa una u otra a convenir (por rendimiento) */
 
 
--- Extraer aÃ±o, mes y dia (numerico y nombre) de una fecha
+-- Extraer año, mes y dia (numerico y nombre) de una fecha
 SELECT fecha_pedido,
 	YEAR(fecha_pedido) AS anio,
     MONTH(fecha_pedido) AS mes,
