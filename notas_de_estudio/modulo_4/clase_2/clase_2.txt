@@ -70,5 +70,6 @@ Breve repaso en puntos clave:
 		+---------------------------------------------------------------------------+
 
 Notas al pie:
-	El archivo con los scripts de DuckDB se encuentra adjunto en este mismo directorio.
+	El archivo con los scripts de DuckDB se encuentra adjunto en este mismo directorio sumado a sus ejercicios (en álgebra relacional).
+	La BD empleada puede consultarse en la herramienta de visualización “RelaX” mediante un gist creado por mi desde: https://dbis-uibk.github.io/relax/calc/gist/ac4a1de2bffbfa06db438d62aa8acb56
 	Descargar .txt o mostrar en "Raw" para una mejor visualización.
