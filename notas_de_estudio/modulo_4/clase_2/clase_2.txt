@@ -1,0 +1,74 @@
+﻿Bootcamp Premium de SQL de Código Facilito.
+Módulo: #4.
+Clase: #2.
+Título: SQL en Relaciones; Parte 2.
+Profesor: Carlos Haro.
+Estudiante: KrisbelGV.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/inotrduccion-sql-en-relaciones-parte-2
+	Google drive: https://drive.google.com/drive/folders/1ptbOka3tVy7iwlirg_1EJ6thYoekBnhr
+
+Breve repaso en puntos clave:
+	Operadores del álgebra relacional (sus símbolos, descripción y equivalencia en SQL):
+	+----------------------------------+--------------+---------------+------------------+-----------------+--------------+
+	| Operación del álgebra relacional | Unión        | Intersección  | Diferencia       | Excepción       | Renombrado   |
+	+----------------------------------+-------------.+---------------+------------------+-----------------+--------------+
+	| Símbolo                          | ∪            | ∩             | -                | %               | ρ            |
+	+----------------------------------+--------------+---------------+------------------+-----------------+--------------+
+	| Descripción                      | Combinación  | Regresa las   | Regresa las      | Encuentra       | Renombra una |
+	|                                  | de todas     | filas comunes | filas que se     | valores en      | tabla o sus  |
+	|                                  | las filas    | entre ambas   | encuentran en    | una tabla que   | columnas     |
+	|                                  | de tablas    | relaciones    | la primera tabla | se asocian con  | (atributos)  |
+	|                                  | (relaciones) |               | pero no en       | todos los       |              |
+	|                                  |              |               | la segunda       | valores en otra |              |
+	+----------------------------------+--------------+---------------+------------------+-----------------+--------------+
+	| Equivalencia en SQL              | UNION        | INTERSECT     | EXCEPT           | NOT EXISTS      | SELECT       |
+	|                                  |              |               |                  |                 | {columna}    |
+	|                                  |              |               |                  |                 | AS           |
+	|                                  |              |               |                  |                 | nuevo_nombre |
+	+----------------------------------+--------------+---------------+------------------+-----------------+--------------+
+	Representación "gráfica" de las operaciones:
+		+--------------------------------------------------------------------------.+
+		| Unión:                                                                    |
+		|                       Relacion A        Relacion B                        |
+		|                       __________        __________                        |
+		|                      /+++++++++/\      /\+++++++++\                       |
+		|                     /+++++++++/++\    /++\+++++++++\                      |
+		|                    /+++++++++/++++\  /++++\+++++++++\                     |
+		|                   /++Tupla++/+++++Tupla++++\++Tupla++\                    |
+		|                   \++++1++++\+++++++2++++++/++++3++++/                    |
+		|                    \+++++++++\++++/  \++++/+++++++++/                     |
+		|                     \+++++++++\++/    \++/+++++++++/                      |
+		|                      \+++++++++\/      \/+++++++++/                       |
+		|                       ¯¯¯¯¯¯¯¯¯¯        ¯¯¯¯¯¯¯¯¯¯                        |
+		+---------------------------------------------------------------------------+
+		| Intersección:                                                             |
+		|                       Relacion A        Relacion B                        |
+		|                       __________        __________                        |
+		|                      /         /\      /\         \                       |
+		|                     /         /++\    /++\         \                      |
+		|                    /         /++++\  /++++\         \                     |
+		|                   /  Tupla  /+++++Tupla++++\  Tupla  \                    |
+		|                   \    1    \+++++++2++++++/    3    /                    |
+		|                    \         \++++/  \++++/         /                     |
+		|                     \         \++/    \++/         /                      |
+		|                      \_________\/      \/_________/                       |
+		+---------------------------------------------------------------------------+
+		| Excepción:                                                                |
+		|                       Relacion A        Relacion B                        |
+		|                       __________        __________                        |
+		|                      /+++++++++/\      /\         \                       |
+		|                     /+++++++++/  \    /  \         \                      |
+		|                    /+++++++++/    \  /    \         \                     |
+		|                   /++Tupla++/     Tupla    \  Tupla  \                    |
+		|                   \++++1++++\       2      /    3    /                    |
+		|                    \+++++++++\    /  \    /         /                     |
+		|                     \+++++++++\  /    \  /         /                      |
+		|                      \+++++++++\/      \/_________/                       |
+		|                       ¯¯¯¯¯¯¯¯¯¯                                          |
+		+---------------------------------------------------------------------------+
+
+Notas al pie:
+	El archivo con los scripts de DuckDB se encuentra adjunto en este mismo directorio.
+	Descargar .txt o mostrar en "Raw" para una mejor visualización.
