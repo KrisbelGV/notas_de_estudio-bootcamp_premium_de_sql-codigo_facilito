@@ -1,6 +1,6 @@
-Bootcamp Premium de SQL de CÛdigo Facilito.
-MÛdulo #2.
-AsesorÌa #3.
+Bootcamp Premium de SQL de C√≥digo Facilito.
+M√≥dulo #3.
+Asesor√≠a #3.
 Profesor: Eduardo Ismael Garcia.
 Estudiante: KrisbelGV.
 
@@ -9,16 +9,17 @@ Recursos:
 	Google drive: https://drive.google.com/drive/folders/165UqjxRJR3B_UWdeXg67U2ZRTSm_4uJS
 
 Breve repaso en puntos clave:
-	Una buena convenciÛn al nombrar llaves es ìidî para primarias y ìreferencia_idî para for·neas.
-	Es aconsejable usar numÈricos incrementales para las llaves primarias.
-	Llaves for·neas deben ser del mismo tipo que su referencia.
+	Una buena convenci√≥n al nombrar llaves es ‚Äúid‚Äù para primarias y ‚Äúreferencia_id‚Äù para for√°neas.
+	Es aconsejable usar num√©ricos incrementales para las llaves primarias.
+	Llaves for√°neas deben ser del mismo tipo que su referencia.
 	Relaciones M:M no necesariamente deben poseer llaves primarias.
 	Las relaciones M:M siempre requieren de una tabla intermedia.
-	STORED PROCEDURES, FUNCTIONS y TRIGGERS expanden las funcionalidades del motor a la lÛgica requerida.
+	STORED PROCEDURES, FUNCTIONS y TRIGGERS expanden las funcionalidades del motor a la l√≥gica requerida.
 	No es posible reiniciar los IDs sin vaciar los registros de una tabla, para lo cual se emplea TRUNCATE.
-	Los intentos de inserciÛn fallidos descartar·n sus IDs.	
-	Los IDs poseen indexaciÛn predeterminada.
+	Los intentos de inserci√≥n fallidos descartar√°n sus IDs.	
+	Los IDs poseen indexaci√≥n predeterminada.
 	CooksBooks de SQL pueden ayudar a ejercitar conocimientos y optimizar consultas.
 
 Notas al pie:
-	Los scripts de la clase se encuentran en la siguiente direcciÛn: https://gist.github.com/eduardogpg/0a166294242ee6f50dda2b5381f1a173
+	Los scripts de la clase se encuentran en la siguiente direcci√≥n: https://gist.github.com/eduardogpg/0a166294242ee6f50dda2b5381f1a173
+	‚ÄúGr√°ficos‚Äù y sintaxis de LEFT/RIGTH ANTI JOIN a√±adidos a la clase 3, m√≥dulo 3.
