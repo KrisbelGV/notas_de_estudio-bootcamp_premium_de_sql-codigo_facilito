@@ -1,0 +1,24 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #2.
+Asesoría #3.
+Profesor: Eduardo Ismael Garcia.
+Estudiante: KrisbelGV.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-asesoria-3-1112f1ef-66bd-4bff-b3ff-db8233f0e87d
+	Google drive: https://drive.google.com/drive/folders/165UqjxRJR3B_UWdeXg67U2ZRTSm_4uJS
+
+Breve repaso en puntos clave:
+	Una buena convención al nombrar llaves es “id” para primarias y “referencia_id” para foráneas.
+	Es aconsejable usar numéricos incrementales para las llaves primarias.
+	Llaves foráneas deben ser del mismo tipo que su referencia.
+	Relaciones M:M no necesariamente deben poseer llaves primarias.
+	Las relaciones M:M siempre requieren de una tabla intermedia.
+	STORED PROCEDURES, FUNCTIONS y TRIGGERS expanden las funcionalidades del motor a la lógica requerida.
+	No es posible reiniciar los IDs sin vaciar los registros de una tabla, para lo cual se emplea TRUNCATE.
+	Los intentos de inserción fallidos descartarán sus IDs.	
+	Los IDs poseen indexación predeterminada.
+	CooksBooks de SQL pueden ayudar a ejercitar conocimientos y optimizar consultas.
+
+Notas al pie:
+	Los scripts de la clase se encuentran en la siguiente dirección: https://gist.github.com/eduardogpg/0a166294242ee6f50dda2b5381f1a173
