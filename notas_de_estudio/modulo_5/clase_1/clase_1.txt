@@ -1,0 +1,75 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo: #5.
+Clase: #1.
+Título: Optimización de Consultas.
+Profesor: Carlos Haro.
+Estudiante: KrisbelGV.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-optimizacion-de-consultas
+	Google drive: https://drive.google.com/drive/folders/1U7pr99xfK35bLoOGrXZEEjj11uPNmo20
+
+Breve repaso en puntos clave:
+	La indexación consiste en la construcción de una tabla hash (u otras estructuras de datos) sobre una columna especifica. 
+	Mejora la velocidad de ejecución de consultas.
+	Comandos/sintaxis básica de SQLite:
+		Abrir/crear BD: .open name.db
+		Activar cronometro: .timer ON
+		Explicar plan lógico:
+			Sencillo: EXPLAIN QUERY PLAN
+			Detallado: EXPLAIN
+		Salir: .exit
+	Crear índice: CREATE INDEX nombre ON tabla(campo1, campo2… campoN)
+	Eliminar índice: DROP INDEX nombre
+	La optimización de consultas depende de las características del motor y las técnicas empleadas.
+	Comparativa entre tipos de ENGINEs:
+	+------------------+----------------------+------------------------+
+	|                  | OLTP (Transaccional) | OLAP (Analítico)       |
+	+------------------+----------------------+------------------------+
+	| Carga de trabajo | Muchas lecturas/     | Muchas lecturas/       |
+	| de interés       | escrituras de filas  | escrituras de columnas |
+	+------------------+----------------------+------------------------+
+	| Volumen de       | Bajo                 | Alto                   |
+	| información      |                      |                        |
+	+------------------+----------------------+------------------------+
+	| Transacciones    | Muchas               | Pocas                  |
+	+------------------+----------------------+------------------------+
+	| Ejemplo          | SELECT Title FROM    | SELECT COUNT(*),       |
+	|                  | Books WHERE AuthorID | AVG(BookBorrowers),    |
+	|                  | = 3;                 | MEDIAN(//) FROM Books; |
+	+------------------+----------------------+------------------------+
+	| Almacenamiento y | Por filas            | Por columnas           |
+	| procesamiento    |                      |                        |
+	+------------------+----------------------+------------------------+
+	No existe un DBMS que maneje las dos cargas de trabajo al mismo tiempo de forma eficiente.
+	Técnicas de optimización de consultas:
+		OLTP (transaccional):
+			Crear un index (por ejemplo):
+			+-----------------+ +---------------+ +-----------------+
+			|     Authors     | | Hash function | |      Index      |
+			| +-------------+ | | +-----------+ | | +-------------+ |
+			| | Alice Brown |-|-|>|   A = 1   |-|-|>|      3      | |
+			| +-------------+ | | |   B = 2   | | | +-------------+ |
+			|                 | | |   1 + 2   | | |                 |
+			|                 | | +-----------+ | |                 |
+			| +-------------+ | | +-----------+ | | +-------------+ |
+			| |  Jane Doe   |-|-|>|   J = 10  |-|-|>|      14     | |
+			| +-------------+ | | |   D = 4   | | | +-------------+ |
+			|                 | | |  10 + 4   | | |                 |
+			|                 | | +-----------+ | |                 |
+			| +-------------+ | | +-----------+ | | +-------------+ |
+			| | John Smith  |-|-|>|   J = 10  |-|-|>|      29     | |
+			| +-------------+ | | |   S = 19  | | | +-------------+ |
+			|                 | | |  10 + 19  | | |                 |
+			|                 | | +-----------+ | |                 |
+			+-----------------+ +---------------+ +-----------------+
+			Query rewrite (no siempre funcional).
+		OLAP (analítica):
+			Predicate pushdown: “empuje” de las operaciones al menor nivel posible.
+			Query rewrite (no siempre funcional).
+	En SQL (como lenguaje declarativo) el orden de las operaciones no necesariamente puede influenciar al plan lógico.
+	El optimizador interno del motor es quien tiene la última palabra a la hora de elegir como ejecutar las consultas.
+	Usar el EXPLAIN del motor nos ayuda a distinguir si editar un query efectúa cambios en el proceso y resultado o no.
+
+Notas al pie:
+	El archivo con los scripts para SQLite/DuckDB se encuentra adjunto en este mismo directorio.

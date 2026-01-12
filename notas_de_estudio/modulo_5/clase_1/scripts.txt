@@ -1,0 +1,74 @@
+/* Bootcamp Premium de SQL de Codigo Facilito
+Scripts de la clase #1, modulo #5
+Optimización de Consultas
+Impartido por: Carlos Haro
+Derechos a su autor */
+
+-- Contar cantidad de registros en Books
+SELECT COUNT(*) FROM Books;
+
+-- Obtener los 10 primeros registros de Books
+SELECT * FROM Books LIMIT 10;
+
+
+-- Contar cantidad de registros en Books cuyo autor posea el id 4
+SELECT COUNT(*) FROM Books WHERE AuthorID = 4;
+
+-- Explicar plan logico (para SQLite)
+EXPLAIN QUERY PLAN SELECT COUNT(*) FROM Books WHERE AuthorID = 4;
+
+-- Explicar plan logico a detalle (para SQLite)
+EXPLAIN SELECT COUNT(*) FROM Books WHERE AuthorID = 4;
+
+
+-- Indexar los ids de Books
+CREATE INDEX idx_autorid ON Books(AuthorID);
+
+
+-- Explicar el nuevo plan logico
+EXPLAIN QUERY PLAN SELECT COUNT(*) FROM Books WHERE AuthorID = 4;
+
+-- Recontar cantidad de registros en Books cuyo autor posea el id 4
+SELECT COUNT(*) FROM Books WHERE AuthorID = 4;
+
+
+-- Eliminar index de Books
+DROP INDEX idx_autorid;
+
+
+-- Explicar plan logico (para DuckDB)
+EXPLAIN SELECT
+    Books.Title,
+    Authors.Name,
+    Publishers.PublisherName
+FROM Books
+JOIN Authors ON Books.AuthorID = Authors.AuthorID
+JOIN Publishers ON Books.BookID = Publishers.BookID;
+
+-- Con JOINs en orden inverso
+EXPLAIN SELECT
+    Books.Title,
+    Authors.Name,
+    Publishers.PublisherName
+FROM Books
+JOIN Publishers ON Books.BookID = Publishers.BookID
+JOIN Authors ON Books.AuthorID = Authors.AuthorID;
+
+
+-- Explicar plan logico (para SQLite)
+EXPLAIN QUERY PLAN SELECT
+    Books.Title,
+    Authors.Name,
+    Publishers.PublisherName
+FROM Books
+JOIN Authors ON Books.AuthorID = Authors.AuthorID
+JOIN Publishers ON Books.BookID = Publishers.BookID;
+
+-- Con JOINs en orden inverso
+EXPLAIN QUERY PLAN SELECT
+    Books.Title,
+    Authors.Name,
+    Publishers.PublisherName
+FROM Books
+JOIN Publishers ON Books.BookID = Publishers.BookID
+JOIN Authors ON Books.AuthorID = Authors.AuthorID;
