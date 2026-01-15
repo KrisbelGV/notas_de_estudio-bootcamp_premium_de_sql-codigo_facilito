@@ -1,6 +1,6 @@
 ﻿/* Bootcamp Premium de SQL de Codigo Facilito
-Asesoría #4
-Ejercicios
+Asesoría #5
+Ejercicios (asignados en la #4)
 Impartido por: Eduardo Ismael Garcia
 Estudiante: KrisbelGV */
 
@@ -171,4 +171,5 @@ WHERE users.status = "active" AND EXISTS(
         WHERE orders.id = payments.order_id
         AND payments.status = "completed"
     )
+
 );
