@@ -1,0 +1,174 @@
+﻿/* Bootcamp Premium de SQL de Codigo Facilito
+Asesoría #4
+Ejercicios
+Impartido por: Eduardo Ismael Garcia
+Estudiante: KrisbelGV */
+
+
+-- 6.- Obtener todos los usuarios que: Están activos, tienen al menos 2 órdenes pagadas, gastarón más de 500 dólares en 2024.
+
+-- Con INNER JOIN (muestra los datos empleados)
+SELECT
+	users.name AS nombre_del_usuario,
+    users.status AS estado_del_usuario,
+    orders.status AS estado_de_la_orden,
+    COUNT(orders.id) AS numero_de_ordenes,
+    SUM(orders.total) AS total_gastado_en_2024
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+WHERE users.status = "active"
+AND orders.status = "paid"
+AND YEAR(orders.created_at) = 2024
+GROUP BY users.id 
+HAVING numero_de_ordenes > 1
+AND total_gastado_en_2024 > 500
+ORDER BY total_gastado_en_2024 DESC;
+
+-- Con EXISTS (solo el nombre del usuario)
+SELECT users.name
+FROM users
+WHERE users.status = "active" AND EXISTS (
+	SELECT 1
+    FROM orders
+    WHERE orders.user_id = users.id
+    AND orders.status = "paid"
+    AND YEAR(orders.created_at) = 2024
+    GROUP BY users.id 
+	HAVING COUNT(orders.id) > 1
+    AND SUM(orders.total) > 500
+);
+
+
+-- 7.- Usuarios con pagos (plural) completados.
+SELECT
+	users.name AS nombre_del_usuario,
+    COUNT(payments.id) AS pagos_completados
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+INNER JOIN payments ON orders.id = payments.order_id
+WHERE payments.status = "completed"
+GROUP BY users.id
+HAVING pagos_completados > 1;
+
+
+-- 8.- Monto total pagado por usuario.
+SELECT
+	users.name AS nombre_del_usuario,
+    SUM(orders.total) AS monto_total
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+WHERE orders.status = "paid"
+GROUP BY users.id;
+
+
+-- 9.- Usuarios con al menos un pago completado.
+
+-- Con INNER JOIN
+
+-- Obtiene el nombre del usuario, id del pago y su respectivo estatus
+SELECT
+	users.name AS nombre_del_usuario,
+	payments.id AS pago_id,
+    payments.status estatus_del_pago
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+INNER JOIN payments ON orders.id = payments.order_id
+WHERE payments.status = "completed";
+
+-- Obtiene el nombre del usuario junto al numero de sus pagos completados
+SELECT
+	users.name AS nombre_del_usuario,
+    COUNT(payments.id) AS pagos_completados
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+INNER JOIN payments ON orders.id = payments.order_id
+WHERE payments.status = "completed"
+GROUP BY users.id;
+
+-- Con EXISTS (solo el nombre del usuario)
+SELECT users.name
+FROM users
+WHERE EXISTS (
+	SELECT 1
+    FROM orders
+    WHERE users.id = orders.user_id AND EXISTS(
+		SELECT 1
+        FROM payments
+        WHERE orders.id = payments.order_id
+		AND payments.status = "completed"
+    ) 
+);
+
+
+-- 10.- Obtén todos los usuarios activos que tuvieron al menos una orden en 2024, sin importar el estado de la orden.
+SELECT
+	users.name AS nombre_del_usuario,
+    users.status AS estado_del_usuario,
+    COUNT(orders.id) AS numero_de_ordenes
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+WHERE users.status = "active"
+AND YEAR(orders.created_at) = 2024
+GROUP BY users.id
+ORDER BY numero_de_ordenes DESC;
+
+
+-- 11.- Obtén todas las órdenes que NO tienen ningún pago asociado.
+
+-- Con LEFT JOIN (el uso del COALESCE esta de mas, solo enfatiza la existencia del NULL)
+SELECT
+	orders.*,
+    COALESCE(payments.id, "Sin pagos asociado")
+FROM orders
+LEFT JOIN payments ON orders.id = payments.order_id
+WHERE payments.id IS NULL;
+
+-- Con NOT EXISTS
+SELECT
+	orders.*,
+    "Sin pagos asociado" AS pagos_asociados
+FROM orders
+WHERE NOT EXISTS(
+	SELECT 1
+    FROM payments
+    WHERE payments.order_id = orders.id 
+);
+
+
+/* 12.- Obtén los usuarios que tengan al menos un pago completado, sin usar JOINs (Exists)
+Realizado en el ejercicio 9 */
+
+
+-- 13.- Obtén los usuarios activos que tengan al menos una orden pagada en 2024, y cuya orden tenga al menos un pago completado
+
+-- Con INNER JOIN (muestra los datos empleados)
+SELECT
+	users.name AS nombre_del_usuario,
+    users.status AS estado_del_usuario,
+    orders.status AS estado_de_la_orden,
+	payments.status AS estado_del_pago
+FROM users
+JOIN orders ON users.id = orders.user_id
+JOIN payments ON orders.id = payments.order_id
+WHERE users.status = "active"
+AND orders.status = "paid"
+AND YEAR(orders.created_at) = 2024
+AND payments.status = "completed"
+GROUP BY users.id;
+
+-- Con EXISTS
+SELECT users.name
+FROM users
+WHERE users.status = "active" AND EXISTS(
+	SELECT 1
+    FROM orders
+    WHERE orders.user_id = users.id
+    AND YEAR(orders.created_at) = 2024
+    AND orders.status = "paid"
+    AND EXISTS(
+		SELECT 1
+        FROM payments
+        WHERE orders.id = payments.order_id
+        AND payments.status = "completed"
+    )
+);
