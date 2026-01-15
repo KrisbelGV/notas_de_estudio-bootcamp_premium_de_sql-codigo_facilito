@@ -1,7 +1,7 @@
-Bootcamp Premium de SQL de CÛdigo Facilito.
-MÛdulo: #5.
+Bootcamp Premium de SQL de C√≥digo Facilito.
+M√≥dulo: #5.
 Clase: #2.
-TÌtulo: SQL Injection y data sanitization.
+T√≠tulo: SQL Injection y data sanitization.
 Profesor: Carlos Haro.
 Estudiante: KrisbelGV.
 
@@ -10,28 +10,28 @@ Clase grabada: https://codigofacilito.com/videos/introduccion-sql-injection-y-da
 Google drive: https://drive.google.com/drive/folders/1wraN6ofcLQ11cUSzyWvJP-KM6YQkiYy3
 
 Breve repaso en puntos clave:
-	Pasos para el despliegue y conexiÛn a la BD remota:
-		Ir a ìrailway.comî
-		Clic en ìDeploy a new proyectî, ìDatabaseî -> ìPostgreSQLî
+	Pasos para el despliegue y conexi√≥n a la BD remota:
+		Ir a ‚Äúrailway.com‚Äù
+		Clic en ‚ÄúDeploy a new proyect‚Äù, ‚ÄúDatabase‚Äù -> ‚ÄúPostgreSQL‚Äù
 		 Esperar la carga.
-		Clic en ìConectî, ìPublic Networkî, ìshowî (junto a ìRaw ëpsqlí comandî).
-		Clic en ìCopy Codeî (botÛn con sÌmbolo de portapapeles).
-		Pegar cÛdigo en la terminal.
+		Clic en ‚ÄúConect‚Äù, ‚ÄúPublic Network‚Äù, ‚Äúshow‚Äù (junto a ‚ÄúRaw ‚Äòpsql‚Äô comand‚Äù).
+		Clic en ‚ÄúCopy Code‚Äù (bot√≥n con s√≠mbolo de portapapeles).
+		Pegar c√≥digo en la terminal.
 	Es necesario poseer psql instalado y asociado al PATH del sistema.
-	Si no aparece la opciÛn ìConectî u genera el error ìName or service not knownî:
-		Clic en ìVariablesî
-		Clic en ìCopy Valueî (botÛn con sÌmbolo de portapapeles) junto a ìDATABASE_PUBLIC_URLî 
+	Si no aparece la opci√≥n ‚ÄúConect‚Äù u genera el error ‚ÄúName or service not known‚Äù:
+		Clic en ‚ÄúVariables‚Äù
+		Clic en ‚ÄúCopy Value‚Äù (bot√≥n con s√≠mbolo de portapapeles) junto a ‚ÄúDATABASE_PUBLIC_URL‚Äù 
 		Extraer sus datos:
 			Entre las dos barras diagonales y doble punto el usuario.
 			Entre el doble punto y la arroba la clave.
 			Entre la arroba y el segundo doble punto el host.
 			Entre el segundo doble punto y la siguiente barra el puerto.
-			Tras la ˙ltima barra individual la bd.
+			Tras la √∫ltima barra individual la bd.
 			Algo similar a: postgresql://usuario:clave@host.de.ejemplo:puerto/bd
-		Escribir el comando ìpsql -h host -p puerto -U usuario -d bdî en la terminal remplazando el host, puerto, usuario y db por sus respectivos valores.
+		Escribir el comando ‚Äúpsql -h host -p puerto -U usuario -d bd‚Äù en la terminal remplazando el host, puerto, usuario y db por sus respectivos valores.
 		Pegar la clave del usuario cuando lo solicite.
-	Una ìp·ginaî es la mÌnima unidad de almacenamiento al cual puede acceder un DBMS.
-	DescripciÛn general de un DBMS:
+	Una ‚Äúp√°gina‚Äù es la m√≠nima unidad de almacenamiento al cual puede acceder un DBMS.
+	Descripci√≥n general de un DBMS:
 	+--------------------------------------------------------------------------------------------------+
 	|              _________            System Catalog             +-----++                            |
 	|             /         \             ++-------+               | /// |+                            |
@@ -44,7 +44,8 @@ Breve repaso en puntos clave:
 	|             +---------+             ++-------+     |      +-----------+                          |
 	|                  |                      |          ----------   |                                |
 	|      1 SQL Query |    Name = InternalID |       Schema Info |   | Estimates                      |
-	|                  V                      V                   V   V                     _______    |
+	|                  V                      V                   V   V                     _______    |
+
 	|             +---------+            +---------+            +-----------+              /       \   |
 	|             | Parser  |----------->| Binder  |----------->| Optimizer |-----------> /   ___   \  |
 	|             +---------+            +---------+            +-----------+            /   /   \   \ |
@@ -102,10 +103,10 @@ Breve repaso en puntos clave:
 	|                                  +------------------------------------------------+   |
 	+---------------------------------------------------------------------------------------+
 	Gestionar el acceso al DBMS es imprescindible para salvaguardar la seguridad e integridad de los datos almacenados.
-	La three tier architecture nos permite aislar el DBMS del internet abierto, admitiendo ˙nicamente tr·fico del servidor.
-	SQL Injection es un ciberataque que consiste en manipular las entradas del intermediario redirigiÈndolo al gestor.
-	Existen diversidad de mÈtodos, herramientas y frameworks para interactuar con la DB de forma segura.
-	La detecciÛn y correcciÛn de vulnerabilidades es un proceso constante durante todo el ciclo de vida del software.
+	La three tier architecture nos permite aislar el DBMS del internet abierto, admitiendo √∫nicamente tr√°fico del servidor.
+	SQL Injection es un ciberataque que consiste en manipular las entradas del intermediario redirigi√©ndolo al gestor.
+	Existen diversidad de m√©todos, herramientas y frameworks para interactuar con la DB de forma segura.
+	La detecci√≥n y correcci√≥n de vulnerabilidades es un proceso constante durante todo el ciclo de vida del software.
 
 Notas al pie:
-	La ìdescripciÛn general de un DBMSî fue extraida de "Database Group (15-799, Spring 2025)", Andy Pavlo, Carnegie Mellon University.
+	La ‚Äúdescripci√≥n general de un DBMS‚Äù fue extraida de "CMU SCS 15-799 (Spring 2025) :: Query Optimization Background", por Andy Pavlo, Carnegie Mellon University.
