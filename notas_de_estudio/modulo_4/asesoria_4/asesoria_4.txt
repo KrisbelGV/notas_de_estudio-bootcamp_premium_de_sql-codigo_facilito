@@ -1,0 +1,29 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #4.
+Asesoría #4.
+Profesor: Eduardo Ismael Garcia.
+Estudiante: KrisbelGV.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-asesoria-4-0fafb117-5c64-4996-930b-00a9a313680c
+	Google drive: https://drive.google.com/drive/folders/1JRLctPEQv4RuM6tAO_rS4X73dn0CDEbO
+
+Breve repaso en puntos clave:
+	Limitar los valores posibles de una columna (reservar preferiblemente para subsets reducidos): ENUM()
+	Crear índice desde la definición una tabla: INDEX idx_nombre (campo)
+	Ejecutar .sql desde la terminal (en MySQL): source ruta.sql
+	Obtener solo valores únicos (descarta las réplicas entre filas, tomándose su tiempo): DISTINCT
+	Las subconsultas se resuelven primero a nivel de ejecución (acorde su estructura).
+	Seleccionar registros cuya “subconsulta” (no) obtenga un resultado: (NOT) EXISTS Retornará true al primer coincidente o false si no encuentra ninguno.
+	Trabajar con tablas en memoria:
+		(
+			consulta
+		) AS nombre
+	Crear vista (tabla virtual):
+		CREATE VIEW(
+			consulta
+		) AS nombre
+
+Notas al pie:
+	Los scripts de la clase se encuentran en la siguiente dirección (misma de la asesoría anterior): https://gist.github.com/eduardogpg/0a166294242ee6f50dda2b5381f1a173
+	El archivo con mis soluciones propuestas a los ejercicios se encuentra en la ruta "modulo_5/ejercicios.txt" de este repositorio.
