@@ -1,0 +1,30 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo: #5.
+Clase: #3.
+Título: Taller práctico y repaso.
+Profesor: Uriel Hernández.
+Estudiante: KrisbelGV.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-taller-practico-y-repaso
+	Google drive: https://drive.google.com/drive/folders/1VRIbOLcb2Av0PE8HFEYGqWQxKtW1e60E
+
+Breve repaso en puntos clave:
+	Pasos para crear una cuenta gratuita en Snowflake:
+		Introducir los datos solicitados en el formulario (elegir proveedor AWS).
+		Activar cuenta desde el correo.
+		Establecer un usuario y contraseña.
+	Elegir el dataset: Ir a “Data Products”, “Marketplace”, buscar el set “GitHub Events”.
+	Crear una hoja de trabajo: Clic en “Proyects”, “Create sql worksheet”.
+	Desde allí es posible cambiar el nombre de la worksheet, la warehouse sobre la cual se ejecutan las consultas y el dataset empleado.
+	Al usar GROUP BY los campos seleccionados deben ser una agregación o encontrarse también en dicha cláusula.
+	Establecer el valor de un campo en base a una condición:
+		CASE
+			WHEN condicion1 THEN valor1
+			WHEN condicion2 THEN valor2…
+			WHEN condicionN THEN valorN
+			ELSE alternativa (opcional)
+		END AS nombre
+
+Notas al pie:
+	El archivo con los scripts usados en Snowflake se encuentra adjunto en este mismo directorio.

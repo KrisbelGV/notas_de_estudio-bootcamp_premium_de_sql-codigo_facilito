@@ -1,0 +1,133 @@
+/* Bootcamp Premium de SQL de Codigo Facilito
+Scripts de la clase #1, modulo #5
+Optimización de Consultas
+Impartido por: Carlos Haro
+Derechos a su autor */
+
+
+-- 1 Obtener todos los repositorios
+SELECT * FROM GITHUB_REPOS;
+
+
+-- 2 Obtener solo los titulos de los repositorios
+SELECT GITHUB_REPOS.REPO_NAME FROM GITHUB_REPOS LIMIT(10000);
+
+
+-- 3 Cuantos repositorios hay
+SELECT COUNT(*) FROM GITHUB_REPOS;
+
+
+-- 4 Obtener 100 repos ordenados por fecha de creación
+
+-- Orden descendente
+SELECT * FROM GITHUB_REPOS
+ORDER BY FIRST_SEEN DESC
+LIMIT 100;
+
+-- Orden ascendente
+SELECT * FROM GITHUB_REPOS
+ORDER BY FIRST_SEEN ASC
+LIMIT 100;
+
+
+-- 5 Obtener los primeros repos FIRST_SEEN vistos este año
+SELECT *, YEAR(FIRST_SEEN) AS yearr FROM GITHUB_REPOS 
+WHERE yearr = 2025
+ORDER BY FIRST_SEEN ASC;
+
+
+-- 5.1 Contar repos por año
+SELECT COUNT(*), YEAR(FIRST_SEEN) AS yearr FROM GITHUB_REPOS
+GROUP BY yearr
+ORDER BY yearr ASC;
+
+
+-- 6 Obtener/contar estrellas para un repositorio
+SELECT SUM(GITHUB_STARS.COUNT) FROM GITHUB_STARS
+WHERE REPO_ID = 576201;
+
+
+-- 7 Listar/Mostrar repositorios junto con su numero de estrellas, solo 1000
+
+-- Usando solo la tabla GITHUB_STARS
+SELECT REPO_ID, SUM(GITHUB_STARS.COUNT)  FROM GITHUB_STARS
+GROUP BY REPO_ID
+LIMIT 1000;
+
+-- Si solicitare el nombre ademas
+SELECT GITHUB_REPOS.REPO_NAME, SUM(GITHUB_STARS.COUNT)  FROM GITHUB_REPOS
+INNER JOIN GITHUB_STARS ON GITHUB_STARS.REPO_ID = GITHUB_REPOS.REPO_ID
+GROUP BY GITHUB_REPOS.REPO_NAME
+LIMIT 1000;
+
+
+-- 8 Obtener los 10 repos con mas estrellas
+SELECT GITHUB_REPOS.REPO_NAME, SUM(GITHUB_STARS.COUNT) AS  estrellas FROM GITHUB_REPOS
+INNER JOIN GITHUB_STARS ON GITHUB_STARS.REPO_ID = GITHUB_REPOS.REPO_ID
+GROUP BY GITHUB_REPOS.REPO_NAME
+ORDER BY estrellas DESC
+LIMIT 10;
+
+
+-- 9 Obtener repos que no tienen ninguna estrella
+SELECT GITHUB_REPOS.REPO_NAME FROM GITHUB_REPOS
+LEFT JOIN GITHUB_STARS ON GITHUB_STARS.REPO_ID = GITHUB_REPOS.REPO_ID
+WHERE GITHUB_STARS.REPO_ID IS NULL
+GROUP BY GITHUB_REPOS.REPO_NAME;
+
+
+-- 10 Obtener un listado con 10 repos aleatorios, añadir una columna que se llame estrellado, debe tener como valor “si” cuando tenga estrellas y “no” cuando no tenga
+SELECT GITHUB_REPOS.REPO_NAME,
+    CASE
+        WHEN GITHUB_STARS.REPO_ID  IS NULL THEN “no”
+        ELSE “si”
+    END AS estrellado
+AS estrellado FROM GITHUB_REPOS
+LEFT JOIN GITHUB_STARS ON GITHUB_STARS.REPO_ID = GITHUB_REPOS.REPO_ID
+GROUP BY GITHUB_REPOS.REPO_NAME, GITHUB_STARS.REPO_ID
+ORDER BY RANDOM()
+LIMIT 10;
+
+
+-- 11 Obtener los repos con menos de 10 estrellas, limitarlo a 10, ordenarlos de los que tienen mas a menos
+SELECT GITHUB_REPOS.REPO_NAME, IFNULL(SUM(GITHUB_STARS.COUNT), 0) AS  estrellas FROM GITHUB_REPOS
+LEFT JOIN GITHUB_STARS ON GITHUB_STARS.REPO_ID = GITHUB_REPOS.REPO_ID
+GROUP BY GITHUB_REPOS.REPO_NAME
+HAVING estrellas < 10
+ORDER BY estrellas DESC
+LIMIT 10;
+
+
+-- 12 Obtener el anio en que mas estrellas se anadieron
+SELECT YEAR(GITHUB_STARS.DATE) AS year_estrellas, SUM(GITHUB_STARS.COUNT) AS suma_estrellas
+FROM GITHUB_STARS
+GROUP BY anio
+ORDER BY estrellas DESC
+LIMIT 1;
+
+
+-- 13 Obtener los tipos de eventos unicos de la table GITHUB_EVENTS
+
+-- Con DISTINCT
+SELECT DISTINCT TYPE FROM GITHUB_EVENTS;
+
+-- Con GROUP BY
+SELECT TYPE FROM GITHUB_EVENTS
+GROUP BY FROM GITHUB_EVENTS.TYPE;
+
+
+-- 14 Usuarios unicos que hayan hecho PUSH a un repositorio especifico
+SELECT GITHUB_EVENTS.ACTOR_ID
+FROM GITHUB_EVENTS
+WHERE GITHUB_EVENTS.ID_REPO = 576201 AND GITHUB_EVENTS .TYPE = “PushEvent”
+GROUP BY GITHUB_EVENTS.ACTOR_ID;
+
+
+-- 15 Top 10 repositorios con mas contribuidores
+SELECT GITHUB_REPO.REPO_ID, MAX(GITHUB_REPO.REPO_NAME), COUNT(DISTINCT GITHUB_EVENTS.ACTOR_ID) AS contribuidores
+FROM GITHUB_REPO
+INNER JOIN GITHUB_EVENTS ON GITHUB_REPO.REPO_ID = GITHUB_EVENTS.REPO_ID
+WHERE GITHUB_EVENTS .TYPE = “PushEvent”
+GROUP BY GITHUB_REPO.REPO_ID
+ORDER BY contribuidores DESC
+LIMIT 10;
