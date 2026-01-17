@@ -1,0 +1,36 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #6.
+Clase: #1.
+Título: Subqueries y set operations.
+Profesor: Eduardo Ismael Garcia.
+Estudiante: KrisbelGV.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-subqueries-y-set-operations
+	Google drive: https://drive.google.com/drive/folders/1rLx2Isah_Q58p4BZkQzx4GiHhSRwc8eN
+
+Breve repaso en puntos clave:
+	Mostrar la salida en formato de cartas (para MySQL): consulta\G
+	Comparar valor con una lista: ANY(cumple la condición en uno)/ALL(todos). Ambos retornarán True o False.
+	Tipos de subconsultas:
+		Por su retorno:
+			Valor (solo uno).
+			Tupla (fila o registro).
+			Set (tabla real o virtual).
+		Correlacionadas.
+			Dependientes de la consulta externa.
+			Independientes de la consulta externa.
+				EXISTS es un ejemplo de subconsulta dependiente (llamados también “semi JOINs”).
+	Ventajas y desventajas:
+		Ventajas:
+			Encapsulación y legibilidad (acorde la complejidad).
+			Es una alternativa a JOINs.
+			Funciona bien para el filtrado anidado.
+		Desventajas:
+			Pueden conllevar problemas de rendimiento.
+			Su optimización suele ser difícil.
+	Set refiere a un conjunto de resultados generados.
+	Unificar sets con la misma cantidad de columnas: UNION(omite duplicados)/UNION ALL(admite duplicados).
+
+Notas al pie:
+	Los scripts de la clase se encuentran en la siguiente dirección: https://gist.github.com/eduardogpg/38bb890d281cc4a2978baa6608b64c8c
