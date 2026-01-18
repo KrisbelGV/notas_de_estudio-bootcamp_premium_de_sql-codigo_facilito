@@ -1,7 +1,7 @@
 /* Bootcamp Premium de SQL de Codigo Facilito
-Scripts de la clase #1, modulo #5
-OptimizaciÛn de Consultas
-Impartido por: Carlos Haro
+Scripts de la clase #3, modulo #5
+Taller pr√°ctico y repaso
+Impartido por: Uriel Hern√°ndez
 Derechos a su autor */
 
 
@@ -17,7 +17,7 @@ SELECT GITHUB_REPOS.REPO_NAME FROM GITHUB_REPOS LIMIT(10000);
 SELECT COUNT(*) FROM GITHUB_REPOS;
 
 
--- 4 Obtener 100 repos ordenados por fecha de creaciÛn
+-- 4 Obtener 100 repos ordenados por fecha de creaci√≥n
 
 -- Orden descendente
 SELECT * FROM GITHUB_REPOS
@@ -30,13 +30,13 @@ ORDER BY FIRST_SEEN ASC
 LIMIT 100;
 
 
--- 5 Obtener los primeros repos FIRST_SEEN vistos este aÒo
+-- 5 Obtener los primeros repos FIRST_SEEN vistos este a√±o
 SELECT *, YEAR(FIRST_SEEN) AS yearr FROM GITHUB_REPOS 
 WHERE yearr = 2025
 ORDER BY FIRST_SEEN ASC;
 
 
--- 5.1 Contar repos por aÒo
+-- 5.1 Contar repos por a√±o
 SELECT COUNT(*), YEAR(FIRST_SEEN) AS yearr FROM GITHUB_REPOS
 GROUP BY yearr
 ORDER BY yearr ASC;
@@ -76,11 +76,11 @@ WHERE GITHUB_STARS.REPO_ID IS NULL
 GROUP BY GITHUB_REPOS.REPO_NAME;
 
 
--- 10 Obtener un listado con 10 repos aleatorios, aÒadir una columna que se llame estrellado, debe tener como valor ìsiî cuando tenga estrellas y ìnoî cuando no tenga
+-- 10 Obtener un listado con 10 repos aleatorios, a√±adir una columna que se llame estrellado, debe tener como valor ‚Äúsi‚Äù cuando tenga estrellas y ‚Äúno‚Äù cuando no tenga
 SELECT GITHUB_REPOS.REPO_NAME,
     CASE
-        WHEN GITHUB_STARS.REPO_ID  IS NULL THEN ìnoî
-        ELSE ìsiî
+        WHEN GITHUB_STARS.REPO_ID  IS NULL THEN ‚Äúno‚Äù
+        ELSE ‚Äúsi‚Äù
     END AS estrellado
 AS estrellado FROM GITHUB_REPOS
 LEFT JOIN GITHUB_STARS ON GITHUB_STARS.REPO_ID = GITHUB_REPOS.REPO_ID
@@ -119,7 +119,7 @@ GROUP BY FROM GITHUB_EVENTS.TYPE;
 -- 14 Usuarios unicos que hayan hecho PUSH a un repositorio especifico
 SELECT GITHUB_EVENTS.ACTOR_ID
 FROM GITHUB_EVENTS
-WHERE GITHUB_EVENTS.ID_REPO = 576201 AND GITHUB_EVENTS .TYPE = ìPushEventî
+WHERE GITHUB_EVENTS.ID_REPO = 576201 AND GITHUB_EVENTS .TYPE = ‚ÄúPushEvent‚Äù
 GROUP BY GITHUB_EVENTS.ACTOR_ID;
 
 
@@ -127,7 +127,8 @@ GROUP BY GITHUB_EVENTS.ACTOR_ID;
 SELECT GITHUB_REPO.REPO_ID, MAX(GITHUB_REPO.REPO_NAME), COUNT(DISTINCT GITHUB_EVENTS.ACTOR_ID) AS contribuidores
 FROM GITHUB_REPO
 INNER JOIN GITHUB_EVENTS ON GITHUB_REPO.REPO_ID = GITHUB_EVENTS.REPO_ID
-WHERE GITHUB_EVENTS .TYPE = ìPushEventî
+WHERE GITHUB_EVENTS .TYPE = ‚ÄúPushEvent‚Äù
 GROUP BY GITHUB_REPO.REPO_ID
 ORDER BY contribuidores DESC
+
 LIMIT 10;
