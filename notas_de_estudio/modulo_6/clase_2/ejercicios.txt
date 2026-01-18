@@ -1,0 +1,226 @@
+﻿﻿/* Bootcamp Premium de SQL - Codigo Facilito
+Scripts de la clase #2, modulo #6
+Joins avanzados
+Impartido por: Eduardo Ismael Garcia
+Soluciones extra y ediciones: KrisbelGV */
+
+
+-- 1.- Mostrar el nombre de los 5 usuarios con más comentarios en videos.
+SELECT u.name
+FROM users u
+INNER JOIN comments c
+	ON u.id = c.user_id
+    AND c.content_type = "video"
+GROUP BY c.user_id
+ORDER BY COUNT(c.id) DESC
+LIMIT 5;
+
+
+-- 2.- Mostrar el nombre de los usuarios quienes hayan dejado un like a videos, pero nunca hayan comentado en ellos.
+SELECT u.name
+FROM users u
+INNER JOIN likes l ON u.id = l.user_id AND l.content_type = "video"
+WHERE NOT EXISTS(
+	SELECT 1
+    FROM comments c
+    WHERE c.content_type = "video"
+    AND u.id = c.user_id
+);
+
+
+-- 3.- Mostrar el nombre de los usuarios y el total de likes que han dejado en videos. Ordenar de mayor a menor.
+SELECT
+	u.name,
+    COUNT(l.id) AS numero_likes
+FROM users u
+JOIN likes l ON u.id = l.user_id AND l.content_type = "video"
+GROUP BY u.id
+ORDER BY numero_likes DESC;
+
+
+-- 4.- Utilizando el set anterior, mostrar el mensaje "Fan" si el total de likes es mayor a 5, "Regular" si es entre 3 y 5, y "Poco fan" si es menor a 3.
+SELECT
+	name,
+	CASE
+		WHEN numero_likes > 5 THEN "Fan"
+        WHEN numero_likes BETWEEN 3 AND 5 THEN "Regular"
+        ELSE "Poco fan"
+    END AS mensaje
+FROM
+(SELECT
+	u.name,
+    COUNT(l.id) AS numero_likes
+FROM users u
+JOIN likes l ON u.id = l.user_id AND l.content_type = "video"
+GROUP BY u.id
+ORDER BY numero_likes DESC)
+AS count_likes_user_in_videos;
+
+
+-- 5.- Mostrar el nombre del usuario y el video_url que más le ha gustado a cada usuario. En caso el usuario no haya dado like a un video, mostrar "No video liked".
+SELECT
+	u.name AS user_name,
+	COALESCE(v.video_url, "No video liked") AS video_url,
+    COUNT(v.id) AS likes_por_usuario
+FROM users u
+LEFT JOIN likes l ON u.id = l.user_id AND l.content_type = "video"
+LEFT JOIN videos v ON v.id = l.content_id
+GROUP BY u.id, v.id, l.content_id
+HAVING likes_por_usuario = 0
+OR l.content_id = (
+	SELECT content_id
+	FROM likes
+    JOIN users ON users.id = user_id
+	WHERE content_type = "video"
+    AND users.name = u.name
+	GROUP BY user_id, content_id
+    ORDER BY COUNT(content_id) DESC
+    LIMIT 1
+)
+ORDER BY likes_por_usuario DESC;
+
+
+-- 6.- Listar el nombre de los usuarios y en 3 nuevas columnas el total de likes, comentarios y posts que han realizado.
+SELECT
+	u.name,
+	COUNT(DISTINCT l.id) AS total_likes,
+    COUNT(DISTINCT c.id) AS total_comments,
+    COUNT(DISTINCT p.id) AS total_posts
+FROM users u
+LEFT JOIN likes l ON u.id = l.user_id
+LEFT JOIN comments c ON u.id = c.user_id
+LEFT JOIN posts p ON u.id = p.user_id
+GROUP BY u.id;
+
+
+-- 7.- listar todos los videos, y en una nueva columna  'Popular' si este posee más de 2 likes o 'Poco popular' si tiene menos de 2 likes.
+SELECT
+	v.video_url,
+    IF(COUNT(l.content_id) > 2, "Popular", "Poco popular") AS popularidad
+FROM videos v
+LEFT JOIN likes l ON v.id = l.content_id AND l.content_type = "video"
+GROUP BY v.video_url;
+
+
+-- 8.- listar todos los usuarios, y basados en sus comentarios etiquetalos como 'Fan' si han comentado más de 5 veces, 'Regular' si han comentado entre 3 y 5 veces, y 'Poco fan' si han comentado menos de 3 veces.
+SELECT
+	u.name,
+	CASE
+		WHEN COUNT(c.id) > 5 THEN "Fan"
+        WHEN COUNT(c.id) BETWEEN 3 AND 5 THEN "Regular"
+        ELSE "Poco fan"
+	END AS mensaje
+FROM users u
+LEFT JOIN comments c ON u.id = c.user_id
+GROUP BY u.id;
+
+
+-- 9.- Listar la cantidad de likes y comentarios que ha dejado cada usuario.
+SELECT
+	u.name,
+	COUNT(DISTINCT l.id) AS total_likes,
+    COUNT(DISTINCT c.id) AS total_comments
+FROM users u
+LEFT JOIN likes l ON u.id = l.user_id
+LEFT JOIN comments c ON u.id = c.user_id
+GROUP BY u.id;
+
+
+-- 10.- Elimina todas las photos que no tengan likes.
+SET SQL_SAFE_UPDATES = 0;
+START TRANSACTION;
+	DELETE FROM photos
+	WHERE id IN(
+		SELECT id
+		FROM
+		(SELECT p.id
+		FROM photos p
+		LEFT JOIN likes l
+			ON p.id = l.content_id
+			AND l.content_type = "photo"
+		WHERE l.content_id IS NULL)
+		AS tmp
+	);
+ROLLBACK;
+
+
+-- 11.- Cuenta cuantos commentarios se han dejaddo por cada tipo de contenido (post, photo, video).
+SELECT
+	content_type,
+    COUNT(*) AS total_comments
+FROM comments 
+GROUP BY content_type;
+
+
+-- 12- Lista todos los tipos de contenido y muestra el total de likes y comentarios que han recibido.
+SELECT
+	b.content_type,
+	COUNT(DISTINCT l.id) AS total_likes,
+    COUNT(DISTINCT c.id) AS total_coments
+FROM
+(SELECT DISTINCT
+	content_type
+FROM comments)
+AS b
+LEFT JOIN likes l ON b.content_type = l.content_type
+LEFT JOIN comments c ON b.content_type = c.content_type
+GROUP BY b.content_type;
+
+-- 12.5 Listar cada contenido y muestra su total de likes y comentarios que ha recibido.
+SELECT
+	items.title,
+    COUNT(DISTINCT l.id) AS total_likes,
+    COUNT(DISTINCT c.id) AS total_coments
+FROM(
+	SELECT v.id, v.video_url AS title, "video" AS content_type FROM videos v
+    UNION
+    SELECT p.id, p.image_url AS title, "photo" AS content_type FROM photos p
+    UNION
+    SELECT p.id, p.content AS title, "post" AS content_type FROM posts p
+) AS items
+LEFT JOIN likes l ON items.id = l.content_id AND items.content_type = l.content_type
+LEFT JOIN comments c ON items.id = c.content_id AND items.content_type = c.content_type
+GROUP BY items.title;
+
+
+-- 13.- Lista todos los usuarios que hayan interactuado con los 3 tipos de contenido.
+SELECT u.name
+FROM users u
+JOIN
+(SELECT user_id
+FROM likes WHERE content_type = "photo"
+UNION
+SELECT user_id
+FROM comments WHERE content_type = "photo")
+AS users_in_photos ON u.id = users_in_photos.user_id
+JOIN
+(SELECT user_id
+FROM likes WHERE content_type = "video"
+UNION
+SELECT user_id
+FROM comments WHERE content_type = "video")
+AS users_in_videos ON u.id = users_in_videos.user_id
+JOIN
+(SELECT user_id
+FROM likes WHERE content_type = "post"
+UNION
+SELECT user_id
+FROM comments WHERE content_type = "post")
+AS users_in_posts ON u.id = users_in_posts.user_id;
+
+
+
+-- 14.- Lista todos los contenidos que tengan más likes que comentarios.
+SELECT
+	b.content_type,
+    COUNT(DISTINCT c.id) AS total_coments,
+    COUNT(DISTINCT l.id) AS total_likes
+FROM
+(SELECT DISTINCT
+	content_type
+FROM comments)
+AS b
+LEFT JOIN comments c ON b.content_type = c.content_type
+LEFT JOIN likes l ON b.content_type = l.content_type
+GROUP BY b.content_type
+HAVING total_likes > total_coments;

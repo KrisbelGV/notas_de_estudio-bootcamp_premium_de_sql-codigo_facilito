@@ -1,0 +1,30 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #6.
+Clase: #2.
+Título: Joins avanzados.
+Profesor: Eduardo Ismael Garcia.
+Estudiante: KrisbelGV.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-joins-avanzados
+	Google drive: https://drive.google.com/drive/folders/1Wmzw2g2eZ525Q6Camn-ELp3bBRXTOhvl
+
+Breve repaso en puntos clave:
+	Una relación polimórfica (en BBDD) es aquella donde un mismo campo puede hacer referencia a más de una tabla diferente.
+	Ventajas y desventajas:
+		Ventajas:
+			Simplicidad: Una sola tabla para múltiples relaciones.
+			Flexibilidad: Fácil de extender a otros tipos.
+		Desventajas:
+			No puedes usar claves foráneas tradicionales.
+			Lógica personalizada y muchas más validaciones.
+	Es posible unir tablas con JOINs sin la existencia de llaves foráneas, pero no es lo más óptimo.
+	Los JOINs admiten condiciones tras el ON.
+	Las referencias de claves en relaciones polimórficas deben tratarse con carácter estricto dada su fragilidad.
+	Retornar valor más alto de un conjunto de datos: MAX()
+
+Notas al pie:
+	Los scripts de la clase (BD y poblamiento) se encuentran en la siguiente dirección: https://gist.github.com/eduardogpg/cc23f4580fef7c956e8e9e5785a3f3da
+	Adjuntos los ejercicios resueltos en este mismo directorio, mas considere que:
+		No son una copia de los empleados por el profesor: Podrían ser idénticos, modificados u nuevas soluciones añadidas.
+		Carecen validez: En ningún modo asuma que los resultados ni el procedimiento son los correctos ni lo que se espera de ellos en base a las pautas indicadas.
