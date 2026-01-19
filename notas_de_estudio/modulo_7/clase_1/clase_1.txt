@@ -1,0 +1,61 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #7.
+Clase: #1.
+Título: Trabajando con datos no estructurados JSON.
+Profesor: Uriel Hernández.
+Estudiante: KrisbelGV.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-trabajando-con-datos-no-estructurados-json
+	Google drive: https://drive.google.com/drive/folders/10VMty4V39MptdAZHcxZYnWOh5fgSEEv3
+
+Breve repaso en puntos clave:
+	Siglas JSON: JavaScript Object Notation (en español “Notación de Objetos JavaScript”).
+	Formato de texto estándar y abierto para intercambiar datos.
+	Su sintaxis permite organizar información en objetos y arreglos.
+	Pueden tener cualquier cantidad de atributos y aquellos de una misma colección no necesitan compartir el mismo esquema.
+	Tipos de datos que admite:
+		Números.
+		Cadenas.
+		Booleanos.
+		Arreglos.
+		NULL.
+	Clasificación de estructuras:
+		Objects:
+			Compuesto de 0 a muchos pares nombre-valor.
+			Se delimitan con corchetes {}.
+		Arrays:
+			Representan una lista de 0 o más elementos.
+			Delimitados por los corchetes o paréntesis cuadrados [].
+	Los nombres solo admiten cadenas válidas.
+	El estándar de SQL define funciones y expresiones que nos permiten trabajar con JSON implementado de forma distinta en cada gestor.
+	Las JSON Path permiten acceder a propiedades u elementos dentro de un objeto o arreglo JSON en SQL.
+	Sus símbolos:
+		$ Contexto actual
+		. Propiedad
+		[] Índice de arreglo
+	Los JSON Operators extraen subcomponentes de un objeto JSON.
+		-> Siempre retorna un JSON o NULL
+		->> Retorna un valor SQL TEXT, INTEGER, REAL o NULL 
+	Ventajas y desventajas:
+		Ventajas:
+			Flexibilidad.
+		Desventajas:
+			Problemas de performance.
+			Esquema poco definido.
+			Su uso excesivo puede conllevar a malas prácticas.
+	Sintaxis (para SQLite):
+		Constraint JSON valido: CHECK(JSON_VALID(campo))
+		Extraer información de un JSON: JSON_EXTRACT(json, ‘path’)
+		Actualizar o añadir: JSON_SET(json, ‘path’, valor)
+		Agregar:
+			Si existe: JSON_REPLACE(json, ‘path’, valor)
+			Si no existe: JSON_INSERT(json, ‘path’, valor)
+		Eliminar ruta (incluyendo sus anidadas): JSON_REMOVE(json, ‘path’)
+		Mostrar tablas: .tables
+		Ejecutar .sql: .read archivo.sql
+		Conocer la versión de SQLite empleada: SELECT SQLITE_VERSION() AS version;
+	Es posible anidar funciones JSON, empleando una salida como entrada de otra.
+
+Notas al pie:
+	El archivo con los scripts (en su conjunto) para SQLite se encuentra adjunto en este mismo directorio.

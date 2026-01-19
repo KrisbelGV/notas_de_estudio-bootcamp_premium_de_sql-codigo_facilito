@@ -1,0 +1,207 @@
+﻿﻿/* Bootcamp Premium de SQL de Codigo Facilito
+Scripts de la clase #1, modulo #7
+Trabajando con datos no estructurados JSON
+Impartido por: Uriel Hernandez
+Comentarios: KrisbelGV
+Derechos a su autor */
+
+
+-- crear-tablas.sql
+
+-- Crear tabla campaings
+CREATE TABLE campaigns(
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    data TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CHECK( json_valid(data) )
+);
+
+-- Crear tabla users
+CREATE TABLE users(
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    attributes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+-- select.sql
+
+-- Obtener registros de campaigns
+SELECT * FROM campaigns;
+
+-- Obtener registros de users
+SELECT * FROM users;
+
+
+-- Obtener data de campaigns
+SELECT data FROM campaigns;
+
+
+-- Obtener informacion puntual de los JSON
+
+-- Todo en data
+SELECT JSON_EXTRACT(data, '$') FROM campaigns;
+
+-- Todos los campos con nombre "vouchers"
+SELECT JSON_EXTRACT(data, '$.vouchers') FROM campaigns;
+
+-- Primer elemento en el array
+SELECT JSON_EXTRACT(data, '$[0]') FROM campaigns;
+
+-- Nombre del primer elemento en el array (con un alias)
+SELECT JSON_EXTRACT(data, '$[0].name') AS valores FROM campaigns;
+
+
+-- Conocer la version de SQLite empleada
+SELECT SQLITE_VERSION() AS version;
+
+
+-- Extraer valores con el operador ->
+SELECT data->'$.vouchers' AS valores FROM campaigns;
+
+
+-- Obtener registros cuyo JSON value en el path "$.vouchers"
+
+-- No sea NULL
+SELECT * FROM campaigns
+WHERE data->'$.vouchers' IS NOT NULL;
+
+-- Este entre 350 y 450
+
+-- No funciona con dicho operador, retorna un JSON o NULL
+SELECT * FROM campaigns
+WHERE data->'$.vouchers' BETWEEN 350 AND 450;
+
+-- En cambio deberemos usar ->>, retorna un numero (caso presente)
+SELECT * FROM campaigns
+WHERE data->>'$.vouchers' BETWEEN 350 AND 450;
+
+
+-- Sumar vouchers existentes en data de campaigns
+SELECT SUM(data->>'$.vouchers') FROM campaigns;
+
+-- Contar valores unicos de vouchers
+SELECT data->>'$.vouchers', COUNT(*) FROM campaigns GROUP BY data->>'$.vouchers';
+
+-- Ordenar en base al valor de vouchers 
+SELECT * FROM campaigns ORDER BY data->>'$.vouchers' DESC;
+
+
+
+-- update.sql
+
+-- Reemplazar todo en data
+UPDATE campaigns
+SET data = '{"nombres": ["Uriel", "Eduardo"]}'
+WHERE id = 3;
+
+
+-- Actualizar solo un valor preciso
+
+-- Si no existe el path
+
+-- No hacer ningun cambio
+UPDATE campaigns
+SET data = JSON_REPLACE(data, '$.vouchers', 300)
+WHERE id = 1;
+
+-- Añadirlo como una nueva propiedad
+UPDATE campaigns
+SET data = JSON_SET(data, '$.vouchers', 300)
+WHERE id = 3;
+
+-- Si existe
+
+-- Actualizar su valor
+UPDATE campaigns
+SET data = JSON_SET(data, '$.vouchers', 400)
+WHERE id = 3;
+
+
+-- Agregar un nuevo programa en el path especificado
+UPDATE campaigns
+SET data = JSON_SET(data, '$.programa.name', 'SQL')
+WHERE id = 4;
+
+
+-- Crea un elemento vacio en la posicion 2 del array
+UPDATE campaigns
+SET data = JSON_SET(data, '$[2]', '{}')
+WHERE id = 5;
+
+
+-- Insertar valor en el path especificado
+UPDATE campaigns
+SET data = JSON_INSERT(data, '$.clases', 20)
+WHERE id = 2;
+
+-- Reinsertar otro valor en el mismo path (no funcionara porque ya existe)
+UPDATE campaigns
+SET data = JSON_INSERT(data, '$.clases', 50)
+WHERE id = 2;
+
+
+-- Eliminar valor en el path indicado
+UPDATE campaigns
+SET data = JSON_REMOVE(data, '$.clases')
+WHERE id = 2;
+
+
+-- Anidar funciones (JSON_INSERT y JSON_REMOVE)
+UPDATE campaigns
+SET data = JSON_INSERT(JSON_REMOVE(data, '$.students'), '$.estudiantes', 300)
+WHERE id = 2;
+
+
+
+-- insert.sql
+
+-- Insertar data vacia (producira error dada la constraint, JSON invalido)
+INSERT INTO campaigns(name, data)
+VALUES
+    ('GitHub', '');
+
+
+-- Insertar JSON valido
+
+-- Objeto vacio
+INSERT INTO campaigns(name, data)
+VALUES
+    ('GitHub', '{}');
+
+-- Array vacio
+INSERT INTO campaigns(name, data)
+VALUES
+    ('GitHub', '[]');
+
+-- Valor NULL
+INSERT INTO campaigns(name, data)
+VALUES
+    ('GitHub', NULL);
+
+
+-- Insertar objetos validos en campaigns
+INSERT INTO campaigns(name, data)
+VALUES
+    ('GitHub', '{"vouchers": 200}'),
+    ('Rails', '{"students": 200}'),
+    ('QA', '{"teachers": 4, "vouchers": 200, "active": true}'),
+    ('SQL', '{"coordinador": {"name": "Uriel"}}');
+
+-- Insertar estos mismos registros en users
+INSERT INTO users(name, attributes)
+VALUES
+    ('GitHub', '{"vouchers": 200}'),
+    ('Rails', '{"students": 200}'),
+    ('QA', '{"teachers": 4, "vouchers": 200, "active": true}'),
+    ('SQL', '{"coordinador": {"name": "Uriel"}}');
+
+
+-- Insertar JSON arrays en campaigns
+INSERT INTO campaigns(name, data)
+VALUES
+    ('CodigoFest', '[{"name": "HackFest"}, {"name": "CodigoFest Conf."}]');
