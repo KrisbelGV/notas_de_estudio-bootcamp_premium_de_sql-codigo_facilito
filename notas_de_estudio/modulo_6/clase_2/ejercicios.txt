@@ -212,15 +212,17 @@ AS users_in_posts ON u.id = users_in_posts.user_id;
 
 -- 14.- Lista todos los contenidos que tengan más likes que comentarios.
 SELECT
-	b.content_type,
-    COUNT(DISTINCT c.id) AS total_coments,
-    COUNT(DISTINCT l.id) AS total_likes
-FROM
-(SELECT DISTINCT
-	content_type
-FROM comments)
-AS b
-LEFT JOIN comments c ON b.content_type = c.content_type
-LEFT JOIN likes l ON b.content_type = l.content_type
-GROUP BY b.content_type
+	items.title,
+    COUNT(DISTINCT l.id) AS total_likes,
+    COUNT(DISTINCT c.id) AS total_coments
+FROM(
+	SELECT v.id, v.video_url AS title, "video" AS content_type FROM videos v
+    UNION
+    SELECT p.id, p.image_url AS title, "photo" AS content_type FROM photos p
+    UNION
+    SELECT p.id, p.content AS title, "post" AS content_type FROM posts p
+) AS items
+LEFT JOIN likes l ON items.id = l.content_id AND items.content_type = l.content_type
+LEFT JOIN comments c ON items.id = c.content_id AND items.content_type = c.content_type
+GROUP BY items.title
 HAVING total_likes > total_coments;
