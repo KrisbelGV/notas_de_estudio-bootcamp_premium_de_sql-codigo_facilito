@@ -1,0 +1,131 @@
+/* Bootcamp Premium de SQL de Codigo Facilito
+Scripts de la clase #2, modulo #7
+Vistas y CTE
+Impartido por: Carlos Haro
+Comentarios: KrisbelGV */
+
+
+/* Contar numero de registros en:
+    1. Authors
+    2. BookBorrowers
+    3. Books
+    4. Borrowers
+    5. Publishers */
+SELECT COUNT(*) FROM Authors;
+SELECT COUNT(*) FROM BookBorrowers;
+SELECT COUNT(*) FROM Books;
+SELECT COUNT(*) FROM Borrowers;
+SELECT COUNT(*) FROM Publishers;
+
+
+-- Obtener los IDs de Publishers que tienen al menos 20 BooksIDs
+
+-- Con una subconsulta anidada
+SELECT PublisherID
+FROM
+    (SELECT
+        PublisherID,
+        COUNT(BookID) AS bookcount
+    FROM Publishers
+    GROUP BY PublisherID
+    HAVING bookcount
+    ORDER BY bookcount, PublisherID)
+WHERE bookcount >= 20;
+
+-- Con una CTE (Common Table Expression)
+WITH BookCountTable AS (
+    SELECT
+        PublisherID,
+        COUNT(BookID) AS bookcount
+    FROM Publishers
+    GROUP BY PublisherID
+    HAVING bookcount
+    ORDER BY bookcount, PublisherID
+)
+
+SELECT PublisherID
+FROM BookCountTable
+WHERE bookcount >= 20;
+
+-- Con dos CTEs (la segunda usa la primera)
+WITH BookCountTable AS (
+
+    SELECT
+        PublisherID,
+        COUNT(BookID) AS bookcount
+    FROM Publishers
+    GROUP BY PublisherID
+    HAVING bookcount
+    ORDER BY bookcount, PublisherID
+
+), TopPublishers AS (
+
+    SELECT PublisherID
+    FROM BookCountTable
+    WHERE bookcount >= 20
+
+)
+
+SELECT *
+FROM TopPublishers
+ORDER BY PublisherID;
+
+
+-- Simplificar la consulta anterior mediante HAVING
+SELECT PublisherID
+FROM Publishers
+GROUP BY PublisherID
+HAVING COUNT(BookID) >= 20
+ORDER BY PublisherID;
+
+
+/* Borrowers que pidieron libros del top 20 publishers
+Pista: Utilizar JOINs */
+WITH TopPublishers AS (
+
+    SELECT PublisherID
+    FROM Publishers
+    GROUP BY PublisherID
+    HAVING COUNT(BookID) >= 20
+    ORDER BY PublisherID
+
+), FullBorrowers AS (
+
+    SELECT *
+    FROM Borrowers
+    JOIN BookBorrowers ON Borrowers.BorrowerID = BookBorrowers.BorrowerID
+    JOIN Publishers ON BookBorrowers.BookID = Publishers.BookID
+    JOIN TopPublishers ON Publishers.PublisherID = TopPublishers.PublisherID
+
+)
+
+SELECT *
+FROM FullBorrowers
+WHERE PublisherID IN TopPublishers;
+
+
+-- Crear vista de TopPublishers
+CREATE VIEW TopPublishers AS
+SELECT PublisherID
+FROM Publishers
+GROUP BY PublisherID
+HAVING COUNT(BookID) >= 20
+ORDER BY PublisherID;
+
+
+-- Sustituir TopPublishers en la consulta por su vista (Hecho)
+
+-- Sustituir FullBorrowers en la consulta por su vista
+CREATE VIEW FullBorrowers AS
+SELECT
+    BookBorrowers.BorrowerID,
+    Publishers.PublisherID
+FROM Borrowers
+JOIN BookBorrowers ON Borrowers.BorrowerID = BookBorrowers.BorrowerID
+JOIN Publishers ON BookBorrowers.BookID = Publishers.BookID
+JOIN TopPublishers ON Publishers.PublisherID = TopPublishers.PublisherID;
+
+-- Ejecutar la consulta sin CTE, solo con vistas
+SELECT *
+FROM FullBorrowers
+WHERE PublisherID IN TopPublishers;

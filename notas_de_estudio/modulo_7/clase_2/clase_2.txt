@@ -1,0 +1,35 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #7.
+Clase: #2.
+Título: Vistas y CTE.
+Profesor: Carlos Haro.
+Estudiante: KrisbelGV.
+
+Recursos:
+	Clase grabada: https://codigofacilito.com/videos/introduccion-vistas-y-cte
+	Google drive: https://drive.google.com/drive/folders/1LUIDbWgWBoqPpWuQXcJ5RmXzIiT-riD3
+
+Breve repaso en puntos clave:
+	La mayor parte de DBMS permiten establecer permisos y restricciones a usuarios acorde a sus roles, gestionados por un administrador.
+	Un ingeniero de datos refina la información entre capas de una Medallion Architecture.
+	Dicho patrón de diseño organiza la información en:
+		Bronce: Tablas en crudo.
+		Plata: Filtrado y limpiado.
+		Oro: Agregados a nivel de negocio.
+	Emplear subconsultas como tablas temporales (en SQLite):
+		WITH tabla1 AS (
+			subconsulta1
+		),  tabla2 AS (
+			subconsulta1
+		)…  tablaN AS (
+			subconsultaN
+		)
+		consulta principal
+	Crear vista (en Snowflake/SQLite): CREATE VIEW nombre AS consulta
+	Las vistas estándar almacenan la definición de la consulta, ejecutándola cuando se la invoca, no la información en sí.
+
+Notas al pie:
+	El archivo con los scripts se encuentra adjunto en este mismo directorio, sin embargo, tómese en consideración:
+		Su ejecución de prueba fue realizada en SQLite, no Snowflake como se ve en la clase.
+		Esquema e inserciones del archivo “generate_data.sql”, disponible en los recursos en Google drive de la clase #1, módulo #5.
+		Se asume su equivalencia salvo por los roles y capas de la Medallion Architecture.
