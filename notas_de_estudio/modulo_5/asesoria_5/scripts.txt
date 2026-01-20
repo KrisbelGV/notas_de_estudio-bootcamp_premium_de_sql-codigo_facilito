@@ -1,0 +1,145 @@
+/* Bootcamp Premium de SQL de Codigo Facilito
+Scripts de la asesoria #5
+Impartido por: Eduardo Ismael Garcia
+Comentarios: KrisbelGV */
+
+
+-- Scripts sumados los del gist
+
+
+-- Obtener registros del customer_id 87901 en orders
+SELECT * FROM orders WHERE customer_id = 87901;
+
+-- Explicar la consulta anterior
+EXPLAIN SELECT * FROM orders WHERE customer_id = 87901;
+
+-- Crear index para la columna customer_id en orders
+CREATE INDEX idx_order_customer_id ON orders(customer_id);
+
+-- Mostar el nuevo indice en orders
+SHOW INDEX FROM orders;
+
+
+-- Obtener registros del anio 2025
+SELECT * FROM orders WHERE YEAR(order_date) = 2025;
+
+-- Crear index para order_date en orders
+CREATE INDEX idx_orders_order_date ON orders(order_date);
+
+-- Mostar el nuevo indice en orders
+SHOW INDEX FROM orders;
+
+-- Eliminar el nuevo indice
+DROP INDEX idx_orders_order_date ON orders;
+
+
+-- Obtener registros entre 2025-01-01 y 2025-12-31
+
+-- Con operadores >= y <=
+SELECT * FROM orders WHERE order_date >= '2025-01-01' AND order_date <= '2025-12-31';
+
+-- Con BETWEEN
+SELECT * FROM orders WHERE order_date BETWEEN '2025-01-01' AND '2025-12-31';
+
+-- Explicar ambas consultas (ninguna usa referencias, pero la primera indica una "possible_keys")
+EXPLAIN SELECT * FROM orders WHERE order_date >= '2025-01-01' AND order_date <= '2025-12-31';
+EXPLAIN SELECT * FROM orders WHERE order_date BETWEEN '2025-01-01' AND '2025-12-31';
+
+
+-- Obtener registros del customer_id 87901 en orders cuyo toyal sea mayor a 1
+SELECT * FROM orders WHERE customer_id = 12345 AND total > 1;
+
+-- Explicar la consulta anterior
+EXPLAIN SELECT * FROM orders WHERE customer_id = 12345 AND total > 1;
+
+
+-- Eliminar indice idx_order_customer_id
+DROP INDEX idx_order_customer_id ON orders;
+
+-- Crear indice compuesto
+CREATE INDEX idx_order_orders_customer_id_total ON orders(customer_id, total);
+
+-- Mostar el nuevo indice en orders
+SHOW INDEX FROM orders;
+
+
+-- Reexplicar la consulta anterior
+
+-- > type range
+SELECT * FROM orders WHERE customer_id = 12345 AND total > 1;
+
+-- = ref
+SELECT * FROM orders WHERE customer_id = 12345 AND total = 1;
+
+
+-- Acivar historial de tiempos de ejecucion
+SET PROFILING = 1;
+
+-- Mostrar historial de tiempos de ejecucion
+SHOW profiles;
+
+
+-- Contar registros en payments donde amount sea mayor a 100
+SELECT COUNT(*) FROM payments WHERE amount > 100;
+
+
+
+
+-- Ejecutar en la bd de la asesoria anterior
+
+
+-- Obtener el total de las ordenes por usuario
+
+-- Con GROUP BY (solo el user_id y la suma total)
+SELECT
+    orders.user_id,
+    SUM(orders.total)
+FROM orders
+GROUP BY orders.user_id;
+
+-- Con OVER + PARTITION (aun es posible acceder al resto de campos)
+SELECT
+    orders.user_id,
+	orders.id AS order_id,
+    SUM(orders.total) OVER(
+		PARTITION BY orders.user_id
+    ) AS total
+FROM orders;
+
+
+-- Sumar el total de las ordenes por usuario ordenadas por su estatus
+SELECT
+    orders.user_id,
+    orders.status,
+    SUM(orders.total) OVER(
+		PARTITION BY orders.user_id ORDER BY orders.status
+    ) AS total
+FROM orders;
+
+-- Sumar el total de las ordenes por usuario ordenadas por su total
+SELECT
+    orders.user_id,
+    orders.status,
+    SUM(orders.total) OVER(
+		PARTITION BY orders.user_id ORDER BY orders.total
+    ) AS total
+FROM orders;
+
+
+-- Obtener el nombre del usuario, el total de sus ordenes y un mensaje de cupon de poseerlo
+SELECT
+    users.name,
+    SUM(orders.total),
+    IF(SUM(orders.total) >= 500, "si", "no") AS posee_cupon,
+    CASE
+		WHEN SUM(orders.total) >= 1000 THEN "Supercupon"
+        WHEN SUM(orders.total) >= 500 THEN "Cupon de descuento"
+        ELSE ""
+    END AS menssaje
+FROM orders
+INNER JOIN users ON orders.user_id = users.id
+GROUP BY orders.user_id;
+
+
+-- Desactivar historial de tiempos de ejecucion
+SET PROFILING = 0;

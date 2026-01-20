@@ -1,0 +1,24 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #5.
+Asesoría #5.
+Profesor: Eduardo Ismael Garcia.
+Estudiante: KrisbelGV.
+
+Breve repaso en puntos clave:
+	El valor presentado por MySQL tras ejecutar una sentencia corresponde al tiempo de obtención de los datos sin considerar su impresión.
+	La columna “type” en EXPLAIN (de MySQL) indica el tipo de consulta:
+		ALL: Las búsquedas se llevarán a cabo fila por fila.
+		REF: Emplea una referencia (indicada en la columna “key”).
+		Llaves primarias y foráneas por lo general son indexadas automáticamente por el motor.
+	La convención recomendada al nombrar índices es “idx_tabla_campo”.
+	Es buena práctica indexar solo valores únicos y cruciales en consultas.
+	Son útiles en búsquedas, pero lentos en inserción, actualización y eliminación.
+	Cardinalidad refiere a la unicidad de valores en una columna, cuanto mayor mejor candidata a indexarse.
+	Usar funciones y operadores como LIKE sobre campos puede tomar en cuenta su indexación o no acorde al caso.
+	La técnica de desnormalización consiste en extraer datos de difícil acceso a un nuevo campo facilitando su obtención y mejorando el rendimiento.
+	Mostrar índices de una tabla: SHOW INDEX FROM tabla
+	Activar historial de consultas y sus tiempos de ejecución: SET PROFILING = 1
+	Condicionar el valor de un campo en base a su contenido: IF(campo condición, valor_true, valor_false)
+Notas al pie:
+	Los scripts de la clase (BD y poblamiento) se encuentran en la siguiente dirección: https://gist.github.com/eduardogpg/c8716b9f5a47d4fe923c10be487a2774
+	Adjuntos los restantes empleados en este mismo directorio.
