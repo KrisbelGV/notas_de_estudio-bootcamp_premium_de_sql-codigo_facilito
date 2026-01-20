@@ -1,7 +1,7 @@
-Bootcamp Premium de SQL de CÛdigo Facilito.
-MÛdulo: #5.
+Bootcamp Premium de SQL de C√≥digo Facilito.
+M√≥dulo: #5.
 Clase: #1.
-TÌtulo: OptimizaciÛn de Consultas.
+T√≠tulo: Optimizaci√≥n de Consultas.
 Profesor: Carlos Haro.
 Estudiante: KrisbelGV.
 
@@ -10,27 +10,27 @@ Recursos:
 	Google drive: https://drive.google.com/drive/folders/1U7pr99xfK35bLoOGrXZEEjj11uPNmo20
 
 Breve repaso en puntos clave:
-	La indexaciÛn consiste en la construcciÛn de una tabla hash (u otras estructuras de datos) sobre una columna especifica. 
-	Mejora la velocidad de ejecuciÛn de consultas.
-	Comandos/sintaxis b·sica de SQLite:
+	La indexaci√≥n consiste en la construcci√≥n de una tabla hash (u otras estructuras de datos) sobre una columna especifica. 
+	Mejora la velocidad de ejecuci√≥n de consultas.
+	Comandos/sintaxis b√°sica de SQLite:
 		Abrir/crear BD: .open name.db
 		Activar cronometro: .timer ON
-		Explicar plan lÛgico:
+		Explicar plan l√≥gico:
 			Sencillo: EXPLAIN QUERY PLAN
 			Detallado: EXPLAIN
 		Salir: .exit
-	Crear Ìndice: CREATE INDEX nombre ON tabla(campo1, campo2Ö campoN)
-	Eliminar Ìndice: DROP INDEX nombre
-	La optimizaciÛn de consultas depende de las caracterÌsticas del motor y las tÈcnicas empleadas.
+	Crear √≠ndice: CREATE INDEX nombre ON tabla(campo1, campo2‚Ä¶ campoN)
+	Eliminar √≠ndice: DROP INDEX nombre ON tabla
+	La optimizaci√≥n de consultas depende de las caracter√≠sticas del motor y las t√©cnicas empleadas.
 	Comparativa entre tipos de ENGINEs:
 	+------------------+----------------------+------------------------+
-	|                  | OLTP (Transaccional) | OLAP (AnalÌtico)       |
+	|                  | OLTP (Transaccional) | OLAP (Anal√≠tico)       |
 	+------------------+----------------------+------------------------+
 	| Carga de trabajo | Muchas lecturas/     | Muchas lecturas/       |
-	| de interÈs       | escrituras de filas  | escrituras de columnas |
+	| de inter√©s       | escrituras de filas  | escrituras de columnas |
 	+------------------+----------------------+------------------------+
 	| Volumen de       | Bajo                 | Alto                   |
-	| informaciÛn      |                      |                        |
+	| informaci√≥n      |                      |                        |
 	+------------------+----------------------+------------------------+
 	| Transacciones    | Muchas               | Pocas                  |
 	+------------------+----------------------+------------------------+
@@ -42,7 +42,7 @@ Breve repaso en puntos clave:
 	| procesamiento    |                      |                        |
 	+------------------+----------------------+------------------------+
 	No existe un DBMS que maneje las dos cargas de trabajo al mismo tiempo de forma eficiente.
-	TÈcnicas de optimizaciÛn de consultas:
+	T√©cnicas de optimizaci√≥n de consultas:
 		OLTP (transaccional):
 			Crear un index (por ejemplo):
 			+-----------------+ +---------------+ +-----------------+
@@ -64,12 +64,13 @@ Breve repaso en puntos clave:
 			|                 | | +-----------+ | |                 |
 			+-----------------+ +---------------+ +-----------------+
 			Query rewrite (no siempre funcional).
-		OLAP (analÌtica):
-			Predicate pushdown: ìempujeî de las operaciones al menor nivel posible.
+		OLAP (anal√≠tica):
+			Predicate pushdown: ‚Äúempuje‚Äù de las operaciones al menor nivel posible.
 			Query rewrite (no siempre funcional).
-	En SQL (como lenguaje declarativo) el orden de las operaciones no necesariamente puede influenciar al plan lÛgico.
-	El optimizador interno del motor es quien tiene la ˙ltima palabra a la hora de elegir como ejecutar las consultas.
-	Usar el EXPLAIN del motor nos ayuda a distinguir si editar un query efect˙a cambios en el proceso y resultado o no.
+	En SQL (como lenguaje declarativo) el orden de las operaciones no necesariamente puede influenciar al plan l√≥gico.
+	El optimizador interno del motor es quien tiene la √∫ltima palabra a la hora de elegir como ejecutar las consultas.
+	Usar el EXPLAIN del motor nos ayuda a distinguir si editar un query efect√∫a cambios en el proceso y resultado o no.
 
 Notas al pie:
+
 	El archivo con los scripts para SQLite/DuckDB se encuentra adjunto en este mismo directorio.
