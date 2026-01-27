@@ -43,9 +43,6 @@ Descargo de responsabilidad y condiciones de uso
 Tabla de contenidos
 -------------
 
-Tabla de contenidos
--------------
-
 - [Módulo 1](/notas_de_estudio/modulo_1)
 	- [SQL como lenguaje de consulta de datos](notas_de_estudio/modulo_1/clase_1)
 	- [Preparación del entorno de trabajo](notas_de_estudio/modulo_1/clase_2)
@@ -76,6 +73,9 @@ Tabla de contenidos
 - [Módulo 7](/notas_de_estudio/modulo_7)
 	- [Trabajando con datos no estructurados JSON](notas_de_estudio/modulo_7/clase_1)
 	- [Vistas y CTE](notas_de_estudio/modulo_7/clase_2)
+- Extras
+	- [Video explicación del operador NOT EXISTS](https://www.youtube.com/watch?v=QY6aDswUvIU)
+	- ![Miniatura animada](https://github.com/KrisbelGV/notas_de_estudio-bootcamp_premium_de_sql-codigo_facilito/blob/main/assets/consulta_videoexplicacion.gif)
 
 Licencia
 -------------
