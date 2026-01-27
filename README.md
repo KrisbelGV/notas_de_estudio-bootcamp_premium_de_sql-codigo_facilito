@@ -40,6 +40,43 @@ Descargo de responsabilidad y condiciones de uso
 
     2. No me hago responsable del uso indebido de las mismas u que derive en algún incumplimiento a las normas impuestas.
 
+Tabla de contenidos
+-------------
+
+Tabla de contenidos
+-------------
+
+- [Módulo 1](/notas_de_estudio/modulo_1)
+	- [SQL como lenguaje de consulta de datos](notas_de_estudio/modulo_1/clase_1)
+	- [Preparación del entorno de trabajo](notas_de_estudio/modulo_1/clase_2)
+	- [SQL básico](notas_de_estudio/modulo_1/clase_3)
+	- [Asesoría 1](notas_de_estudio/modulo_1/asesoria_1)
+- [Módulo 2](/notas_de_estudio/modulo_2)
+	- [Cláusulas de consultas](notas_de_estudio/modulo_2/clase_1)
+	- [SQL para gestión de tablas](notas_de_estudio/modulo_2/clase_2)
+	- [Tipos de datos y constraints](notas_de_estudio/modulo_2/clase_3)
+	- [Asesoría 2](notas_de_estudio/modulo_2/asesoria_2)
+- [Módulo 3](/notas_de_estudio/modulo_3)
+	- [Llaves primarias y foráneas](notas_de_estudio/modulo_3/clase_1)
+	- [Álgebra relacional [Entidades y relaciones]](notas_de_estudio/modulo_3/clase_2)
+	- [SQL en relaciones](notas_de_estudio/modulo_3/clase_3)
+	- [Asesoría 3](notas_de_estudio/modulo_3/asesoria_3)
+- [Módulo 4](/notas_de_estudio/modulo_4)
+	- [Condiciones de Consulta; Parte 2](notas_de_estudio/modulo_4/clase_1)
+	- [SQL en Relaciones; Parte 2](notas_de_estudio/modulo_4/clase_2)
+	- [Asesoría 4](notas_de_estudio/modulo_4/asesoria_4)
+- [Módulo 5](/notas_de_estudio/modulo_5)
+	- [Optimización de Consultas](notas_de_estudio/modulo_5/clase_1)
+	- [SQL Injection y data sanitization](notas_de_estudio/modulo_5/clase_2)
+	- [Taller práctico y repaso](notas_de_estudio/modulo_5/clase_3)
+	- [Asesoría 5](notas_de_estudio/modulo_5/asesoria_5)
+- [Módulo 6](/notas_de_estudio/modulo_6)
+	- [Subqueries y set operations](notas_de_estudio/modulo_6/clase_1)
+	- [Joins avanzados](notas_de_estudio/modulo_6/clase_2)
+- [Módulo 7](/notas_de_estudio/modulo_7)
+	- [Trabajando con datos no estructurados JSON](notas_de_estudio/modulo_7/clase_1)
+	- [Vistas y CTE](notas_de_estudio/modulo_7/clase_2)
+
 Licencia
 -------------
 
