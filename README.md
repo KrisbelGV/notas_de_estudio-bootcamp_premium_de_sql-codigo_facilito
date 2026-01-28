@@ -73,9 +73,11 @@ Tabla de contenidos
 - [Módulo 7](/notas_de_estudio/modulo_7)
 	- [Trabajando con datos no estructurados JSON](notas_de_estudio/modulo_7/clase_1)
 	- [Vistas y CTE](notas_de_estudio/modulo_7/clase_2)
-- Extras
+- [Extras, exposiciones animadas](https://www.youtube.com/@ABCdelc%C3%B3digo)
 	- [Video explicación del operador NOT EXISTS](https://www.youtube.com/watch?v=QY6aDswUvIU)
 	- ![Miniatura animada](https://github.com/KrisbelGV/notas_de_estudio-bootcamp_premium_de_sql-codigo_facilito/blob/main/assets/consulta_videoexplicacion.gif)
+ 	- [GROUP BY y OVER PARTITION BY](https://www.youtube.com/watch?v=OWjfiqw_WpE)
+	- ![Miniatura animada 2](https://github.com/KrisbelGV/notas_de_estudio-bootcamp_premium_de_sql-codigo_facilito/blob/main/assets/miniatura_animada_video2.gif)
 
 Licencia
 -------------
