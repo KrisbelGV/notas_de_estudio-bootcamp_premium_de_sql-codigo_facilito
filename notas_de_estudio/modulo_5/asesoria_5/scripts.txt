@@ -126,6 +126,17 @@ SELECT
 FROM orders;
 
 
+-- Obtener el usuario, orden, total y su promedio
+SELECT
+	orders.user_id,
+	orders.id AS order_id,
+	orders.total,
+	FORMAT(SUM(orders.total) OVER (
+		PARTITION BY orders.user_id
+	), 2) AS suma_total
+FROM orders;
+
+
 -- Obtener el nombre del usuario, el total de sus ordenes y un mensaje de cupon de poseerlo
 SELECT
     users.name,
