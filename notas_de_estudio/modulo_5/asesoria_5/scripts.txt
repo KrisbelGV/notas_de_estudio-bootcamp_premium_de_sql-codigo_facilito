@@ -131,9 +131,9 @@ SELECT
 	orders.user_id,
 	orders.id AS order_id,
 	orders.total,
-	FORMAT(SUM(orders.total) OVER (
+	FORMAT(AVG(orders.total) OVER (
 		PARTITION BY orders.user_id
-	), 2) AS suma_total
+	), 2) AS promedio
 FROM orders;
 
 
@@ -154,3 +154,4 @@ GROUP BY orders.user_id;
 
 -- Desactivar historial de tiempos de ejecucion
 SET PROFILING = 0;
+
