@@ -1,0 +1,225 @@
+/* Bootcamp Premium de SQL de Codigo Facilito
+Asesoria #6
+Ejercicios
+Impartido por: Uriel Hernandez
+Estudiante: KrisbelGV 
+BD distinta, ver las notas */
+
+
+/* Ejercicios SQL - Dataset Webshop
+Parte 1: JOINs
+Ejercicio 1 - JOIN Simple
+Obtén una lista de todos los clientes junto con su dirección actual. Muestra: nombre completo del cliente, email, ciudad y código postal. */
+SELECT
+    cliente.firstname || ' ' || cliente.lastname AS nombre_completo,
+    cliente.email,
+    direccion.city,
+    direccion.zip
+FROM webshop.customer cliente
+INNER JOIN webshop.address direccion ON cliente.currentaddressid = direccion.id;
+
+
+/* Ejercicio 2 - JOIN con Filtro
+Lista todos los pedidos realizados en el último año. Muestra: nombre del cliente, fecha del pedido, total y costo de envío. Ordena por fecha de forma descendente. */
+SELECT
+    cliente.firstname AS nombre_cliente,
+    pedido.ordertimestamp AS fecha_pedido,
+    pedido.total AS total_pedido,
+    pedido.shippingcost AS costo_envio_pedido
+FROM webshop.customer cliente
+INNER JOIN webshop.order pedido ON cliente.id = pedido.customerid
+WHERE date_part('year', pedido.ordertimestamp) = date_part('year', CURRENT_DATE)
+ORDER BY pedido.ordertimestamp;
+
+
+/* Ejercicio 3 - Múltiples JOINs
+Obtén el detalle de cada pedido mostrando: nombre del cliente, fecha del pedido, nombre del producto, color, talla, cantidad y precio unitario */
+SELECT
+    cliente.firstname,
+    pedido.ordertimestamp,
+    productos.name AS producto,
+    colores.name AS color,
+    tallas.size,
+    detalle.amount,
+    detalle.price
+FROM webshop.order pedido 
+INNER JOIN webshop.customer cliente ON pedido.customerid = cliente.id
+INNER JOIN webshop.order_positions detalle ON pedido.id = detalle.orderid
+INNER JOIN webshop.articles articulo ON detalle.articleid = articulo.id
+INNER JOIN webshop.products productos ON articulo.productId = productos.id
+INNER JOIN webshop.colors colores ON articulo.colorid = colores.id
+INNER JOIN webshop.sizes tallas ON articulo.sizeid = tallas.id;
+
+
+/* Ejercicio 4 - JOIN con Agregación
+Para cada cliente, calcula el total gastado en todas sus compras y la cantidad de pedidos realizados. Muestra solo los clientes que hayan realizado más de 3 pedidos. Ordena por total gastado de mayor a menor. */
+SELECT
+    cliente.firstname,
+    SUM(pedido.total) AS total_gastado,
+    COUNT(pedido.id) AS pedidos_realizados
+FROM webshop.order pedido 
+INNER JOIN webshop.customer cliente ON pedido.customerid = cliente.id
+GROUP BY cliente.id, cliente.firstname
+HAVING COUNT(pedido.id) > 3
+ORDER BY total_gastado DESC;
+
+
+/* Ejercicio 5 - JOIN Complejo con Subconsulta
+Encuentra los 10 productos más vendidos (por cantidad de artículos) junto con: nombre del producto, etiqueta (label), total de unidades vendidas, ingreso total generado, y el nombre del cliente que más unidades compró de cada producto. */
+SELECT
+    producto.name AS producto,
+    etiqueta.name AS etiqueta,
+    SUM(detalle.amount) AS unidades_vendidas,
+    SUM(detalle.price) AS ingreso_total,
+        (SELECT cliente.firstname
+        FROM webshop.order pedido 
+        INNER JOIN webshop.customer cliente ON pedido.customerid = cliente.id
+        INNER JOIN webshop.order_positions detalle ON pedido.id = detalle.orderid
+        INNER JOIN webshop.articles articulo ON detalle.articleid = articulo.id 
+        WHERE articulo.productId = producto.id
+        GROUP BY cliente.id
+        ORDER BY SUM(detalle.amount) DESC
+        LIMIT 1) AS mas_comprado_por
+FROM webshop.order pedido 
+INNER JOIN webshop.order_positions detalle ON pedido.id = detalle.orderid
+INNER JOIN webshop.articles articulo ON detalle.articleid = articulo.id
+INNER JOIN webshop.products producto ON producto.id = articulo.productId
+INNER JOIN webshop.labels etiqueta ON etiqueta.id = producto.labelId
+GROUP BY producto.id, producto.name, etiqueta.name
+ORDER BY unidades_vendidas DESC
+LIMIT 10;
+
+
+/* Parte 2: Operaciones de Conjuntos
+Ejercicio 6 - UNION
+Genera un listado unificado de contactos que incluya tanto clientes como direcciones de envío. El listado debe contener: nombre completo, ciudad, y un campo "tipo" que indique si es "Cliente" o "Dirección de envío". */
+SELECT
+    cliente.firstname || ' ' || cliente.lastname AS nombre_completo,
+    direccion.city,
+    'Cliente' AS tipo
+FROM webshop.customer cliente
+INNER JOIN webshop.address direccion ON cliente.currentaddressid = direccion.id 
+UNION
+SELECT
+    direccion.firstname || ' ' || direccion.lastname AS nombre_completo,
+    direccion.city,
+    'Dirección de envío' AS tipo
+FROM webshop.address direccion
+INNER JOIN webshop.customer cliente ON direccion.id = cliente.currentaddressid;
+
+
+/* Ejercicio 7 - INTERSECT
+Encuentra los clientes cuya dirección actual coincide con al menos una dirección de envío utilizada en sus pedidos. Muestra el id y nombre completo del cliente. */
+SELECT
+    cliente.id,
+    cliente.firstname || ' ' ||  cliente.lastname AS nombre_completo
+FROM webshop.customer cliente
+WHERE cliente.currentaddressid IN (
+    SELECT
+        cliente.currentaddressid
+    FROM webshop.customer cliente
+    INTERSECT
+    SELECT
+        pedido.shippingaddressid
+    FROM webshop.order pedido
+);
+
+
+/* Ejercicio 8 - EXCEPT
+Lista los productos que nunca han sido comprados. Muestra: id del producto, nombre y categoría. */
+SELECT
+    productos.id,
+    productos.name,
+    productos.category
+FROM webshop.products productos
+WHERE productos.id IN(
+    SELECT productos.id
+    FROM webshop.products productos
+    EXCEPT
+    SELECT articulo.productId
+    FROM webshop.order pedido 
+    INNER JOIN webshop.order_positions detalle ON detalle.orderid = pedido.id
+    INNER JOIN webshop.articles articulo ON detalle.articleid = articulo.id
+);
+
+
+/* Ejercicio 9 - UNION con Agregación
+Crea un reporte que muestre las 5 tallas más vendidas y las 5 tallas menos vendidas en una sola consulta. Incluye: talla, categoría, total vendido, y un campo "ranking" que indique "Top 5" o "Bottom 5". */
+SELECT *
+FROM (
+    SELECT
+        talla.size,
+        talla.category,
+        COUNT(pedido.id) AS total_vendido,
+        'Top 5' AS ranking
+    FROM webshop.order pedido
+    INNER JOIN webshop.order_positions detalle ON detalle.orderid = pedido.id
+    INNER JOIN webshop.articles articulo ON detalle.articleid = articulo.id
+    INNER JOIN webshop.sizes talla ON articulo.sizeid = talla.id
+    GROUP BY talla.size, talla.category
+    ORDER BY COUNT(pedido.id) DESC
+    LIMIT 5
+) AS top
+UNION
+SELECT *
+FROM (
+    SELECT
+        talla.size,
+        talla.category,
+        COUNT(pedido.id) AS total_vendido,
+        'Bottom 5' AS ranking
+    FROM webshop.order pedido 
+    INNER JOIN webshop.order_positions detalle ON detalle.orderid = pedido.id
+    INNER JOIN webshop.articles articulo ON detalle.articleid = articulo.id
+    INNER JOIN webshop.sizes talla ON articulo.sizeid = talla.id
+    GROUP BY talla.size, talla.category
+    ORDER BY COUNT(pedido.id)
+    LIMIT 5
+) AS bottom;
+
+
+/* Ejercicio 10 - Operaciones Combinadas
+Genera un análisis de colores que incluya:
+
+Colores que se usan en artículos activos pero no tienen stock disponible (EXCEPT)
+Colores que se usan tanto en productos para hombre como para mujer (INTERSECT)
+Presenta ambos resultados en una sola consulta con un campo que identifique cada grupo. */
+SELECT
+    color.name,
+    'Sin existencias' AS tipo
+FROM webshop.colors color
+WHERE color.id IN (
+    SELECT
+        color.id
+    FROM webshop.order pedido 
+    INNER JOIN webshop.customer cliente ON pedido.customerid = cliente.id
+    INNER JOIN webshop.order_positions detalle ON pedido.id = detalle.orderid
+    INNER JOIN webshop.articles articulo ON detalle.articleid = articulo.id
+    INNER JOIN webshop.products producto ON articulo.productId = producto.id
+    INNER JOIN webshop.colors color ON articulo.colorid = color.id
+    WHERE articulo.currentlyactive = 't'
+    EXCEPT
+    SELECT color.id
+    FROM webshop.articles articulo
+    INNER JOIN webshop.colors color ON articulo.colorid = color.id
+    INNER JOIN webshop.stock existencias ON articulo.id = existencias.articleid
+    WHERE existencias.count = 0
+)
+UNION
+SELECT
+    color.name,
+    'Ordenado en femenino y masculino' AS tipo
+FROM webshop.colors color
+WHERE color.id IN (
+    SELECT color.id
+    FROM webshop.articles articulo
+    INNER JOIN webshop.colors color ON articulo.colorid = color.id
+    INNER JOIN webshop.products producto ON articulo.productId = producto.id
+    WHERE producto.gender = 'male'
+    INTERSECT
+    SELECT color.id
+    FROM webshop.articles articulo
+    INNER JOIN webshop.colors color ON articulo.colorid = color.id
+    INNER JOIN webshop.products producto ON articulo.productId = producto.id
+    WHERE producto.gender = 'female'
+);
