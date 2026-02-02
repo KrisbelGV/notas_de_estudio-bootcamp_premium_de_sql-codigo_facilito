@@ -70,6 +70,7 @@ Tabla de contenidos
 - [Módulo 6](/notas_de_estudio/modulo_6)
 	- [Subqueries y set operations](notas_de_estudio/modulo_6/clase_1)
 	- [Joins avanzados](notas_de_estudio/modulo_6/clase_2)
+	- [Asesoría 6](/notas_de_estudio/modulo_6/asesoria_6)
 - [Módulo 7](/notas_de_estudio/modulo_7)
 	- [Trabajando con datos no estructurados JSON](notas_de_estudio/modulo_7/clase_1)
 	- [Vistas y CTE](notas_de_estudio/modulo_7/clase_2)
