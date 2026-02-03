@@ -79,6 +79,8 @@ Tabla de contenidos
 	- ![Miniatura animada](https://github.com/KrisbelGV/notas_de_estudio-bootcamp_premium_de_sql-codigo_facilito/blob/main/assets/consulta_videoexplicacion.gif)
  	- [GROUP BY y OVER PARTITION BY](https://youtu.be/xwGpEwppR8k)
 	- ![Miniatura animada 2](https://github.com/KrisbelGV/notas_de_estudio-bootcamp_premium_de_sql-codigo_facilito/blob/main/assets/miniatura_animada_video2.gif)
+ 	- [UNION, UNION ALL, INTERSECT y EXCEPT](https://www.youtube.com/watch?v=eAcRhQ6zhfc)
+	- ![Miniatura animada 3](https://github.com/KrisbelGV/notas_de_estudio-bootcamp_premium_de_sql-codigo_facilito/blob/main/assets/miniatura_animada_video3.gif)
 
 Licencia
 -------------
