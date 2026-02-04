@@ -1,25 +1,26 @@
-Bootcamp Premium de SQL de Código Facilito
-Módulo #6.
-Asesoría #6.
-Profesor: Uriel Hernández.
+Bootcamp Premium de SQL de CÃ³digo Facilito
+MÃ³dulo #6.
+AsesorÃ­a #6.
+Profesor: Uriel HernÃ¡ndez.
 
 Recursos:
-	Clase grabada: Pendiente su subida
+	Clase grabada: https://codigofacilito.com/videos/introduccion-asesoria-6-a7912e02-3ab5-4b12-acf0-2d71274e13af
 	Google drive: https://drive.google.com/drive/folders/1zcEOM99x4zxQKd6hc2EKvSJQ_JEZtR3A
 
 Breve repaso en puntos clave:
-	Concatenar cadenas en PostgreSQL: cadena1 || cadena2… || cadenaN
+	Concatenar cadenas en PostgreSQL: cadena1 || cadena2â€¦ || cadenaN
 	Terminar una salida:
 		En docker: Esc : wq
 		En psql: q 
-	Extraer unidad temporal de una fecha: date_part(‘year/month/day’, fecha)
+	Extraer unidad temporal de una fecha: date_part(â€˜year/month/dayâ€™, fecha)
 	Obtener fecha actual: CURRENT_DATE
 
 Notas al pie:
-	Mis soluciones propuestas a los ejercicios se encuentran disponibles en este mismo directorio bajo la IMPORTANTE consideración:
-		Difieren en todo, mucho, poco o nada de entre los resueltos en la asesoría y su restante.
-		NO corresponden a la bd original compartida en docker ni a su restauración mediante el dump sino a una recreación en base a los scripts.
-		Pueden funcionar o no sobre los anteriores con pequeñas modificaciones puntuales
-	He creado un fork con los archivos (errores corregidos) e instrucciones (incluye un diagrama de las relaciones en cuestión): https://github.com/KrisbelGV/base_de_datos-tienda_online
+	Mis soluciones propuestas a los ejercicios se encuentran disponibles en este mismo directorio (ejercicios.txt) bajo la IMPORTANTE consideraciÃ³n:
+		Difieren en todo, mucho, poco o nada de entre los resueltos en la asesorÃ­a y su restante.
+		NO corresponden a la bd original compartida en docker ni a su restauraciÃ³n mediante el dump sino a una recreaciÃ³n en base a los scripts.
+		Pueden funcionar o no sobre los anteriores con pequeÃ±as modificaciones puntuales
+	He creado un fork con los archivos (errores corregidos) e instrucciones (incluye un diagrama de las relaciones en cuestiÃ³n): https://github.com/KrisbelGV/base_de_datos-tienda_online
 	Repositorio compartido por el profesor: https://github.com/urielhdz/sql-workshop
 	Original: https://github.com/JannikArndt/PostgreSQLSampleDatabase
+	VersiÃ³n de los ejercicios compatible con la BD original listos en ejercicios-bd_dump.txt
