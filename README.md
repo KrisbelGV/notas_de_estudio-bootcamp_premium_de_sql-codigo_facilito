@@ -74,6 +74,8 @@ Tabla de contenidos
 - [Módulo 7](/notas_de_estudio/modulo_7)
 	- [Trabajando con datos no estructurados JSON](notas_de_estudio/modulo_7/clase_1)
 	- [Vistas y CTE](notas_de_estudio/modulo_7/clase_2)
+	- [Asesoría 7](/notas_de_estudio/modulo_7/asesoria_7)
+- [Cierre del Bootcamp](/notas_de_estudio/cierre_del_bootcamp)
 - [Extras, exposiciones animadas](https://www.youtube.com/@ABCdelc%C3%B3digo)
 	- [Video explicación del operador NOT EXISTS](https://www.youtube.com/watch?v=QY6aDswUvIU)
 	- ![Miniatura animada](https://github.com/KrisbelGV/notas_de_estudio-bootcamp_premium_de_sql-codigo_facilito/blob/main/assets/consulta_videoexplicacion.gif)
