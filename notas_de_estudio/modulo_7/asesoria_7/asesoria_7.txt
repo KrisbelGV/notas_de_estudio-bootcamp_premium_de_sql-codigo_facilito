@@ -1,0 +1,31 @@
+Bootcamp Premium de SQL de Código Facilito.
+Módulo #7.
+Asesoría #7.
+Profesor: Uriel Hernández.
+Estudiante: KrisbelGV.
+
+Recursos:
+	Clase grabada: Pendiente su subida
+	Google drive: https://drive.google.com/drive/folders/18BNTkYhcchWtiTwoSpv2fNagYbzIusq3
+
+Breve repaso en puntos clave:
+	Conversiones de tipo (en PostgreSQL):
+		Fecha a texto formateado: TO_CHAR(fecha, ‘formato’)
+		Texto a fecha: TO_DATE(texto, ‘formato’)
+	Los resultados de una función de agregación requieren una CTE para emplearse en WINDOWS FUNCTION.
+	El producto de una WINDOWS FUNCTION solo puede ser filtrado en una consulta externa.
+	Numerar registros:
+		Compartir lugar si son iguales: RANK()
+		No considerar empates: DENSE_RANK()
+			La presencia de ORDER BY en la WINDOWS FUNCTION es obligatoria.
+
+Notas al pie:
+	Mis soluciones propuestas a los ejercicios planteados de la presente asesoría se encuentran en el directorio “cierre_del_bootcamp”.
+	De ser admitido con todo gusto compartiré los pasos que se indiquen entonces para el examen y obtención del certificado.
+
+Futuro del repo y agradecimientos finales:
+	Como ya mencioné anteriormente este no será mi último Commit en este repositorio, antes bien planeo realizar una revisión (conforme el tiempo me lo permita) a la sintaxis, conceptos y especialmente los ejercicios por ver si exista alguna mejor solución acorde a los conocimientos adquiridos en lo más reciente.
+	Lo único que resta es expresar (aunque sea en lo poco) mi más grande gratitud a Código Facilito como plataforma de aprendizaje, los profesores y compañeros.
+	Si esta pequeña iniciativa te ayudó considera dejar una estrella además de pasarte por mi canal de YouTube, ABC del código.
+
+¡Hasta la próxima!
