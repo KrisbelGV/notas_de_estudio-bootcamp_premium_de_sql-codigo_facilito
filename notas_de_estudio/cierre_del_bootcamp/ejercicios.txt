@@ -1,0 +1,121 @@
+﻿/* Bootcamp Premium de SQL de Codigo Facilito
+Cierre del bootcamp
+Ejercicios (asignados en la asesoria #7)
+Impartido por: Uriel Hernandez
+Estudiante: KrisbelGV */
+
+
+/* Parte 3: CTEs y Window Functions
+Ejercicio 11 - CTE con Window Function (ROW_NUMBER)
+Para cada cliente, obtén únicamente su pedido más reciente. Muestra: nombre completo del cliente, email, fecha del pedido, total del pedido y costo de envío. Utiliza un CTE con ROW_NUMBER() para asignar un número de fila por cliente ordenado por fecha descendente y luego filtra solo la fila 1. */
+WITH ordenes_numeradas AS(
+    SELECT
+        pedido.id AS pedidoid,
+        ROW_NUMBER() OVER (PARTITION BY cliente.id ORDER BY pedido.ordertimestamp DESC) AS rankeo
+    FROM webshop.order pedido 
+    INNER JOIN webshop.customer cliente ON pedido.customer = cliente.id
+)
+SELECT
+    cliente.firstname || ' ' || cliente.lastname AS nombre_completo,
+    cliente.email,
+    pedido.ordertimestamp,
+    pedido.total,
+    pedido.shippingcost
+FROM ordenes_numeradas
+INNER JOIN webshop.order pedido ON ordenes_numeradas.pedidoid = pedido.id
+INNER JOIN webshop.customer cliente ON pedido.customer = cliente.id
+WHERE ordenes_numeradas.rankeo = 1;
+
+
+/* Ejercicio 12 - Ranking de productos por categoría (RANK / DENSE_RANK)
+Calcula el ranking de productos por ingreso total generado dentro de cada categoría. Muestra: categoría del producto, nombre del producto, ingreso total (suma de amount * price en order_positions), y su posición en el ranking dentro de su categoría usando DENSE_RANK(). Usa un CTE para calcular primero el ingreso por producto y luego aplica la window function. Muestra solo los 3 primeros de cada categoría. */
+WITH product_sales AS (
+    SELECT
+        products.id,
+        products.category,
+        products.name,
+        SUM(detalles.amount * detalles.price) AS gasto
+    FROM webshop.products products
+    INNER JOIN webshop.articles articles ON articles.productid = products.id
+    INNER JOIN webshop.order_positions detalles ON detalles.articleid = articles.id
+    GROUP BY products.id, products.category, products.name
+)
+SELECT * FROM(
+    SELECT
+        category,
+        name,
+        gasto,
+        DENSE_RANK() OVER(PARTITION BY category ORDER BY gasto DESC) AS rankeo
+    FROM product_sales
+)
+WHERE rankeo < 4
+ORDER BY category, rankeo ASC;
+
+
+/* Ejercicio 13 - Acumulado de ventas mensual (SUM ventana)
+Genera un reporte de ventas mensuales con su acumulado progresivo a lo largo del año. Muestra: año, mes, total vendido en ese mes, y el total acumulado desde enero hasta ese mes usando SUM() OVER(... ORDER BY ...). Utiliza un CTE para agrupar las ventas por año y mes antes de aplicar la window function. */
+WITH reporte AS (
+    SELECT
+        TO_CHAR(pedido.ordertimestamp, 'YYYY-MM') AS fecha,
+        SUM(pedido.total) AS ingreso
+    FROM webshop.order pedido
+    GROUP BY fecha
+)
+SELECT
+    date_part('year', TO_DATE(fecha, 'YYYY-MM')) AS anio,
+    date_part('month', TO_DATE(fecha, 'YYYY-MM')) AS mes,
+    reporte.ingreso,
+    SUM(reporte.ingreso) OVER(ORDER BY fecha ASC) AS acumulado
+FROM reporte;
+
+
+/* Ejercicio 14 - Comparación con pedido anterior (LAG)
+Para cada pedido, muestra cuánto cambió el monto total respecto al pedido anterior del mismo cliente. Muestra: nombre del cliente, fecha del pedido, total del pedido, total del pedido anterior (usando LAG()), y la diferencia entre ambos. Usa un CTE para unir la información del cliente con sus pedidos y luego aplica la window function particionando por cliente y ordenando por fecha. */
+WITH clientes_y_pedidos AS (
+    SELECT
+        cliente.firstname || ' ' || cliente.lastname AS nombre_completo,
+        pedido.ordertimestamp AS fecha,
+        pedido.total
+    FROM webshop.order pedido 
+    INNER JOIN webshop.customer cliente ON pedido.customer = cliente.id
+)
+SELECT
+    nombre_completo,
+    fecha,
+    total AS total_actual,
+    LAG(total) OVER(PARTITION BY nombre_completo ORDER BY fecha DESC) AS total_anterior,
+    total - LAG(total) OVER(PARTITION BY nombre_completo ORDER BY fecha DESC) AS diferencia
+FROM clientes_y_pedidos;
+
+
+/* Ejercicio 15 - Análisis de marcas con múltiples CTEs
+Usando múltiples CTEs encadenados, genera un reporte de las marcas (labels) que incluya:
+
+Primer CTE: Calcula el ingreso total y la cantidad de unidades vendidas por marca.
+Segundo CTE: Con base en el primer CTE, asigna un ranking por ingreso total (RANK()) y calcula el porcentaje que representa cada marca sobre el ingreso global (SUM() ¿OVER()?).
+Consulta final: Muestra el nombre de la marca, ingreso total, unidades vendidas, ranking y porcentaje del total. Ordena por ranking ascendente */
+WITH marcas_ingreso_ventas AS (
+    SELECT
+        etiqueta.name AS marca,
+        SUM(detalle.amount * detalle.price) AS ingreso_total,
+        SUM(detalle.amount) AS unidades_vendidas
+    FROM webshop.order_positions detalle
+    INNER JOIN webshop.articles articulo ON detalle.articleid = articulo.id
+    INNER JOIN webshop.products producto ON producto.id = articulo.productId
+    INNER JOIN webshop.labels etiqueta ON etiqueta.id = producto.labelId
+    GROUP BY etiqueta.name
+), ranking_porcentaje AS (
+    SELECT
+        marca,
+        RANK() OVER(ORDER BY ingreso_total DESC) AS ranking,
+        ROUND(((ingreso_total / SUM(ingreso_total) OVER()) * 100)::DECIMAL, 2) AS porcentaje
+    FROM marcas_ingreso_ventas
+)
+SELECT
+    miv.marca,
+    miv.ingreso_total,
+    miv.unidades_vendidas,
+    rp.ranking,
+    rp.porcentaje
+FROM marcas_ingreso_ventas miv
+INNER JOIN ranking_porcentaje rp ON miv.marca = rp.marca;
