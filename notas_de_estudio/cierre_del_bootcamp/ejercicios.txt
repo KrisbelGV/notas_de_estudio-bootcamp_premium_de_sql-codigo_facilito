@@ -92,7 +92,7 @@ FROM clientes_y_pedidos;
 Usando múltiples CTEs encadenados, genera un reporte de las marcas (labels) que incluya:
 
 Primer CTE: Calcula el ingreso total y la cantidad de unidades vendidas por marca.
-Segundo CTE: Con base en el primer CTE, asigna un ranking por ingreso total (RANK()) y calcula el porcentaje que representa cada marca sobre el ingreso global (SUM() ¿OVER()?).
+Segundo CTE: Con base en el primer CTE, asigna un ranking por ingreso total (RANK()) y calcula el porcentaje que representa cada marca sobre el ingreso global (SUM() OVER()).
 Consulta final: Muestra el nombre de la marca, ingreso total, unidades vendidas, ranking y porcentaje del total. Ordena por ranking ascendente */
 WITH marcas_ingreso_ventas AS (
     SELECT
@@ -118,4 +118,5 @@ SELECT
     rp.ranking,
     rp.porcentaje
 FROM marcas_ingreso_ventas miv
+
 INNER JOIN ranking_porcentaje rp ON miv.marca = rp.marca;
