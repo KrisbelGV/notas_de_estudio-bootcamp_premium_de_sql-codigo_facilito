@@ -118,5 +118,4 @@ SELECT
     rp.ranking,
     rp.porcentaje
 FROM marcas_ingreso_ventas miv
-
 INNER JOIN ranking_porcentaje rp ON miv.marca = rp.marca;
