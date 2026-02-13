@@ -101,3 +101,12 @@ __LOS TÉRMINOS DE ESTA LICENCIA NO INCLUYEN__, notoriamente, __EL CONTENIDO CON
 Mi único objetivo es compartir con la comunidad, profesores y compañeros, a través de este medio; presento excusas anteladamente de incurrir en alguna infracción, aún si fuere involuntario por ignorancia u situaciones no contempladas o no deseadas.
 
 Estoy más que satisfecha y agradecida en el privilegio. Gracias a todos por participar.
+
+Certificado
+-------------
+
+![Imagen promocional del Bootcamp Premium de SQL de Codigo Facilito](assets/certificado.png)
+
+Infinitas gracias a Código Facilito, todos los profesores, excelente trabajo y calidad de personas; también a mis compañeros, por quienes decidí permanezca abierto el repositorio. Fue una hermosa experiencia compartir con ustedes a través del medio, espero este humilde aporte/complemento partiendo de/sobre las clases haya sido de su agrado. Gracias por toda su actividad visible en mis métricas.
+
+Un saludo y muy fuerte abrazo a todos. ¡Hasta la próxima!
