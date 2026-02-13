@@ -107,6 +107,8 @@ Certificado
 
 ![Imagen promocional del Bootcamp Premium de SQL de Codigo Facilito](assets/certificado.png)
 
+[Si cursaste conmigo, aquí tienes los detalles para expedir el tuyo.](/notas_de_estudio/cierre_del_bootcamp/cierre_del_bootcamp.txt) ¡Muchas felicidades, compañero!
+
 Infinitas gracias a Código Facilito, todos los profesores, excelente trabajo y calidad de personas; también a mis compañeros, por quienes decidí permanezca abierto el repositorio. Fue una hermosa experiencia compartir con ustedes a través del medio, espero este humilde aporte/complemento partiendo de/sobre las clases haya sido de su agrado. Gracias por toda su actividad visible en mis métricas.
 
 Un saludo y muy fuerte abrazo a todos. ¡Hasta la próxima!
